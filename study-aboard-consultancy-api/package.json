@@ -10,7 +10,10 @@
   "author": "B9IS123",
   "license": "ISC",
   "dependencies": {
+    "cors": "^2.8.5",
     "express": "^4.19.2",
+    "joi": "^17.13.3",
+    "moment": "^2.30.1",
     "mysql2": "^3.10.1",
     "sequelize": "^6.37.3",
     "sequelize-cli": "^6.6.2"

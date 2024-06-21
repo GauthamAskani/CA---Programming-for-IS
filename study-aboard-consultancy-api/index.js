@@ -1,28 +1,22 @@
 const express = require('express');
-const mysql = require('mysql2');
+const cors = require('cors');
 const app = express();
 const port = 3000;
 
-const db = mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
-    password: 'admin123',
-    database: 'consultancy'
-});
+// Import routes
+const studentRoutes = require('./routes/student');
 
-db.connect((err) => {
-    if (err) {
-        console.error('Error connecting to the database:', err);
-        return;
-    }
-    console.log('Connected to the MySQL database');
-});
+// Middleware
+app.use(cors());
+app.use(express.json());
+
+// Routes
+app.use('/api', studentRoutes);
 
 app.get('/', (req, res) => {
-    res.send('Welcome to Study Aboard Consultancy');
+  res.send('Welcome to Study Abroad Consultancy');
 });
 
 app.listen(port, () => {
-    console.log(`Server is running on http://localhost:${port}`);
+  console.log(`Server is running on http://localhost:${port}`);
 });
-
