@@ -16,6 +16,16 @@ module.exports = (sequelize, DataTypes) => {
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
       });
+      Student.hasMany(models.Loan, {
+        foreignKey: 'student_id',
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
+      });
+      Student.hasMany(models.Document, {
+        foreignKey: 'student_id',
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
+      });
     }
   }
   Student.init({
