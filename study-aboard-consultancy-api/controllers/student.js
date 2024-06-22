@@ -38,7 +38,7 @@ async function login(data) {
         }
         if (studentExists) {
             if (await bcrypt.compare(data.student_password, studentExists.student_password)) {
-              const token = jwt.sign({ sub: studentExists.Student_id }, process.env.secret, {
+              const token = jwt.sign({ sub: studentExists.student_id }, process.env.secret, {
                 expiresIn: "7d",
               });
 
@@ -75,7 +75,7 @@ async function login(data) {
 function omitPassword(student) {
     const { student_password, ...studentWithoutPassword } = student;
     return studentWithoutPassword;
-  }
+}
 
 module.exports = {
     signup,
