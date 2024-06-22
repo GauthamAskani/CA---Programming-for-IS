@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { signup } = require('../controllers/student')
+const { signup, login } = require('../controllers/student')
 
 const Joi = require('joi');
 
@@ -17,6 +17,11 @@ const signupStudentSchema = Joi.object({
     student_document_status: Joi.string().optional(),
     student_created_at: Joi.date().default(() => new Date()),
 });
+
+const loginStudentSchema = Joi.object({
+    student_email: Joi.string().email().required(),
+    student_password: Joi.string().required()
+  });
 
 async function signupStudent(req, res) {
     try {
@@ -37,7 +42,26 @@ async function signupStudent(req, res) {
 }
 
 
+async function loginStudent(req, res) {
+    try {
+        const data = req.body;
+        const { error, value } = loginStudentSchema.validate(data);
+        if (error) {
+            throw new Error(error.details[0].message);
+        }
+        const result = await login(data);
+        res.status(result.statusCode || 200);
+        res.send(result.message || result);
+    } catch (error) {
+        res.statusCode = 400;
+        res.send({
+            error: error.message
+        })
+    }
+}
+
 
 module.exports = exports = {
-    signupStudent
+    signupStudent,
+    loginStudent
 };

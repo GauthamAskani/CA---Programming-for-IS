@@ -23,6 +23,61 @@ async function signup(data) {
     }
 }
 
+async function login(data) {
+    try {
+        const studentExists = await models.Student.findOne({
+            where: { student_email: data.student_email }
+        })
+        if (!studentExists) {
+            return {
+                statusCode: 401,
+                message: {
+                  message: "We were unable to find student for this email. Please SignUp!"
+                }
+              };
+        }
+        if (studentExists) {
+            if (await bcrypt.compare(data.student_password, studentExists.student_password)) {
+              const token = jwt.sign({ sub: studentExists.Student_id }, process.env.secret, {
+                expiresIn: "7d",
+              });
+
+              return {
+                statusCode: 200,
+                message: {
+                  message: "Student Login successful",
+                  token: token,
+                  ...omitPassword(studentExists.get())
+                }
+              };
+            } else {
+              return {
+                statusCode: 401,
+                message: {
+                  error: "Authentication failed"
+                }
+              };
+            }
+          } else {
+            return {
+              statusCode: 401,
+              message: {
+                error: "Authentication failed"
+              }
+            };
+          }
+    } catch (error) {
+        console.log(error);
+        throw error;
+    }
+}
+
+function omitPassword(student) {
+    const { student_password, ...studentWithoutPassword } = student;
+    return studentWithoutPassword;
+  }
+
 module.exports = {
-    signup
+    signup,
+    login
 }
