@@ -3,19 +3,19 @@ const cors = require('cors');
 const app = express();
 const port = 3000;
 
-// Import routes
-const studentRoutes = require('./routes/student');
+const routeHandler = require('./routes/index')
+
 
 // Middleware
 app.use(cors());
 app.use(express.json());
-
-// Routes
-app.use('/api', studentRoutes);
+app.use(express.urlencoded({ extended: false }));
 
 app.get('/', (req, res) => {
   res.send('Welcome to Study Abroad Consultancy');
 });
+
+app.use('/api', routeHandler)
 
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
