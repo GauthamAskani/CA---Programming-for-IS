@@ -23,6 +23,34 @@ async function studentLoanRequest(data) {
     }
 }
 
+
+async function updateLoanRequest(id, data) {
+    try {
+        data.course_start_date = moment(data.course_start_date, 'MM-DD-YYYY').format('YYYY-MM-DD');
+        const result = await models.Loan.update(data, {
+            where: { loan_request_id: id }
+        });
+        return result;
+    } catch (error) {
+        console.log(error);
+        throw error;
+    }
+}
+
+async function deleteLoanRequest(id) {
+    try {
+        await models.Loan.destroy({
+            where: { loan_request_id: id }
+        });
+        return { message: 'Loan request deleted successfully' };
+    } catch (error) {
+        console.log(error);
+        throw error;
+    }
+}
+
 module.exports = {
     studentLoanRequest,
+    updateLoanRequest,
+    deleteLoanRequest
 }
