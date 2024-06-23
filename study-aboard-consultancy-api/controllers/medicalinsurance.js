@@ -26,6 +26,37 @@ async function studentRequestMedicalInsurance(data) {
     }
 }
 
+async function updateMedicalInsuranceRequest(id, data) {
+    try {
+        data.cover_start_date = moment(data.cover_start_date, 'MM-DD-YYYY').format('YYYY-MM-DD');
+        data.cover_end_date = moment(data.cover_end_date, 'MM-DD-YYYY').format('YYYY-MM-DD');
+        data.course_start_date = moment(data.course_start_date, 'MM-DD-YYYY').format('YYYY-MM-DD');
+        data.course_end_date = moment(data.course_end_date, 'MM-DD-YYYY').format('YYYY-MM-DD');
+        const result = await models.MedicalInsurance.update(data, {
+            where: { medical_insurance_id: id }
+        });
+        return result;
+    } catch (error) {
+        console.log(error);
+        throw error;
+    }
+}
+
+async function deleteMedicalInsuranceRequest(id) {
+    try {
+        await models.MedicalInsurance.destroy({
+            where: { medical_insurance_id: id }
+        });
+        return { message: 'Medical insurance request deleted successfully' };
+    } catch (error) {
+        console.log(error);
+        throw error;
+    }
+}
+
+
 module.exports = {
     studentRequestMedicalInsurance,
+    updateMedicalInsuranceRequest,
+    deleteMedicalInsuranceRequest
 }
