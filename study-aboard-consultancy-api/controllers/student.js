@@ -77,7 +77,18 @@ function omitPassword(student) {
     return studentWithoutPassword;
 }
 
+async function getAllStudents() {
+  try {
+      const students = await models.Student.findAll();
+      return students;
+  } catch (error) {
+      console.log(error);
+      throw error;
+  }
+}
+
 module.exports = {
     signup,
-    login
+    login,
+    getAllStudents
 }
