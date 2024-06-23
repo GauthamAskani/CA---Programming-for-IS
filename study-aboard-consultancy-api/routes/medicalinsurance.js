@@ -12,6 +12,7 @@ const requestMedicalInsuranceDetailsSchema = Joi.object({
     course_start_date: Joi.date().required(),
     course_end_date: Joi.date().required(),
     student_notes: Joi.string().optional(),
+    status: Joi.string().optional(),
     medical_insurance_created_at:Joi.date().default(() => new Date()),
 });
 
