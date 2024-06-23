@@ -49,8 +49,19 @@ async function deleteLoanRequest(id) {
     }
 }
 
+async function getAllLoanRequests() {
+    try {
+        const loans = await models.Loan.findAll();
+        return loans;
+    } catch (error) {
+        console.log(error);
+        throw error;
+    }
+}
+
 module.exports = {
     studentLoanRequest,
     updateLoanRequest,
-    deleteLoanRequest
+    deleteLoanRequest,
+    getAllLoanRequests
 }

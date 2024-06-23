@@ -54,9 +54,19 @@ async function deleteMedicalInsuranceRequest(id) {
     }
 }
 
+async function getAllMedicalInsuranceRequests() {
+    try {
+        const medicalInsurances = await models.MedicalInsurance.findAll();
+        return medicalInsurances;
+    } catch (error) {
+        console.log(error);
+        throw error;
+    }
+}
 
 module.exports = {
     studentRequestMedicalInsurance,
     updateMedicalInsuranceRequest,
-    deleteMedicalInsuranceRequest
+    deleteMedicalInsuranceRequest,
+    getAllMedicalInsuranceRequests
 }
