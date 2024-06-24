@@ -22,7 +22,20 @@ async function updateCourse(id, data) {
     }
 }
 
+async function deleteCourse(id) {
+    try {
+        await models.Course.destroy({
+            where: { course_id: id }
+        });
+        return { message: 'Course deleted successfully' };
+    } catch (error) {
+        console.log(error);
+        throw error;
+    }
+}
+
 module.exports = {
     createCourse,
-    updateCourse
+    updateCourse,
+    deleteCourse
 };
