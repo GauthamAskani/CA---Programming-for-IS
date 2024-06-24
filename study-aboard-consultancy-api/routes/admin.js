@@ -4,9 +4,8 @@ const { getAllStudents } = require('../controllers/student');
 const { getAllLoanRequests } = require('../controllers/loans');
 const { getAllMedicalInsuranceRequests } = require('../controllers/medicalinsurance');
 
-const { createUniversity } = require('../controllers/university');
+const { createUniversity, updateUniversity } = require('../controllers/university');
 
-// Joi validation schema for creating a university
 const universitySchema = Joi.object({
     university_name: Joi.string().required(),
     university_shortname: Joi.string().required(),
@@ -16,6 +15,17 @@ const universitySchema = Joi.object({
     university_program_intake_status: Joi.string().required(),
     university_created_at: Joi.date().default(() => new Date()),
     university_updated_at: Joi.date().optional(),
+    university_deleted_at: Joi.date().optional()
+});
+
+const updateUniversitySchema = Joi.object({
+    university_name: Joi.string().required(),
+    university_shortname: Joi.string().required(),
+    university_description: Joi.string().required(),
+    university_image_url: Joi.string().optional(),
+    university_program_intake: Joi.string().required(),
+    university_program_intake_status: Joi.string().required(),
+    university_updated_at: Joi.date().default(() => new Date()),
     university_deleted_at: Joi.date().optional()
 });
 
@@ -55,6 +65,20 @@ router.post('/admin/create-university', async (req, res) => {
 
         const university = await createUniversity(value);
         res.status(201).json(university);
+    } catch (error) {
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+router.put('/admin/update-university/:id', async (req, res) => {
+    try {
+        const { error, value } = updateUniversitySchema.validate(req.body);
+        if (error) {
+            return res.status(400).json({ error: error.details[0].message });
+        }
+
+        const result = await updateUniversity(req.params.id, value);
+        res.status(200).json(result);
     } catch (error) {
         res.status(500).json({ error: 'Internal server error' });
     }
