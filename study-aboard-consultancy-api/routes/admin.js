@@ -4,7 +4,7 @@ const { getAllStudents } = require('../controllers/student');
 const { getAllLoanRequests } = require('../controllers/loans');
 const { getAllMedicalInsuranceRequests } = require('../controllers/medicalinsurance');
 const { createUniversity, updateUniversity } = require('../controllers/university');
-const { createCourse } = require('../controllers/course');
+const { createCourse, updateCourse } = require('../controllers/course');
 
 const universitySchema = Joi.object({
     university_name: Joi.string().required(),
@@ -53,6 +53,32 @@ const courseSchema = Joi.object({
     course_notes: Joi.string().optional(),
     course_created_at: Joi.date().default(() => new Date()),
     course_updated_at: Joi.date().optional(),
+    course_deleted_at: Joi.date().optional()
+});
+
+const updateCourseSchema = Joi.object({
+    university_id: Joi.number().integer().required(),
+    course_name: Joi.string().required(),
+    course_main_entry_requirements: Joi.string().required(),
+    undergraduate_score_cgpa: Joi.string().optional(),
+    undergraduate_score_percent: Joi.string().optional(),
+    undergraduate_score: Joi.string().optional(),
+    score_twelfth: Joi.string().optional(),
+    fifteen_years_allowed: Joi.string().optional(),
+    ielts: Joi.string().optional(),
+    tofel: Joi.string().optional(),
+    pte: Joi.string().optional(),
+    duolingo: Joi.string().optional(),
+    gmat_score: Joi.string().optional(),
+    gre_score: Joi.string().optional(),
+    course_degree: Joi.string().optional(),
+    course_duration: Joi.string().optional(),
+    total_tuition_fee: Joi.string().optional(),
+    application_fee: Joi.string().optional(),
+    course_intake: Joi.string().optional(),
+    course_intake_status: Joi.string().optional(),
+    course_notes: Joi.string().optional(),
+    course_updated_at: Joi.date().default(() => new Date()),
     course_deleted_at: Joi.date().optional()
 });
 
@@ -120,6 +146,20 @@ router.post('/admin/create-course', async (req, res) => {
 
         const course = await createCourse(value);
         res.status(201).json(course);
+    } catch (error) {
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+router.put('/admin/update-course/:id', async (req, res) => {
+    try {
+        const { error, value } = updateCourseSchema.validate(req.body);
+        if (error) {
+            return res.status(400).json({ error: error.details[0].message });
+        }
+
+        const result = await updateCourse(req.params.id, value);
+        res.status(200).json(result);
     } catch (error) {
         res.status(500).json({ error: 'Internal server error' });
     }

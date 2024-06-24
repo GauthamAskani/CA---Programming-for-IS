@@ -10,6 +10,19 @@ async function createCourse(data) {
     }
 }
 
+async function updateCourse(id, data) {
+    try {
+        const result = await models.Course.update(data, {
+            where: { course_id: id }
+        });
+        return result;
+    } catch (error) {
+        console.log(error);
+        throw error;
+    }
+}
+
 module.exports = {
-    createCourse
+    createCourse,
+    updateCourse
 };
