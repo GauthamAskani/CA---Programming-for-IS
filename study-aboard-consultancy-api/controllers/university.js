@@ -34,8 +34,19 @@ async function deleteUniversity(id) {
     }
 }
 
+async function getAllUniversities() {
+    try {
+        const universities = await models.University.findAll();
+        return universities;
+    } catch (error) {
+        console.log(error);
+        throw error;
+    }
+}
+
 module.exports = {
     createUniversity,
     updateUniversity,
-    deleteUniversity
+    deleteUniversity,
+    getAllUniversities
 };
