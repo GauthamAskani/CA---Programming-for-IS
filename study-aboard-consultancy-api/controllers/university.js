@@ -10,6 +10,19 @@ async function createUniversity(data) {
     }
 }
 
+async function updateUniversity(id, data) {
+    try {
+        const result = await models.University.update(data, {
+            where: { university_id: id }
+        });
+        return result;
+    } catch (error) {
+        console.log(error);
+        throw error;
+    }
+}
+
 module.exports = {
-    createUniversity
+    createUniversity,
+    updateUniversity
 };
