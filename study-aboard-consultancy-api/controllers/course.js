@@ -34,8 +34,21 @@ async function deleteCourse(id) {
     }
 }
 
+async function getCoursesByUniversity(university_id) {
+    try {
+        const courses = await models.Course.findAll({
+            where: { university_id: university_id }
+        });
+        return courses;
+    } catch (error) {
+        console.log(error);
+        throw error;
+    }
+}
+
 module.exports = {
     createCourse,
     updateCourse,
-    deleteCourse
+    deleteCourse,
+    getCoursesByUniversity
 };

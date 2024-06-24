@@ -4,8 +4,8 @@ const Joi = require('joi');
 const { getAllStudents } = require('../controllers/student');
 const { getAllLoanRequests } = require('../controllers/loans');
 const { getAllMedicalInsuranceRequests } = require('../controllers/medicalinsurance');
-const { createUniversity, updateUniversity, deleteUniversity } = require('../controllers/university');
-const { createCourse, updateCourse, deleteCourse } = require('../controllers/course');
+const { createUniversity, updateUniversity, deleteUniversity, getAllUniversities } = require('../controllers/university');
+const { createCourse, updateCourse, deleteCourse, getCoursesByUniversity } = require('../controllers/course');
 
 const universitySchema = Joi.object({
     university_name: Joi.string().required(),
@@ -179,6 +179,24 @@ router.delete('/admin/delete-course/:id', async (req, res) => {
     try {
         const result = await deleteCourse(req.params.id);
         res.status(200).json(result);
+    } catch (error) {
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+router.get('/admin/universities', async (req, res) => {
+    try {
+        const universities = await getAllUniversities();
+        res.status(200).json(universities);
+    } catch (error) {
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+router.get('/admin/university/:id/courses', async (req, res) => {
+    try {
+        const courses = await getCoursesByUniversity(req.params.id);
+        res.status(200).json(courses);
     } catch (error) {
         res.status(500).json({ error: 'Internal server error' });
     }
