@@ -22,7 +22,20 @@ async function updateUniversity(id, data) {
     }
 }
 
+async function deleteUniversity(id) {
+    try {
+        await models.University.destroy({
+            where: { university_id: id }
+        });
+        return { message: 'University deleted successfully' };
+    } catch (error) {
+        console.log(error);
+        throw error;
+    }
+}
+
 module.exports = {
     createUniversity,
-    updateUniversity
+    updateUniversity,
+    deleteUniversity
 };
