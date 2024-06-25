@@ -22,7 +22,20 @@ async function updateApplication(id, data) {
     }
 }
 
+async function deleteApplication(id) {
+    try {
+        await models.Application.destroy({
+            where: { application_id: id }
+        });
+        return { message: 'Application deleted successfully' };
+    } catch (error) {
+        console.log(error);
+        throw error;
+    }
+}
+
 module.exports = {
     createApplication,
-    updateApplication
+    updateApplication,
+    deleteApplication
 };
