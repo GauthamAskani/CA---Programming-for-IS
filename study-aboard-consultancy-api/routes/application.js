@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const Joi = require('joi');
-const { createApplication, updateApplication } = require('../controllers/application');
+const { createApplication, updateApplication, deleteApplication  } = require('../controllers/application');
 
 const applicationSchema = Joi.object({
     student_id: Joi.number().integer().required(),
@@ -48,6 +48,15 @@ router.put('/update-application/:id', async (req, res) => {
         }
 
         const result = await updateApplication(req.params.id, value);
+        res.status(200).json(result);
+    } catch (error) {
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+router.delete('/admin/delete-application/:id', async (req, res) => {
+    try {
+        const result = await deleteApplication(req.params.id);
         res.status(200).json(result);
     } catch (error) {
         res.status(500).json({ error: 'Internal server error' });
