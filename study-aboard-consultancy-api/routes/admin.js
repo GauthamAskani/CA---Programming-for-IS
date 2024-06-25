@@ -6,7 +6,7 @@ const { getAllLoanRequests } = require('../controllers/loans');
 const { getAllMedicalInsuranceRequests } = require('../controllers/medicalinsurance');
 const { createUniversity, updateUniversity, deleteUniversity, getAllUniversities } = require('../controllers/university');
 const { createCourse, updateCourse, deleteCourse, getCoursesByUniversity } = require('../controllers/course');
-const { createBroadcast, updateBroadcast } = require('../controllers/broadcast');
+const { createBroadcast, updateBroadcast, deleteBroadcast  } = require('../controllers/broadcast');
 
 const universitySchema = Joi.object({
     university_name: Joi.string().required(),
@@ -246,6 +246,15 @@ router.put('/admin/update-broadcast/:id', async (req, res) => {
         }
 
         const result = await updateBroadcast(req.params.id, value);
+        res.status(200).json(result);
+    } catch (error) {
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+router.delete('/admin/delete-broadcast/:id', async (req, res) => {
+    try {
+        const result = await deleteBroadcast(req.params.id);
         res.status(200).json(result);
     } catch (error) {
         res.status(500).json({ error: 'Internal server error' });

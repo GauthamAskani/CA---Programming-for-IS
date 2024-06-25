@@ -22,7 +22,20 @@ async function updateBroadcast(id, data) {
     }
 }
 
+async function deleteBroadcast(id) {
+    try {
+        await models.Broadcast.destroy({
+            where: { broadcast_id: id }
+        });
+        return { message: 'Broadcast deleted successfully' };
+    } catch (error) {
+        console.log(error);
+        throw error;
+    }
+}
+
 module.exports = {
     createBroadcast,
-    updateBroadcast
+    updateBroadcast,
+    deleteBroadcast
 };
