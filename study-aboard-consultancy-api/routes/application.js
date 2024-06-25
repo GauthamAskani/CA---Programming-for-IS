@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const Joi = require('joi');
-const { createApplication, updateApplication, deleteApplication  } = require('../controllers/application');
+const { createApplication, updateApplication, deleteApplication, getApplications  } = require('../controllers/application');
 
 const applicationSchema = Joi.object({
     student_id: Joi.number().integer().required(),
@@ -54,10 +54,25 @@ router.put('/update-application/:id', async (req, res) => {
     }
 });
 
-router.delete('/admin/delete-application/:id', async (req, res) => {
+router.delete('/delete-application/:id', async (req, res) => {
     try {
         const result = await deleteApplication(req.params.id);
         res.status(200).json(result);
+    } catch (error) {
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+router.get('/applications-list', async (req, res) => {
+    try {
+        const filters = {
+            student_id: req.query.student_id,
+            university_id: req.query.university_id,
+            course_id: req.query.course_id
+        };
+
+        const applications = await getApplications(filters);
+        res.status(200).json(applications);
     } catch (error) {
         res.status(500).json({ error: 'Internal server error' });
     }
