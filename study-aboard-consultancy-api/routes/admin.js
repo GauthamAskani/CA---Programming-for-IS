@@ -6,6 +6,7 @@ const { getAllLoanRequests } = require('../controllers/loans');
 const { getAllMedicalInsuranceRequests } = require('../controllers/medicalinsurance');
 const { createUniversity, updateUniversity, deleteUniversity, getAllUniversities } = require('../controllers/university');
 const { createCourse, updateCourse, deleteCourse, getCoursesByUniversity } = require('../controllers/course');
+const { createBroadcast } = require('../controllers/broadcast');
 
 const universitySchema = Joi.object({
     university_name: Joi.string().required(),
@@ -81,6 +82,17 @@ const updateCourseSchema = Joi.object({
     course_notes: Joi.string().optional(),
     course_updated_at: Joi.date().default(() => new Date()),
     course_deleted_at: Joi.date().optional()
+});
+
+const broadcastSchema = Joi.object({
+    broadcast_title: Joi.string().required(),
+    broadcast_image_url: Joi.string().required(),
+    broadcast_message: Joi.string().required(),
+    broadcast_send_date: Joi.date().required(),
+    broadcast_expiry_date: Joi.date().required(),
+    broadcast_created_at: Joi.date().default(() => new Date()),
+    broadcast_updated_at: Joi.date().optional(),
+    broadcast_deleted_at: Joi.date().optional()
 });
 
 router.get('/admin/students-list', async (req, res) => {
@@ -202,4 +214,17 @@ router.get('/admin/university/:id/courses', async (req, res) => {
     }
 });
 
+router.post('/admin/create-broadcast', async (req, res) => {
+    try {
+        const { error, value } = broadcastSchema.validate(req.body);
+        if (error) {
+            return res.status(400).json({ error: error.details[0].message });
+        }
+
+        const broadcast = await createBroadcast(value);
+        res.status(201).json(broadcast);
+    } catch (error) {
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
 module.exports = router;
