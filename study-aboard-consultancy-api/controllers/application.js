@@ -34,8 +34,35 @@ async function deleteApplication(id) {
     }
 }
 
+async function getApplications(filters) {
+    try {
+        const where = {
+            application_deleted_at: null
+        };
+
+        if (filters.student_id) {
+            where.student_id = filters.student_id;
+        }
+        if (filters.university_id) {
+            where.university_id = filters.university_id;
+        }
+        if (filters.course_id) {
+            where.course_id = filters.course_id;
+        }
+
+        const applications = await models.Application.findAll({
+            where: where
+        });
+        return applications;
+    } catch (error) {
+        console.log(error);
+        throw error;
+    }
+}
+
 module.exports = {
     createApplication,
     updateApplication,
-    deleteApplication
+    deleteApplication,
+    getApplications
 };
