@@ -10,6 +10,19 @@ async function createBroadcast(data) {
     }
 }
 
+async function updateBroadcast(id, data) {
+    try {
+        const result = await models.Broadcast.update(data, {
+            where: { broadcast_id: id }
+        });
+        return result;
+    } catch (error) {
+        console.log(error);
+        throw error;
+    }
+}
+
 module.exports = {
-    createBroadcast
+    createBroadcast,
+    updateBroadcast
 };
