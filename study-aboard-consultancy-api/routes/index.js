@@ -4,6 +4,7 @@ const { signupStudent, loginStudent } = require('./student');
 const { requestMedicalInsurance, handleUpdateMedicalInsuranceRequest, handleDeleteMedicalInsuranceRequest } = require('./medicalinsurance');
 const { loanRequest, handleUpdateLoanRequest, handleDeleteLoanRequest } = require('./loans');
 const adminRoutes = require('./admin');
+const applicationRoutes = require('./application');
 
 
 router.post('/signup', signupStudent);
@@ -19,5 +20,6 @@ router.put('/update-loan/:id', handleUpdateLoanRequest);
 router.delete('/delete-loan/:id', handleDeleteLoanRequest);
 
 router.use(adminRoutes);
+router.use(applicationRoutes);
 
 module.exports = router;
