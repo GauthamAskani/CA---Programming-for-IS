@@ -34,8 +34,19 @@ async function deleteBroadcast(id) {
     }
 }
 
+async function getAllBroadcasts() {
+    try {
+        const broadcasts = await models.Broadcast.findAll();
+        return broadcasts;
+    } catch (error) {
+        console.log(error);
+        throw error;
+    }
+}
+
 module.exports = {
     createBroadcast,
     updateBroadcast,
-    deleteBroadcast
+    deleteBroadcast,
+    getAllBroadcasts
 };
