@@ -10,6 +10,19 @@ async function createApplication(data) {
     }
 }
 
+async function updateApplication(id, data) {
+    try {
+        const result = await models.Application.update(data, {
+            where: { application_id: id }
+        });
+        return result;
+    } catch (error) {
+        console.log(error);
+        throw error;
+    }
+}
+
 module.exports = {
-    createApplication
+    createApplication,
+    updateApplication
 };
