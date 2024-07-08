@@ -7,6 +7,7 @@ const { getAllMedicalInsuranceRequests } = require('../controllers/medicalinsura
 const { createUniversity, updateUniversity, deleteUniversity, getAllUniversities } = require('../controllers/university');
 const { createCourse, updateCourse, deleteCourse, getCoursesByUniversity } = require('../controllers/course');
 const { createBroadcast, updateBroadcast, deleteBroadcast, getAllBroadcasts  } = require('../controllers/broadcast');
+const { updateApplication } = require('../controllers/application');
 
 const universitySchema = Joi.object({
     university_name: Joi.string().required(),
@@ -99,6 +100,13 @@ const updateBroadcastSchema = Joi.object({
     broadcast_expiry_date: Joi.date().required(),
     broadcast_updated_at: Joi.date().default(() => new Date()),
     broadcast_deleted_at: Joi.date().optional()
+});
+
+const updateApplicationSchema = Joi.object({
+    application_id: Joi.number().integer().required(),
+    admin_remarks: Joi.string().optional(),
+    application_status: Joi.string().optional(),
+    application_updated_at: Joi.date().default(() => new Date())
 });
 
 router.get('/admin/students-list', async (req, res) => {
@@ -261,6 +269,20 @@ router.get('/admin/broadcasts', async (req, res) => {
     try {
         const broadcasts = await getAllBroadcasts();
         res.status(200).json(broadcasts);
+    } catch (error) {
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+router.put('/admin/update-application', async (req, res) => {
+    try {
+        const { error, value } = updateApplicationSchema.validate(req.body);
+        if (error) {
+            return res.status(400).json({ error: error.details[0].message });
+        }
+
+        const updatedApplication = await updateApplication(value);
+        res.status(200).json(updatedApplication);
     } catch (error) {
         res.status(500).json({ error: 'Internal server error' });
     }
