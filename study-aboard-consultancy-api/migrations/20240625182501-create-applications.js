@@ -16,7 +16,7 @@ module.exports = {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {
-          model: 'Students', // Name of the table (not the model) that student_id is referencing
+          model: 'Students',
           key: 'student_id',
         },
         onUpdate: 'CASCADE',
@@ -26,7 +26,7 @@ module.exports = {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {
-          model: 'Universities', // Name of the table (not the model) that university_id is referencing
+          model: 'Universities',
           key: 'university_id',
         },
         onUpdate: 'CASCADE',
@@ -36,14 +36,14 @@ module.exports = {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {
-          model: 'Courses', // Name of the table (not the model) that course_id is referencing
+          model: 'Courses',
           key: 'course_id',
         },
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
       },
       student_notes: {
-        type: Sequelize.STRING,
+        type: Sequelize.TEXT,
         allowNull: true,
       },
       application_status: {

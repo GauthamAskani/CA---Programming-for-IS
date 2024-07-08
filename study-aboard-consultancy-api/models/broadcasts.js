@@ -22,10 +22,6 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    broadcast_image_url: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
     broadcast_message: {
       type: DataTypes.STRING,
       allowNull: false,

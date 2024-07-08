@@ -14,12 +14,8 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      broadcast_image_url: {
-        type: Sequelize.STRING,
-        allowNull: false,
-      },
       broadcast_message: {
-        type: Sequelize.STRING,
+        type: Sequelize.TEXT,
         allowNull: false,
       },
       broadcast_send_date: {

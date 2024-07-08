@@ -30,10 +30,6 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    university_image_url: {
-      type: DataTypes.STRING,
-      allowNull: true,
-    },
     university_program_intake: {
       type: DataTypes.STRING,
       allowNull: false,

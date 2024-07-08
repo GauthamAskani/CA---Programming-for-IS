@@ -27,7 +27,7 @@ module.exports = {
         allowNull: false,
       },
       course_main_entry_requirements: {
-        type: Sequelize.STRING,
+        type: Sequelize.TEXT,
         allowNull: false,
       },
       undergraduate_score_cgpa: {

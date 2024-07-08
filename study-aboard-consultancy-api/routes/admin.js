@@ -12,7 +12,6 @@ const universitySchema = Joi.object({
     university_name: Joi.string().required(),
     university_shortname: Joi.string().required(),
     university_description: Joi.string().required(),
-    university_image_url: Joi.string().optional(),
     university_program_intake: Joi.string().required(),
     university_program_intake_status: Joi.string().required(),
     university_created_at: Joi.date().default(() => new Date()),
@@ -24,7 +23,6 @@ const updateUniversitySchema = Joi.object({
     university_name: Joi.string().required(),
     university_shortname: Joi.string().required(),
     university_description: Joi.string().required(),
-    university_image_url: Joi.string().optional(),
     university_program_intake: Joi.string().required(),
     university_program_intake_status: Joi.string().required(),
     university_updated_at: Joi.date().default(() => new Date()),
@@ -86,7 +84,6 @@ const updateCourseSchema = Joi.object({
 
 const broadcastSchema = Joi.object({
     broadcast_title: Joi.string().required(),
-    broadcast_image_url: Joi.string().required(),
     broadcast_message: Joi.string().required(),
     broadcast_send_date: Joi.date().required(),
     broadcast_expiry_date: Joi.date().required(),
@@ -97,7 +94,6 @@ const broadcastSchema = Joi.object({
 
 const updateBroadcastSchema = Joi.object({
     broadcast_title: Joi.string().required(),
-    broadcast_image_url: Joi.string().required(),
     broadcast_message: Joi.string().required(),
     broadcast_send_date: Joi.date().required(),
     broadcast_expiry_date: Joi.date().required(),
