@@ -1,0 +1,48 @@
+@import "../../styles/variables";
+.custom-navbar {
+  background-color: #f2f7f9;
+}
+
+.navbar-brand {
+  color: $primary-text-color;
+  font-weight: bold;
+  font-size: 24px;
+}
+
+.nav-link {
+  color: $primary-text-color;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.nav-link:hover {
+  color: #0f373e !important;
+}
+
+.btn-outline-dark {
+  border: 2px solid;
+  border-color: #0f373e;
+  border-radius: 30px;
+  width: 100px;
+  color: $btn-primary-border;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.btn-outline-dark:hover {
+  background-color: #0f373e;
+  color: $btn-primary-background;
+}
+
+.btn-dark {
+  background-color: #0f373e;
+  width: 100px;
+  border-radius: 30px;
+  color: $btn-secondary-text;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.btn-dark:hover {
+  background-color: #31535b;
+}

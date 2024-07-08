@@ -1,11 +1,12 @@
 import React from "react";
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import "./App.css";
+import Navbar from "./components/navbar/Navbar";
 
 function App() {
   return (
     <Router>
-      <div className="d-flex justify-content-center">Navbar</div>
+      <Navbar />
       <Routes>
         <Route
           exact
