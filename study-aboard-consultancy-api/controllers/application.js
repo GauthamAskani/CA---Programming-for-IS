@@ -2,8 +2,22 @@ const models = require('../models');
 
 async function createApplication(data) {
     try {
+        const existingApplication = await models.Application.findOne({
+            where: {
+                student_id: data.student_id,
+                university_id: data.university_id,
+                course_id: data.course_id,
+            },
+        });
+
+        if (existingApplication) {
+            throw new Error('Application already exists for this student, course, and university');
+        }
+
         const application = await models.Application.create(data);
-        return application;
+        return {
+            message: "Application Request for Course is Successfull"
+        };
     } catch (error) {
         console.log(error);
         throw error;
@@ -15,7 +29,9 @@ async function updateApplication(id, data) {
         const result = await models.Application.update(data, {
             where: { application_id: id }
         });
-        return result;
+        return {
+            message: "Application Request Details Updated Successfully"
+        };
     } catch (error) {
         console.log(error);
         throw error;
@@ -27,7 +43,7 @@ async function deleteApplication(id) {
         await models.Application.destroy({
             where: { application_id: id }
         });
-        return { message: 'Application deleted successfully' };
+        return { message: 'Application Reqeust Deleted Successfully' };
     } catch (error) {
         console.log(error);
         throw error;
@@ -60,9 +76,34 @@ async function getApplications(filters) {
     }
 }
 
+async function updateApplication(data) {
+    try {
+        const application = await models.Application.findByPk(data.application_id);
+        if (!application) {
+            throw new Error('Application not found');
+        }
+
+        if (data.admin_remarks !== undefined) {
+            application.admin_remarks = data.admin_remarks;
+        }
+        if (data.application_status !== undefined) {
+            application.application_status = data.application_status;
+        }
+
+        await application.save();
+        return {
+            message: "Application Status & Remarks Updated Successfully"
+        };
+    } catch (error) {
+        console.log(error);
+        throw error;
+    }
+}
+
 module.exports = {
     createApplication,
     updateApplication,
     deleteApplication,
-    getApplications
+    getApplications,
+    updateApplication
 };
