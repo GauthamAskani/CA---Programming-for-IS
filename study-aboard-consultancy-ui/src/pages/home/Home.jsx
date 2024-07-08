@@ -93,6 +93,121 @@ const Home = () => {
           </div>
         </div>
       </section>
+
+      <section className="courses-section py-5">
+        <div className="container">
+          <h2 className="text-center mb-5">Popular Courses</h2>
+          <div className="row d-flex justify-content-center">
+            <div className="col-md-3 mb-4">
+              <div className="card h-100">
+                <img
+                  src="https://img.freepik.com/free-photo/schoolgirl-class-pointing-up_23-2147663362.jpg"
+                  className="card-img-top"
+                  alt="Course 1"
+                />
+                <div className="card-body">
+                  <h5 className="card-title">React JS</h5>
+                  <p className="card-text">
+                    Learn how to build dynamic user interfaces with React.js,
+                    one of the most popular JavaScript libraries for frontend
+                    development.
+                  </p>
+                  <div className="d-flex justify-content-between mt-3">
+                    {" "}
+                    <a href="#" className="course-button-wrapper">
+                      See Details
+                    </a>
+                    <div>
+                      {" "}
+                      <FaUserFriends /> 232
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="col-md-3 mb-4 ">
+              <div className="card h-100">
+                <img
+                  src="https://img.freepik.com/free-photo/schoolgirl-class-pointing-up_23-2147663362.jpg"
+                  className="card-img-top"
+                  alt="Course 2"
+                />
+                <div className="card-body">
+                  <h5 className="card-title">NodeJs</h5>
+                  <p className="card-text">
+                    Master server-side development with Node.js, an efficient
+                    and scalable platform for building fast and robust web
+                    applications.
+                  </p>
+                  <div className="d-flex justify-content-between mt-3">
+                    {" "}
+                    <a href="#" className="course-button-wrapper">
+                      See Details
+                    </a>
+                    <div>
+                      {" "}
+                      <FaUserFriends /> 232
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="col-md-3 mb-4">
+              <div className="card h-100">
+                <img
+                  src="https://img.freepik.com/free-photo/schoolgirl-class-pointing-up_23-2147663362.jpg"
+                  className="card-img-top"
+                  alt="Course 3"
+                />
+                <div className="card-body">
+                  <h5 className="card-title">Full Stack Development</h5>
+                  <p className="card-text">
+                    Become a versatile developer with our full stack development
+                    course, covering both frontend and backend technologies.
+                  </p>
+
+                  <div className="d-flex justify-content-between mt-3">
+                    {" "}
+                    <a href="#" className="course-button-wrapper">
+                      See Details
+                    </a>
+                    <div>
+                      {" "}
+                      <FaUserFriends /> 232
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="testimonial-section py-5">
+        <div className="container">
+          <h2 className="text-center mb-5">What Our Students Are Saying</h2>
+          <div className="row">
+            <div className="col-md-6">
+              <div className="testimonial">
+                <p className="testimonial-content">
+                  "This platform made my university application process so much
+                  easier. Highly recommend!"
+                </p>
+                <p className="testimonial-author">- Student</p>
+              </div>
+            </div>
+            <div className="col-md-6">
+              <div className="testimonial">
+                <p className="testimonial-content">
+                  "I found the perfect course through this platform. It has
+                  everything you need in one place."
+                </p>
+                <p className="testimonial-author">- Student</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
     </>
   );
 };
