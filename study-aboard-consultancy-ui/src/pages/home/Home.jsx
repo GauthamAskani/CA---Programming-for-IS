@@ -208,6 +208,68 @@ const Home = () => {
           </div>
         </div>
       </section>
+
+      <footer className="py-4 footer-wrapper">
+        <div className="container">
+          <div className="row about-wrapper">
+            <div className="col-md-4">
+              <h5>About StudyAbroad</h5>
+              <p>
+                StudyAbroad helps students apply to universities worldwide and
+                find the best courses for their academic and career goals.
+              </p>
+            </div>
+            <div className="col-md-4">
+              <h5>Quick Links</h5>
+              <ul className="list-unstyled">
+                <li>
+                  <a href="#" className=" ">
+                    Home
+                  </a>
+                </li>
+                <li>
+                  <a href="#" className=" ">
+                    Why Us
+                  </a>
+                </li>
+                <li>
+                  <a href="#" className=" ">
+                    Feature
+                  </a>
+                </li>
+              </ul>
+            </div>
+            <div className="col-md-4">
+              <h5>Contact Us</h5>
+              <ul className="list-unstyled">
+                <li>
+                  <a href="mailto:support@uniapply.com" className=" ">
+                    support@StudyAbroad.com
+                  </a>
+                </li>
+                <li>
+                  <a href="tel:+123456789" className=" ">
+                    +123456789
+                  </a>
+                </li>
+                <li>
+                  <a href="#" className="">
+                    123 StudyAbroad St, Education City,Ireland
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div className="row">
+            <div className="col text-center">
+              <p>
+                &copy; 2024 StudyAbroad. All rights reserved. | Terms of Service
+                | Privacy Policy
+              </p>
+            </div>
+          </div>
+        </div>
+      </footer>
     </>
   );
 };
