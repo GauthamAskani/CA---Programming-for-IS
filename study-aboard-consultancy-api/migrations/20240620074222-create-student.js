@@ -51,6 +51,14 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: true,
       },
+      role: {
+        type: Sequelize.STRING,
+        allowNull: true,
+      },
+      passcode: {
+        type: Sequelize.STRING,
+        allowNull: true,
+      },
       student_created_at: {
         type: Sequelize.DATE,
         allowNull: false,

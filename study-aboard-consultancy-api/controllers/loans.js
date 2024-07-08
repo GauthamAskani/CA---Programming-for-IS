@@ -11,7 +11,7 @@ async function studentLoanRequest(data) {
             throw new Error('Student has a open medical insurance request');
         }
 
-        data.course_start_date = moment(data.course_start_date, 'MM-DD-YYYY').format('YYYY-MM-DD');
+        data.course_start_date = moment(data.course_start_date, 'MM-DD-YYYY').format('MM-DD-YYYY');
         
         const result = await models.Loan.create(data)
         return {
@@ -26,7 +26,7 @@ async function studentLoanRequest(data) {
 
 async function updateLoanRequest(id, data) {
     try {
-        data.course_start_date = moment(data.course_start_date, 'MM-DD-YYYY').format('YYYY-MM-DD');
+        data.course_start_date = moment(data.course_start_date, 'MM-DD-YYYY').format('MM-DD-YYYY');
         const result = await models.Loan.update(data, {
             where: { loan_request_id: id }
         });
