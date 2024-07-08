@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { signupStudent, loginStudent } = require('./student');
+const { signupStudent, loginStudent, handleForgotPassword, handleLostPasscode} = require('./student');
 const { requestMedicalInsurance, handleUpdateMedicalInsuranceRequest, handleDeleteMedicalInsuranceRequest } = require('./medicalinsurance');
 const { loanRequest, handleUpdateLoanRequest, handleDeleteLoanRequest } = require('./loans');
 const adminRoutes = require('./admin');
@@ -9,6 +9,8 @@ const applicationRoutes = require('./application');
 
 router.post('/signup', signupStudent);
 router.post('/login', loginStudent);
+router.post('/lost-passcode', handleLostPasscode);
+router.post('/forgot-password', handleForgotPassword);
 
 router.post('/request-medical-insurnace', requestMedicalInsurance);
 router.post('/request-loan', loanRequest);

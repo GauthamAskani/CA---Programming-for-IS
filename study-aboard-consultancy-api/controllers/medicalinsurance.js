@@ -10,10 +10,10 @@ async function studentRequestMedicalInsurance(data) {
         if (studentExists) {
             throw new Error('Student has a open medical insurance request');
         }
-        data.cover_start_date = moment(data.cover_start_date, 'MM-DD-YYYY').format('YYYY-MM-DD');
-        data.cover_end_date = moment(data.cover_end_date, 'MM-DD-YYYY').format('YYYY-MM-DD');
-        data.course_start_date = moment(data.course_start_date, 'MM-DD-YYYY').format('YYYY-MM-DD');
-        data.course_end_date = moment(data.course_end_date, 'MM-DD-YYYY').format('YYYY-MM-DD');
+        data.cover_start_date = moment(data.cover_start_date, 'MM-DD-YYYY').format('MM-DD-YYYY');
+        data.cover_end_date = moment(data.cover_end_date, 'MM-DD-YYYY').format('MM-DD-YYYY');
+        data.course_start_date = moment(data.course_start_date, 'MM-DD-YYYY').format('MM-DD-YYYY');
+        data.course_end_date = moment(data.course_end_date, 'MM-DD-YYYY').format('MM-DD-YYYY');
         
         const result = await models.MedicalInsurance.create(data)
         console.log(result);
@@ -28,10 +28,10 @@ async function studentRequestMedicalInsurance(data) {
 
 async function updateMedicalInsuranceRequest(id, data) {
     try {
-        data.cover_start_date = moment(data.cover_start_date, 'MM-DD-YYYY').format('YYYY-MM-DD');
-        data.cover_end_date = moment(data.cover_end_date, 'MM-DD-YYYY').format('YYYY-MM-DD');
-        data.course_start_date = moment(data.course_start_date, 'MM-DD-YYYY').format('YYYY-MM-DD');
-        data.course_end_date = moment(data.course_end_date, 'MM-DD-YYYY').format('YYYY-MM-DD');
+        data.cover_start_date = moment(data.cover_start_date, 'MM-DD-YYYY').format('MM-DD-YYYY');
+        data.cover_end_date = moment(data.cover_end_date, 'MM-DD-YYYY').format('MM-DD-YYYY');
+        data.course_start_date = moment(data.course_start_date, 'MM-DD-YYYY').format('MM-DD-YYYY');
+        data.course_end_date = moment(data.course_end_date, 'MM-DD-YYYY').format('MM-DD-YYYY');
         const result = await models.MedicalInsurance.update(data, {
             where: { medical_insurance_id: id }
         });

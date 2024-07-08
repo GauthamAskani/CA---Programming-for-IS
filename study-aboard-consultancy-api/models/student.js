@@ -75,6 +75,14 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: true,
     },
+    role: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    passcode: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
     student_created_at: {
       type: DataTypes.DATE,
       allowNull: false,
