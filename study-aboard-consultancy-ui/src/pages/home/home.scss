@@ -98,3 +98,16 @@ p {
 .feature-description {
   color: #c2c4c6;
 }
+
+.courses-section {
+  background: #0f363f;
+  h2 {
+    color: orange;
+  }
+  .card {
+    transition: transform 0.2s;
+  }
+  .card:hover {
+    transform: scale(1.05);
+  }
+}
