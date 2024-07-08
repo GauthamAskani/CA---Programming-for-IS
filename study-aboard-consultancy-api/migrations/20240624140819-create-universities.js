@@ -19,12 +19,8 @@ module.exports = {
         allowNull: false,
       },
       university_description: {
-        type: Sequelize.STRING,
+        type: Sequelize.TEXT,
         allowNull: false,
-      },
-      university_image_url: {
-        type: Sequelize.STRING,
-        allowNull: true,
       },
       university_program_intake: {
         type: Sequelize.STRING,

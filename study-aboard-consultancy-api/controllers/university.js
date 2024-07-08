@@ -3,7 +3,9 @@ const models = require('../models');
 async function createUniversity(data) {
     try {
         const university = await models.University.create(data);
-        return university;
+        return {
+            message: "University Created Successfully"
+        };
     } catch (error) {
         console.log(error);
         throw error;
@@ -15,7 +17,9 @@ async function updateUniversity(id, data) {
         const result = await models.University.update(data, {
             where: { university_id: id }
         });
-        return result;
+        return {
+            message: "University Details Update Successfull"
+        };
     } catch (error) {
         console.log(error);
         throw error;
