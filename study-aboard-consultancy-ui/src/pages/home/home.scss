@@ -111,3 +111,25 @@ p {
     transform: scale(1.05);
   }
 }
+
+.footer-wrapper {
+  background: #0f363f;
+  padding-top: 40px;
+  .about-wrapper {
+    border-bottom: 1px solid #c2c4c6;
+  }
+  h5 {
+    color: white;
+  }
+  p {
+    margin-top: 25px;
+    color: #c2c4c6;
+    font-size: 13px;
+  }
+  a {
+    color: #c2c4c6;
+    text-decoration: none;
+    font-size: 13px;
+    line-height: 40px;
+  }
+}
