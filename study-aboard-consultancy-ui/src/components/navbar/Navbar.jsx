@@ -7,7 +7,7 @@ const Navbar = () => {
     <nav className="navbar navbar-expand-lg navbar-light  custom-navbar">
       <div className="container">
         <a className="navbar-brand" href="/">
-          ONlineEDU
+          StudyAbroad
         </a>
         <button
           className="navbar-toggler"
