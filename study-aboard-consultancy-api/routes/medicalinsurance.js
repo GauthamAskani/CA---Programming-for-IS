@@ -1,5 +1,5 @@
 const Joi = require('joi');
-const { studentRequestMedicalInsurance, updateMedicalInsuranceRequest, deleteMedicalInsuranceRequest } = require('../controllers/medicalinsurance');
+const { studentRequestMedicalInsurance, updateMedicalInsuranceRequest, deleteMedicalInsuranceRequest, getMedicalInsuranceByStudentId, updateAdminRemarksAndStatus } = require('../controllers/medicalinsurance');
 
 const requestMedicalInsuranceDetailsSchema = Joi.object({
     student_id: Joi.number().integer().required(),
@@ -28,6 +28,11 @@ const updateMedicalInsuranceRequestSchema = Joi.object({
     course_end_date: Joi.date().required(),
     student_notes: Joi.string().optional(),
     medical_insurance_updated_at: Joi.date().default(() => new Date()),
+});
+
+const updateAdminRemarksAndStatusSchema = Joi.object({
+    admin_remarks: Joi.string().optional(),
+    status: Joi.string().optional(),
 });
 
 async function requestMedicalInsurance(req, res) {
@@ -75,8 +80,39 @@ async function handleDeleteMedicalInsuranceRequest(req, res) {
     }
 }
 
+async function handleGetMedicalInsuranceByStudentId(req, res) {
+    try {
+        const { student_id } = req.params;
+        const result = await getMedicalInsuranceByStudentId(student_id);
+        if (!result.length) {
+            return res.status(404).json({ error: 'No medical insurance found for this student' });
+        }
+        res.status(200).json(result);
+    } catch (error) {
+        res.status(500).json({ error: 'Internal server error' });
+    }
+}
+
+async function handleUpdateAdminRemarksAndStatus(req, res) {
+    try {
+        const { error, value } = updateAdminRemarksAndStatusSchema.validate(req.body);
+        if (error) {
+            throw new Error(error.details[0].message);
+        }
+        const result = await updateAdminRemarksAndStatus(req.params.id, value);
+        res.send(result);
+    } catch (error) {
+        res.statusCode = 400;
+        res.send({
+            error: error.message
+        });
+    }
+}
+
 module.exports = {
     requestMedicalInsurance,
     handleUpdateMedicalInsuranceRequest,
-    handleDeleteMedicalInsuranceRequest
+    handleDeleteMedicalInsuranceRequest,
+    handleGetMedicalInsuranceByStudentId,
+    handleUpdateAdminRemarksAndStatus
 }
