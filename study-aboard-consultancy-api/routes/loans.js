@@ -1,5 +1,5 @@
 const Joi = require('joi');
-const { studentLoanRequest, updateLoanRequest, deleteLoanRequest  } = require("../controllers/loans");
+const { studentLoanRequest, updateLoanRequest, deleteLoanRequest, getAllLoanRequests, updateAdminRemarksAndStatusLoan  } = require("../controllers/loans");
 
 const loanRequestDetailsSchema = Joi.object({
     student_id: Joi.number().integer().required(),
@@ -68,8 +68,39 @@ async function handleDeleteLoanRequest(req, res) {
     }
 }
 
+async function handleGetLoanDetailsByStudentId(req, res) {
+    try {
+        const { student_id } = req.params;
+        const result = await getLoanDetailsByStudentId(student_id);
+        if (!result.length) {
+            return res.status(404).json({ error: 'No loan details found for this student' });
+        }
+        res.status(200).json(result);
+    } catch (error) {
+        res.status(500).json({ error: 'Internal server error' });
+    }
+}
+
+async function handleUpdateAdminRemarksAndStatusLoan(req, res) {
+    try {
+        const { error, value } = updateAdminRemarksAndStatusSchema.validate(req.body);
+        if (error) {
+            throw new Error(error.details[0].message);
+        }
+        const result = await updateAdminRemarksAndStatus(req.params.id, value);
+        res.send(result);
+    } catch (error) {
+        res.statusCode = 400;
+        res.send({
+            error: error.message
+        });
+    }
+}
+
 module.exports = {
     loanRequest,
     handleUpdateLoanRequest,
-    handleDeleteLoanRequest
+    handleDeleteLoanRequest,
+    handleGetLoanDetailsByStudentId,
+    handleUpdateAdminRemarksAndStatusLoan
 }

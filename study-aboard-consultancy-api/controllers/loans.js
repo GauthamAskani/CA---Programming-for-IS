@@ -59,9 +59,35 @@ async function getAllLoanRequests() {
     }
 }
 
+async function getLoanDetailsByStudentId(student_id) {
+    try {
+        const loans = await models.Loan.findAll({
+            where: { student_id: student_id }
+        });
+        return loans;
+    } catch (error) {
+        console.log(error);
+        throw error;
+    }
+}
+
+async function updateAdminRemarksAndStatusLoan(id, data) {
+    try {
+        const result = await models.Loan.update(data, {
+            where: { loan_request_id: id }
+        });
+        return result;
+    } catch (error) {
+        console.log(error);
+        throw error;
+    }
+}
+
 module.exports = {
     studentLoanRequest,
     updateLoanRequest,
     deleteLoanRequest,
-    getAllLoanRequests
+    getAllLoanRequests,
+    getLoanDetailsByStudentId,
+    updateAdminRemarksAndStatusLoan
 }
