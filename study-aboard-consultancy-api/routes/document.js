@@ -117,4 +117,16 @@ router.get('/student-documents/:student_id', async (req, res) => {
   }
 });
 
+router.get('/admin/all-documents', async (req, res) => {
+  try {
+    const documents = await Document.findAll({
+      order: [['student_id', 'ASC']]
+    });
+
+    res.status(200).json(documents);
+  } catch (err) {
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
 module.exports = router;
