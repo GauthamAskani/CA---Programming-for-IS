@@ -85,4 +85,36 @@ router.post('/upload-document', upload.single('file'), async (req, res) => {
   }
 });
 
+router.get('/student-documents/:student_id', async (req, res) => {
+  try {
+    const { student_id } = req.params;
+    console.log('Student ID:', student_id);
+
+    const documents = await Document.findAll({
+      where: { student_id: student_id }
+    });
+
+    if (!documents.length) {
+      return res.status(404).json({ error: 'No documents found for this student' });
+    }
+
+    const student = await Student.findOne({
+      where: { student_id: student_id },
+      attributes: ['student_document_status']
+    });
+
+    if (!student) {
+      return res.status(404).json({ error: 'Student not found' });
+    }
+
+    res.status(200).json({
+      documents: documents,
+      student_document_status: student.student_document_status
+    });
+  } catch (err) {
+    console.error('Error fetching student documents:', err);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
 module.exports = router;
