@@ -117,6 +117,7 @@ router.get('/student-documents/:student_id', async (req, res) => {
   }
 });
 
+
 router.get('/admin/all-documents', async (req, res) => {
   try {
     const documents = await Document.findAll({

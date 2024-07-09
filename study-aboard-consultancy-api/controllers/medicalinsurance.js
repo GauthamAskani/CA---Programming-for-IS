@@ -64,9 +64,36 @@ async function getAllMedicalInsuranceRequests() {
     }
 }
 
+async function getMedicalInsuranceByStudentId(student_id) {
+    try {
+        const medicalInsurance = await models.MedicalInsurance.findAll({
+            where: { student_id: student_id }
+        });
+        return medicalInsurance;
+    } catch (error) {
+        console.log(error);
+        throw error;
+    }
+}
+
+
+async function updateAdminRemarksAndStatus(id, data) {
+    try {
+        const result = await models.MedicalInsurance.update(data, {
+            where: { medical_insurance_id: id }
+        });
+        return result;
+    } catch (error) {
+        console.log(error);
+        throw error;
+    }
+}
+
 module.exports = {
     studentRequestMedicalInsurance,
     updateMedicalInsuranceRequest,
     deleteMedicalInsuranceRequest,
-    getAllMedicalInsuranceRequests
+    getAllMedicalInsuranceRequests,
+    getMedicalInsuranceByStudentId,
+    updateAdminRemarksAndStatus
 }
