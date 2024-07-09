@@ -129,4 +129,35 @@ router.get('/admin/all-documents', async (req, res) => {
   }
 });
 
+const updateDocumentSchema = Joi.object({
+  admin_remarks: Joi.string().optional(),
+  status: Joi.string().optional()
+});
+
+router.put('/admin/update-document/:document_id', async (req, res) => {
+  try {
+    const { error, value } = updateDocumentSchema.validate(req.body);
+
+    if (error) {
+      return res.status(400).json({ error: error.details[0].message });
+    }
+
+    const { document_id } = req.params;
+
+    const document = await Document.findOne({
+      where: { document_id: document_id }
+    });
+
+    if (!document) {
+      return res.status(404).json({ error: 'Document not found' });
+    }
+
+    await document.update(value);
+
+    res.status(200).json({ message: 'Document updated successfully' });
+  } catch (err) {
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
 module.exports = router;
