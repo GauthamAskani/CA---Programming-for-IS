@@ -14,9 +14,7 @@ async function studentLoanRequest(data) {
         data.course_start_date = moment(data.course_start_date, 'MM-DD-YYYY').format('MM-DD-YYYY');
         
         const result = await models.Loan.create(data)
-        return {
-            loan_request_id: result.loan_request_id
-        };
+        return (result);
     } catch (error) {
         console.log(error);
         throw error;
@@ -30,7 +28,9 @@ async function updateLoanRequest(id, data) {
         const result = await models.Loan.update(data, {
             where: { loan_request_id: id }
         });
-        return result;
+        return {
+            message: "Loan Details have been updated successfully"
+        };
     } catch (error) {
         console.log(error);
         throw error;
@@ -76,7 +76,9 @@ async function updateAdminRemarksAndStatusLoan(id, data) {
         const result = await models.Loan.update(data, {
             where: { loan_request_id: id }
         });
-        return result;
+        return {
+           message: "Loan Status and Remarks Updated Sucessfully" 
+        };
     } catch (error) {
         console.log(error);
         throw error;
