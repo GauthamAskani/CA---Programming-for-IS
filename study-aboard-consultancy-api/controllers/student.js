@@ -175,10 +175,30 @@ async function getAllStudents() {
   }
 }
 
+async function validateToken(req, res, next) {
+    // const token = req.headers['authorization'];
+    const authHeader = req.headers['authorization'];
+    const token = authHeader && authHeader.split(' ')[1];
+
+    if (!token) {
+        return res.status(403).json({ error: 'No token provided' });
+    }
+
+    jwt.verify(token, process.env.SECRET, (err, decoded) => {
+        console.log(err);
+        if (err) {
+            return res.status(500).json({ error: 'Failed to authenticate token' });
+        }
+        console(decoded,sub);
+        next();
+    });
+}
+
 module.exports = {
   signup,
   login,
   lostPasscode,
   forgotPassword,
-  getAllStudents
+  getAllStudents,
+  validateToken
 };
