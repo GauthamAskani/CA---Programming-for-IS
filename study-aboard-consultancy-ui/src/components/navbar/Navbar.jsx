@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./Navbar.scss";
+import Login from "../login/Login";
 
 const Navbar = () => {
+  const [login, setLogin] = useState(false);
   return (
     <nav className="navbar navbar-expand-lg navbar-light  custom-navbar">
       <div className="container">
@@ -38,10 +40,27 @@ const Navbar = () => {
               </a>
             </li>
           </ul>
-          <button className="btn btn-outline-dark ms-3">Log in</button>
+          <button
+            type="button"
+            onClick={() => {
+              setLogin(true);
+            }}
+            className="btn btn-outline-dark ms-3"
+          >
+            Log in
+          </button>
           <button className="btn btn-dark ms-2">Sign up</button>
         </div>
       </div>
+      {login && (
+        <Login
+          isOpen={login}
+          toggle={() => {
+            setLogin(false);
+          }}
+          signUp={() => {}}
+        />
+      )}
     </nav>
   );
 };
