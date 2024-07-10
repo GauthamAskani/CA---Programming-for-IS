@@ -1,8 +1,21 @@
+import moment from "moment";
 import React, { useState } from "react";
+import { toast } from "react-toastify";
 import { Modal, ModalBody, ModalHeader } from "reactstrap";
+import { createAccount } from "../../apis/componentsApis";
 
 const SignUp = ({ isOpen, toggle, signIn }) => {
-  const [form, setForm] = useState({});
+  const [form, setForm] = useState({
+    userName: "",
+    familyName: "",
+    email: "",
+    gender: "",
+    phoneNumber: "",
+    dateOfBirth: "",
+    country: "",
+    password: "",
+    confirmPassword: "",
+  });
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -12,131 +25,238 @@ const SignUp = ({ isOpen, toggle, signIn }) => {
     });
   };
 
-  //   const createAccount = async () => {
-  //     try {
-  //       await postSignUp(form);
-  //       setForm({
-  //         userName: "",
-  //         email: "",
-  //         password: "",
-  //         confirmPassword: "",
-  //       });
-  //       toast.success("Successfully account created");
-  //       signIn();
-  //     } catch (error) {
-  //       console.error("Error fetching user data:", error);
-  //     }
-  //   };
-
   const validate = () => {
     if (!form?.userName) {
+      toast.error("Please enter your name.");
       return false;
     }
-    if (!form?.email) {
+    if (!form?.familyName) {
+      toast.error("Please enter your surname.");
+      return false;
+    }
+    if (!form?.email || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(form?.email)) {
+      toast.error("Please enter a valid email.");
+      return false;
+    }
+    if (!form?.gender) {
+      toast.error("Please select your gender.");
+      return false;
+    }
+    if (!form?.phoneNumber || !/^\d+$/.test(form?.phoneNumber)) {
+      toast.error("Please enter a valid phone number.");
+      return false;
+    }
+    if (!form?.country) {
+      toast.error("Please enter your country.");
       return false;
     }
     if (!form?.password) {
+      toast.error("Please enter your password.");
       return false;
     }
     if (!form?.confirmPassword || form?.confirmPassword !== form?.password) {
+      toast.error("Passwords do not match.");
       return false;
     }
-
     return true;
   };
+
+  const handleSignUpAccount = async () => {
+    const payload = {
+      student_first_name: form?.userName || "",
+      student_family_name: form?.familyName || "",
+      student_dob: moment(form?.dateOfBirth).format("MM-DD-YYYY"),
+      student_gender: form?.gender || "",
+      student_country_origin: form?.country || "",
+      student_phone_number: form?.phoneNumber || "",
+      student_email: form?.email || "",
+      student_password: form?.password || "",
+      student_status: "false",
+
+      student_document_status: "false",
+    };
+    await createAccount(payload);
+    setForm({
+      userName: "",
+      familyName: "",
+      email: "",
+      gender: "",
+      phoneNumber: "",
+      country: "",
+      password: "",
+      dateOfBirth: "",
+      confirmPassword: "",
+    });
+    toast.success("Successfully account created");
+    signIn();
+  };
+
   const handleSubmit = () => {
-    console.log("vaa->", validate());
+    // e.preventDefault();
+    console.log("submit");
     if (validate()) {
-      //   createAccount();
+      handleSignUpAccount();
+
+      console.log("Form is valid");
+      // createAccount(); // Uncomment to call the createAccount function
     }
   };
 
   return (
-    <Modal isOpen={isOpen} fade={false} toggle={toggle}>
-      <ModalHeader className="header-wrapper" toggle={toggle}>
-        Sign Up
-      </ModalHeader>
-      <ModalBody className="signin-modal-wrapper">
-        <form className="add-application-wrapper">
-          <div class="contact-us sign-in-wrapper">
-            <div class="contact-us-content">
-              <form id="contact-form">
-                <div class="row">
-                  <div class="col-lg-12">
-                    <fieldset>
-                      <input
-                        type="name"
-                        name="userName"
-                        id="name"
-                        value={form?.userName || ""}
-                        onChange={handleChange}
-                        placeholder="Your Name..."
-                        required
-                      />
-                    </fieldset>
+    <div>
+      <Modal isOpen={isOpen} fade={false} toggle={toggle}>
+        <ModalHeader className="header-wrapper" toggle={toggle}>
+          Sign Up
+        </ModalHeader>
+        <ModalBody className="signin-modal-wrapper">
+          <div className="add-application-wrapper">
+            <div className="contact-us sign-in-wrapper">
+              <div className="contact-us-content">
+                <form id="contact-form">
+                  <div className="row">
+                    <div className="col-lg-12">
+                      <fieldset>
+                        <input
+                          type="text"
+                          name="userName"
+                          id="name"
+                          value={form.userName}
+                          onChange={handleChange}
+                          placeholder="Your Name..."
+                          required
+                        />
+                      </fieldset>
+                    </div>
+                    <div className="col-lg-12">
+                      <fieldset>
+                        <input
+                          type="text"
+                          name="familyName"
+                          id="familyName"
+                          value={form.familyName}
+                          onChange={handleChange}
+                          placeholder="Your Surname..."
+                          required
+                        />
+                      </fieldset>
+                    </div>
+                    <div className="col-lg-12">
+                      <fieldset>
+                        <input
+                          type="email"
+                          name="email"
+                          id="email"
+                          value={form.email}
+                          onChange={handleChange}
+                          placeholder="Your E-mail..."
+                          required
+                        />
+                      </fieldset>
+                    </div>
+                    <div className="col-lg-12">
+                      <fieldset>
+                        <select
+                          name="gender"
+                          className="common-input"
+                          value={form.gender}
+                          onChange={handleChange}
+                        >
+                          <option value="" disabled>
+                            Select Gender
+                          </option>
+                          <option value="Male">Male</option>
+                          <option value="Female">Female</option>
+                        </select>
+                      </fieldset>
+                    </div>
+                    <div className="col-lg-12">
+                      <fieldset>
+                        <input
+                          type="text"
+                          name="phoneNumber"
+                          id="phoneNumber"
+                          value={form.phoneNumber}
+                          onChange={handleChange}
+                          placeholder="Your Phone Number..."
+                          required
+                        />
+                      </fieldset>
+                    </div>
+                    <div className="col-lg-12">
+                      <fieldset>
+                        <input
+                          type="date"
+                          name="dateOfBirth"
+                          id="dateOfBirth"
+                          value={form.dateOfBirth}
+                          onChange={handleChange}
+                          placeholder="Your Phone Number..."
+                          required
+                        />
+                      </fieldset>
+                    </div>
+                    <div className="col-lg-12">
+                      <fieldset>
+                        <input
+                          type="text"
+                          name="country"
+                          id="country"
+                          value={form.country}
+                          onChange={handleChange}
+                          placeholder="Your Country..."
+                          required
+                        />
+                      </fieldset>
+                    </div>
+                    <div className="col-lg-12">
+                      <fieldset>
+                        <input
+                          type="password"
+                          name="password"
+                          id="password"
+                          value={form.password}
+                          onChange={handleChange}
+                          placeholder="Your Password..."
+                          required
+                        />
+                      </fieldset>
+                    </div>
+                    <div className="col-lg-12">
+                      <fieldset>
+                        <input
+                          type="password"
+                          name="confirmPassword"
+                          id="confirmPassword"
+                          value={form.confirmPassword}
+                          onChange={handleChange}
+                          placeholder="Confirm Your Password..."
+                          required
+                        />
+                      </fieldset>
+                    </div>
+                    <div className="col-lg-12 text-end">
+                      <fieldset>
+                        <button
+                          type="button"
+                          onClick={handleSubmit}
+                          id="form-submit"
+                          className="orange-button"
+                        >
+                          Sign Up
+                        </button>
+                      </fieldset>
+                    </div>
+                    <p className="toggle-signup-color">
+                      Already have an account? <a onClick={signIn}>Sign In</a>
+                    </p>
                   </div>
-                  <div class="col-lg-12">
-                    <fieldset>
-                      <input
-                        type="email"
-                        name="email"
-                        id="email"
-                        value={form?.email || ""}
-                        onChange={handleChange}
-                        pattern="[^ @]*@[^ @]*"
-                        placeholder="Your E-mail..."
-                        required
-                      />
-                    </fieldset>
-                  </div>
-                  <div class="col-lg-12">
-                    <fieldset>
-                      <input
-                        type="password"
-                        name="password"
-                        id="password"
-                        value={form?.password || ""}
-                        onChange={handleChange}
-                        placeholder="Your Password..."
-                        required
-                      />
-                    </fieldset>
-                  </div>
-                  <div class="col-lg-12">
-                    <fieldset>
-                      <input
-                        type="password"
-                        name="confirmPassword"
-                        id="confirmPassword"
-                        value={form?.confirmPassword || ""}
-                        onChange={handleChange}
-                        placeholder="Your Confirm Password..."
-                        required
-                      />
-                    </fieldset>
-                  </div>
-                  <div class="col-lg-12 text-end">
-                    <fieldset>
-                      <button
-                        type="button"
-                        onClick={handleSubmit}
-                        id="form-submit"
-                        class="orange-button"
-                      >
-                        Sign Up
-                      </button>
-                    </fieldset>
-                  </div>
-                  <p className="toggle-signup-color">
-                    Already have an account? <a onClick={signIn}>Sign In</a>
-                  </p>
-                </div>
-              </form>
+                </form>
+              </div>
             </div>
           </div>
-        </form>
-      </ModalBody>
-    </Modal>
+        </ModalBody>
+      </Modal>
+    </div>
   );
 };
 

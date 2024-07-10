@@ -7,6 +7,16 @@ import SignUp from "../signup/SignUp";
 const Navbar = () => {
   const [login, setLogin] = useState(false);
   const [signUp, setSignUp] = useState(false);
+
+  const handleSignUp = () => {
+    setLogin(false);
+    setSignUp(true);
+  };
+
+  const handleSignIn = () => {
+    setLogin(true);
+    setSignUp(false);
+  };
   return (
     <nav className="navbar navbar-expand-lg navbar-light  custom-navbar">
       <div className="container">
@@ -68,7 +78,7 @@ const Navbar = () => {
           toggle={() => {
             setLogin(false);
           }}
-          signUp={() => {}}
+          signUp={handleSignUp}
         />
       )}
       {signUp && (
@@ -77,7 +87,7 @@ const Navbar = () => {
           toggle={() => {
             setSignUp(false);
           }}
-          signIn={() => {}}
+          signIn={handleSignIn}
         />
       )}
     </nav>
