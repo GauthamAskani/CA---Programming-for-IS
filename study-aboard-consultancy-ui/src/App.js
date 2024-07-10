@@ -12,6 +12,7 @@ import { AuthProvider } from "./utilities/AuthProvider";
 import ProtectedRoute from "./utilities/ProtectedRoute";
 import Universaty from "./pages/admin/universaties/Universaty";
 import Loans from "./pages/admin/loans/Loans";
+import MedicalInsurance from "./pages/admin/medicalInsurance/MedicalInsurance";
 
 function App() {
   return (
@@ -29,6 +30,9 @@ function App() {
           </Route>
           <Route element={<ProtectedRoute role="Admin" />}>
             <Route path="/loans" element={<Loans />} />
+          </Route>
+          <Route element={<ProtectedRoute role="Admin" />}>
+            <Route path="/medical-insurance" element={<MedicalInsurance />} />
           </Route>
           <Route element={<ProtectedRoute role="Student" />}>
             <Route path="/studentdashboard" element={<div>Student</div>} />
