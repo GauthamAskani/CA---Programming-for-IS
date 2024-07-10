@@ -16,10 +16,7 @@ async function studentRequestMedicalInsurance(data) {
         data.course_end_date = moment(data.course_end_date, 'MM-DD-YYYY').format('MM-DD-YYYY');
         
         const result = await models.MedicalInsurance.create(data)
-        console.log(result);
-        return {
-            medical_insurnace_id: result.medical_insurance_id
-        };
+        return (result);
     } catch (error) {
         console.log(error);
         throw error;
@@ -35,7 +32,9 @@ async function updateMedicalInsuranceRequest(id, data) {
         const result = await models.MedicalInsurance.update(data, {
             where: { medical_insurance_id: id }
         });
-        return result;
+        return {
+            message: "Medical Insurnace Details are updated Successfully"
+        };
     } catch (error) {
         console.log(error);
         throw error;
@@ -82,7 +81,9 @@ async function updateAdminRemarksAndStatus(id, data) {
         const result = await models.MedicalInsurance.update(data, {
             where: { medical_insurance_id: id }
         });
-        return result;
+        return {
+            message: "Medical Insurnace Status & Remarks Updated Successfully"
+        };
     } catch (error) {
         console.log(error);
         throw error;
