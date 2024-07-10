@@ -15,7 +15,9 @@ async function updateBroadcast(id, data) {
         const result = await models.Broadcast.update(data, {
             where: { broadcast_id: id }
         });
-        return result;
+        return {
+            message: "Broadcast Infromation Update Successfully"
+        };
     } catch (error) {
         console.log(error);
         throw error;
@@ -44,9 +46,31 @@ async function getAllBroadcasts() {
     }
 }
 
+async function getBroadcastMessages() {
+    try {
+        const today = new Date();
+        const broadcasts = await models.Broadcast.findAll({
+            where: {
+                broadcast_send_date: {
+                    [models.Sequelize.Op.lte]: today
+                },
+                broadcast_expiry_date: {
+                    [models.Sequelize.Op.gte]: today
+                }
+            }
+        });
+        return broadcasts;
+    } catch (error) {
+        console.log(error);
+        throw error;
+    }
+}
+
+
 module.exports = {
     createBroadcast,
     updateBroadcast,
     deleteBroadcast,
-    getAllBroadcasts
+    getAllBroadcasts,
+    getBroadcastMessages
 };
