@@ -1,5 +1,5 @@
 const Joi = require('joi');
-const { studentLoanRequest, updateLoanRequest, deleteLoanRequest, getAllLoanRequests, updateAdminRemarksAndStatusLoan  } = require("../controllers/loans");
+const { studentLoanRequest, updateLoanRequest, deleteLoanRequest, getLoanDetailsByStudentId, updateAdminRemarksAndStatusLoan  } = require("../controllers/loans");
 
 const loanRequestDetailsSchema = Joi.object({
     student_id: Joi.number().integer().required(),
@@ -14,6 +14,7 @@ const loanRequestDetailsSchema = Joi.object({
 });
 
 const updateLoanRequestSchema = Joi.object({
+    student_id: Joi.number().integer().required(),
     university_name: Joi.string().required(),
     course_title: Joi.string().required(),
     course_start_date: Joi.date().required(),
@@ -21,6 +22,11 @@ const updateLoanRequestSchema = Joi.object({
     loan_amount: Joi.number().integer().required(),
     notes: Joi.string().optional(),
     loan_request_updated_at: Joi.date().default(() => new Date()),
+});
+
+const updateAdminRemarksAndStatusSchemaLoan = Joi.object({
+    admin_remarks: Joi.string().optional(),
+    status: Joi.string().optional(),
 });
 
 async function loanRequest(req, res) {
@@ -83,11 +89,11 @@ async function handleGetLoanDetailsByStudentId(req, res) {
 
 async function handleUpdateAdminRemarksAndStatusLoan(req, res) {
     try {
-        const { error, value } = updateAdminRemarksAndStatusSchema.validate(req.body);
+        const { error, value } = updateAdminRemarksAndStatusSchemaLoan.validate(req.body);
         if (error) {
             throw new Error(error.details[0].message);
         }
-        const result = await updateAdminRemarksAndStatus(req.params.id, value);
+        const result = await updateAdminRemarksAndStatusLoan(req.params.id, value);
         res.send(result);
     } catch (error) {
         res.statusCode = 400;
