@@ -20,8 +20,9 @@ const Login = ({ isOpen, toggle, signUp }) => {
   const handleLogin = async () => {
     try {
       const userData = await loginApi({
-        email: form?.email,
-        password: form?.password,
+        student_email: form?.email,
+        student_password: form?.password,
+        passcode: form?.passcode,
       });
       localStorage.setItem("authToken", userData.token);
       localStorage.setItem("user", JSON.stringify(userData));
@@ -60,6 +61,7 @@ const Login = ({ isOpen, toggle, signUp }) => {
   const handleSubmit = () => {
     if (validate()) {
       console.log("Form is valid");
+      handleLogin();
       // handleLogin(); // Uncomment to call the handleLogin function
     }
   };
