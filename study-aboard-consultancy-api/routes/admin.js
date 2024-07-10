@@ -8,6 +8,7 @@ const { createUniversity, updateUniversity, deleteUniversity, getAllUniversities
 const { createCourse, updateCourse, deleteCourse, getCoursesByUniversity } = require('../controllers/course');
 const { createBroadcast, updateBroadcast, deleteBroadcast, getAllBroadcasts, getBroadcastMessages } = require('../controllers/broadcast');
 const { updateApplication } = require('../controllers/application');
+const { validateToken } = require('../controllers/student');
 
 const universitySchema = Joi.object({
     university_name: Joi.string().required(),
@@ -136,7 +137,7 @@ router.get('/admin/medicalinsurance-requests', async (req, res) => {
     }
 });
 
-router.post('/admin/create-university', async (req, res) => {
+router.post('/admin/create-university', validateToken, async (req, res) => {
     try {
         const { error, value } = universitySchema.validate(req.body);
         if (error) {
@@ -150,7 +151,7 @@ router.post('/admin/create-university', async (req, res) => {
     }
 });
 
-router.put('/admin/update-university/:id', async (req, res) => {
+router.put('/admin/update-university/:id', validateToken, async (req, res) => {
     try {
         const { error, value } = updateUniversitySchema.validate(req.body);
         if (error) {
@@ -164,7 +165,7 @@ router.put('/admin/update-university/:id', async (req, res) => {
     }
 });
 
-router.delete('/admin/delete-university/:id', async (req, res) => {
+router.delete('/admin/delete-university/:id', validateToken, async (req, res) => {
     try {
         const result = await deleteUniversity(req.params.id);
         res.status(200).json(result);
@@ -173,7 +174,7 @@ router.delete('/admin/delete-university/:id', async (req, res) => {
     }
 });
 
-router.post('/admin/create-course', async (req, res) => {
+router.post('/admin/create-course', validateToken, async (req, res) => {
     try {
         const { error, value } = courseSchema.validate(req.body);
         if (error) {
@@ -187,7 +188,7 @@ router.post('/admin/create-course', async (req, res) => {
     }
 });
 
-router.put('/admin/update-course/:id', async (req, res) => {
+router.put('/admin/update-course/:id', validateToken, async (req, res) => {
     try {
         const { error, value } = updateCourseSchema.validate(req.body);
         if (error) {
@@ -201,7 +202,7 @@ router.put('/admin/update-course/:id', async (req, res) => {
     }
 });
 
-router.delete('/admin/delete-course/:id', async (req, res) => {
+router.delete('/admin/delete-course/:id',validateToken, async (req, res) => {
     try {
         const result = await deleteCourse(req.params.id);
         res.status(200).json(result);
@@ -228,7 +229,7 @@ router.get('/admin/university/:id/courses', async (req, res) => {
     }
 });
 
-router.post('/admin/create-broadcast', async (req, res) => {
+router.post('/admin/create-broadcast', validateToken, async (req, res) => {
     try {
         const { error, value } = broadcastSchema.validate(req.body);
         if (error) {
@@ -242,7 +243,7 @@ router.post('/admin/create-broadcast', async (req, res) => {
     }
 });
 
-router.put('/admin/update-broadcast/:id', async (req, res) => {
+router.put('/admin/update-broadcast/:id', validateToken, async (req, res) => {
     try {
         const { error, value } = updateBroadcastSchema.validate(req.body);
         if (error) {
@@ -256,7 +257,7 @@ router.put('/admin/update-broadcast/:id', async (req, res) => {
     }
 });
 
-router.delete('/admin/delete-broadcast/:id', async (req, res) => {
+router.delete('/admin/delete-broadcast/:id', validateToken, async (req, res) => {
     try {
         const result = await deleteBroadcast(req.params.id);
         res.status(200).json(result);
@@ -283,7 +284,7 @@ router.get('/broadcastmessages', async (req, res) => {
     }
 });
 
-router.put('/admin/update-application', async (req, res) => {
+router.put('/admin/update-application', validateToken,  async (req, res) => {
     try {
         const { error, value } = updateApplicationSchema.validate(req.body);
         if (error) {
