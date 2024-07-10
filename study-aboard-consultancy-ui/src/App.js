@@ -11,6 +11,7 @@ import Home from "./pages/home/Home";
 import { AuthProvider } from "./utilities/AuthProvider";
 import ProtectedRoute from "./utilities/ProtectedRoute";
 import Universaty from "./pages/admin/universaties/Universaty";
+import Loans from "./pages/admin/loans/Loans";
 
 function App() {
   return (
@@ -25,6 +26,9 @@ function App() {
 
           <Route element={<ProtectedRoute role="Admin" />}>
             <Route path="/admindashboard" element={<Universaty />} />
+          </Route>
+          <Route element={<ProtectedRoute role="Admin" />}>
+            <Route path="/loans" element={<Loans />} />
           </Route>
           <Route element={<ProtectedRoute role="Student" />}>
             <Route path="/studentdashboard" element={<div>Student</div>} />
