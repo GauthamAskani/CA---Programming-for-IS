@@ -68,3 +68,22 @@
         font-weight: 600;
     }
 }
+
+.common-input {
+    width: 100%;
+    height: 50px;
+    border-radius: 25px;
+    border: none;
+    outline: none;
+    font-weight: 300;
+    padding: 0px 20px;
+    font-size: 14px;
+    margin-bottom: 30px;
+    position: relative;
+    z-index: 3;
+    border: 1px dashed #0f363f;
+}
+
+.common-input::placeholder {
+    font-size: 14px;
+}

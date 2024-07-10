@@ -1,13 +1,12 @@
 import React, { useState } from "react";
 import { Modal, ModalBody, ModalHeader } from "reactstrap";
-// import { loginApi } from "../../api/api/apis";
-// import { useAuth } from "../../api/routeauth/RouteAuth";
 import { useNavigate } from "react-router-dom";
 import "./login.scss";
+import { toast } from "react-toastify";
+import { loginApi } from "../../apis/componentsApis";
 
 const Login = ({ isOpen, toggle, signUp }) => {
   const [form, setForm] = useState({});
-  //   const { login } = useAuth();
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -18,38 +17,50 @@ const Login = ({ isOpen, toggle, signUp }) => {
     });
   };
 
+  const handleLogin = async () => {
+    try {
+      const userData = await loginApi({
+        email: form?.email,
+        password: form?.password,
+      });
+      localStorage.setItem("authToken", userData.token);
+      localStorage.setItem("user", JSON.stringify(userData));
+      // login();
+      toast.success("Login successfully");
+      toggle();
+      if (userData?.role === "Admin") navigate("/admindashboard");
+      else navigate("/interview");
+    } catch (error) {
+      toast.error(error?.response?.data?.error);
+      console.error("Error fetching user data:", error?.error);
+    }
+  };
+
   const validate = () => {
     if (!form?.email) {
+      toast.error("Please enter your email.");
       return false;
     }
     if (!form?.password) {
+      toast.error("Please enter your password.");
+      return false;
+    }
+    if (!form?.passcode) {
+      toast.error("Please enter your passcode.");
+      return false;
+    }
+    if (!/^\d{6}$/.test(form.passcode)) {
+      toast.error("Please enter correct Passcode ");
       return false;
     }
 
     return true;
   };
 
-  //   const handleLogin = async () => {
-  //     try {
-  //       const userData = await loginApi({
-  //         email: form?.email,
-  //         password: form?.password,
-  //       });
-  //       localStorage.setItem("authToken", userData.token);
-  //       localStorage.setItem("user", JSON.stringify(userData));
-  //       login();
-  //       toast.success("Login successfully");
-  //       toggle();
-  //       if (userData?.role === "Admin") navigate("/admindashboard");
-  //       else navigate("/interview");
-  //     } catch (error) {
-  //       toast.error(error?.response?.data?.error);
-  //       console.error("Error fetching user data:", error?.error);
-  //     }
-  //   };
   const handleSubmit = () => {
     if (validate()) {
-      //   handleLogin();
+      console.log("Form is valid");
+      // handleLogin(); // Uncomment to call the handleLogin function
     }
   };
 
@@ -60,11 +71,11 @@ const Login = ({ isOpen, toggle, signUp }) => {
       </ModalHeader>
       <ModalBody className="signin-modal-wrapper">
         <form className="add-application-wrapper">
-          <div class="contact-us sign-in-wrapper">
-            <div class="contact-us-content">
-              <form id="contact-form" action="" method="post">
-                <div class="row">
-                  <div class="col-lg-12">
+          <div className="contact-us sign-in-wrapper">
+            <div className="contact-us-content">
+              <form id="contact-form">
+                <div className="row">
+                  <div className="col-lg-12">
                     <fieldset>
                       <input
                         type="email"
@@ -78,7 +89,7 @@ const Login = ({ isOpen, toggle, signUp }) => {
                       />
                     </fieldset>
                   </div>
-                  <div class="col-lg-12">
+                  <div className="col-lg-12">
                     <fieldset>
                       <input
                         type="password"
@@ -91,13 +102,26 @@ const Login = ({ isOpen, toggle, signUp }) => {
                       />
                     </fieldset>
                   </div>
-                  <div class="col-lg-12 text-end">
+                  <div className="col-lg-12">
+                    <fieldset>
+                      <input
+                        type="password"
+                        name="passcode"
+                        id="passcode"
+                        value={form?.passcode || ""}
+                        onChange={handleChange}
+                        placeholder="Your Passcode..."
+                        required
+                      />
+                    </fieldset>
+                  </div>
+                  <div className="col-lg-12 text-end">
                     <fieldset>
                       <button
                         type="button"
                         onClick={handleSubmit}
                         id="form-submit"
-                        class="orange-button"
+                        className="orange-button"
                       >
                         Sign In
                       </button>
