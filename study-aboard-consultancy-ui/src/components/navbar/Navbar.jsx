@@ -2,9 +2,11 @@ import React, { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./Navbar.scss";
 import Login from "../login/Login";
+import SignUp from "../signup/SignUp";
 
 const Navbar = () => {
   const [login, setLogin] = useState(false);
+  const [signUp, setSignUp] = useState(false);
   return (
     <nav className="navbar navbar-expand-lg navbar-light  custom-navbar">
       <div className="container">
@@ -49,7 +51,15 @@ const Navbar = () => {
           >
             Log in
           </button>
-          <button className="btn btn-dark ms-2">Sign up</button>
+          <button
+            type="button"
+            onClick={() => {
+              setSignUp(true);
+            }}
+            className="btn btn-dark ms-2"
+          >
+            Sign up
+          </button>
         </div>
       </div>
       {login && (
@@ -59,6 +69,15 @@ const Navbar = () => {
             setLogin(false);
           }}
           signUp={() => {}}
+        />
+      )}
+      {signUp && (
+        <SignUp
+          isOpen={signUp}
+          toggle={() => {
+            setSignUp(false);
+          }}
+          signIn={() => {}}
         />
       )}
     </nav>
