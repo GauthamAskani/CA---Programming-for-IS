@@ -5,119 +5,145 @@ import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
-import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
-
-const columns = [
-  { id: "name", label: "Name", minWidth: 170 },
-  { id: "code", label: "ISO\u00a0Code", minWidth: 100 },
-  {
-    id: "population",
-    label: "Population",
-    minWidth: 170,
-    align: "right",
-    format: (value) => value.toLocaleString("en-US"),
-  },
-  {
-    id: "size",
-    label: "Size\u00a0(km\u00b2)",
-    minWidth: 170,
-    align: "right",
-    format: (value) => value.toLocaleString("en-US"),
-  },
-  {
-    id: "density",
-    label: "Density",
-    minWidth: 170,
-    align: "right",
-    format: (value) => value.toFixed(2),
-  },
-];
-
-function createData(name, code, population, size) {
-  const density = population / size;
-  return { name, code, population, size, density };
-}
-
-const rows = [
-  createData("India", "IN", 1324171354, 3287263),
-  createData("China", "CN", 1403500365, 9596961),
-  createData("Italy", "IT", 60483973, 301340),
-  createData("United States", "US", 327167434, 9833520),
-  createData("Canada", "CA", 37602103, 9984670),
-  createData("Australia", "AU", 25475400, 7692024),
-  createData("Germany", "DE", 83019200, 357578),
-  createData("Ireland", "IE", 4857000, 70273),
-  createData("Mexico", "MX", 126577691, 1972550),
-  createData("Japan", "JP", 126317000, 377973),
-  createData("France", "FR", 67022000, 640679),
-  createData("United Kingdom", "GB", 67545757, 242495),
-  createData("Russia", "RU", 146793744, 17098246),
-  createData("Nigeria", "NG", 200962417, 923768),
-  createData("Brazil", "BR", 210147125, 8515767),
-];
+import { Card, CardContent } from "@mui/material";
+import { getMedicalList } from "../../../apis/universaty";
+import Imodal from "../../../components/insurance/InsuranceModal";
 
 export default function MedicalInsurance() {
-  const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(10);
+  const [jobsData, setJobsData] = React.useState([
+    {
+      medical_insurance_id: 1,
+      student_id: 2,
+      cover_start_date: "2023-12-31T18:30:00.000Z",
+      cover_end_date: "2024-12-31T18:30:00.000Z",
+      destination_country: "Ireland",
+      university_name: "National University of Ireland",
+      course_title: "Information Technology",
+      course_cost: 15000,
+      course_start_date: "2023-12-31T18:30:00.000Z",
+      course_end_date: "2024-12-31T18:30:00.000Z",
+      student_notes: "Updated Details the medical insurance",
+      admin_remarks: "In Progress Review",
+      status: "Processed",
+      medical_insurance_created_at: "2024-07-10T05:09:19.000Z",
+      medical_insurance_updated_at: "2024-07-10T05:18:50.000Z",
+      medical_insurance_deleted_at: null,
+    },
+  ]);
+  const [modal, setModal] = React.useState(false);
+  const [activeItem, setActiveItem] = React.useState(null);
+  const [deleteModal, setDeleteModal] = React.useState(false);
 
-  const handleChangePage = (event, newPage) => {
-    setPage(newPage);
+  const header = [
+    "medical_insurance_id",
+    "cover_start_date",
+    "cover_end_date",
+    "destination_country",
+    "Uuniversity_name",
+    "course_title",
+    "course_cost",
+    "course_start_date",
+    "course_end_date",
+    "student_notes",
+    "admin_remarks",
+    "status",
+    "Actions",
+  ];
+
+  const handleGetMedicalInsurance = async () => {
+    try {
+      const res = await getMedicalList();
+      console.log(("data", res));
+      setJobsData(res);
+    } catch (e) {
+      console.log("er->", e);
+    }
   };
 
-  const handleChangeRowsPerPage = (event) => {
-    setRowsPerPage(+event.target.value);
-    setPage(0);
-  };
+  React.useEffect(() => {
+    // handleGetMedicalInsurance();
+  }, []);
 
   return (
-    <Paper sx={{ width: "100%", overflow: "hidden" }}>
-      <TableContainer sx={{ maxHeight: 440 }}>
-        <Table stickyHeader aria-label="sticky table">
-          <TableHead>
-            <TableRow>
-              {columns.map((column) => (
-                <TableCell
-                  key={column.id}
-                  align={column.align}
-                  style={{ minWidth: column.minWidth }}
-                >
-                  {column.label}
-                </TableCell>
-              ))}
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {rows
-              .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-              .map((row) => {
-                return (
-                  <TableRow hover role="checkbox" tabIndex={-1} key={row.code}>
-                    {columns.map((column) => {
-                      const value = row[column.id];
-                      return (
-                        <TableCell key={column.id} align={column.align}>
-                          {column.format && typeof value === "number"
-                            ? column.format(value)
-                            : value}
-                        </TableCell>
-                      );
-                    })}
-                  </TableRow>
-                );
-              })}
-          </TableBody>
-        </Table>
-      </TableContainer>
-      <TablePagination
-        rowsPerPageOptions={[10, 25, 100]}
-        component="div"
-        count={rows.length}
-        rowsPerPage={rowsPerPage}
-        page={page}
-        onPageChange={handleChangePage}
-        onRowsPerPageChange={handleChangeRowsPerPage}
-      />
-    </Paper>
+    <div className="user-wrapper p-5">
+      {" "}
+      <Card
+        style={{
+          marginTop: "2rem",
+          backgroundColor: "#ffffff",
+          minHeight: "300px",
+        }}
+      >
+        <CardContent>
+          <div className="d-flex justify-content-between mb-3">
+            <h4 style={{ fontFamily: "Poppins !important", color: "orange" }}>
+              Medical Insurance
+            </h4>
+          </div>
+
+          <TableContainer component={Paper}>
+            <Table>
+              <TableHead>
+                <TableRow>
+                  {header?.map((item) => (
+                    <TableCell key={item}>{item}</TableCell>
+                  ))}
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {jobsData && jobsData?.length ? (
+                  jobsData?.map((app, index) => (
+                    <TableRow hover key={index}>
+                      <TableCell className="title-wrapper">
+                        {app?.medical_insurance_id ||
+                          "National College of Ireland"}
+                      </TableCell>
+
+                      <TableCell>{app?.cover_start_date || "-"}</TableCell>
+                      <TableCell>{app?.cover_end_date || "-"}</TableCell>
+                      <TableCell>{app?.destination_country || "-"}</TableCell>
+                      <TableCell>{app?.university_name || "-"}</TableCell>
+                      <TableCell>{app?.course_title || "-"}</TableCell>
+                      <TableCell>{app?.course_cost || "-"}</TableCell>
+                      <TableCell>{app?.course_start_date || "-"}</TableCell>
+                      <TableCell>{app?.course_end_date || "-"}</TableCell>
+                      <TableCell>{app?.student_notes || "-"}</TableCell>
+                      <TableCell>{app?.admin_remarks || "-"}</TableCell>
+                      <TableCell>{app?.status || "-"}</TableCell>
+
+                      <TableCell sx={{ minWidth: "200px" }}>
+                        <button
+                          onClick={() => {
+                            setModal(true);
+                            setActiveItem(app);
+                          }}
+                          className="mr-2"
+                        >
+                          Edit
+                        </button>
+                      </TableCell>
+                    </TableRow>
+                  ))
+                ) : (
+                  <p className="text-center">No Data Found</p>
+                )}
+              </TableBody>
+            </Table>
+          </TableContainer>
+        </CardContent>
+      </Card>
+      {modal && (
+        <Imodal
+          isOpen={modal}
+          toggle={() => {
+            setModal(false);
+            setActiveItem(null);
+          }}
+          activeItem={activeItem}
+          setActiveItem={setActiveItem}
+        />
+      )}
+    </div>
   );
 }
