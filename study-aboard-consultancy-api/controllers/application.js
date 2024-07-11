@@ -67,9 +67,40 @@ async function getApplications(filters) {
         }
 
         const applications = await models.Application.findAll({
-            where: where
+            where: where,
+            include: [
+                {
+                    model: models.Student,
+                    attributes: ['student_first_name', 'student_family_name'],
+                },
+                {
+                    model: models.University,
+                    attributes: ['university_name'],
+                },
+                {
+                    model: models.Course,
+                    attributes: ['course_name'],
+                }
+            ]
         });
-        return applications;
+
+        return applications.map(application => {
+            return {
+                application_id: application.application_id,
+                student_id: application.student_id,
+                student_name: `${application.Student.student_first_name} ${application.Student.student_family_name}`,
+                university_id: application.university_id,
+                university_name: application.University.university_name,
+                course_id: application.course_id,
+                course_name: application.Course.course_name,
+                student_notes: application.student_notes,
+                application_status: application.application_status,
+                admin_remarks: application.admin_remarks,
+                application_created_at: application.application_created_at,
+                application_updated_at: application.application_updated_at,
+                application_deleted_at: application.application_deleted_at
+            };
+        });
     } catch (error) {
         console.log(error);
         throw error;
