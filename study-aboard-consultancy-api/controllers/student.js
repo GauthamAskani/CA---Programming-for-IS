@@ -189,7 +189,7 @@ async function validateToken(req, res, next) {
         if (err) {
             return res.status(500).json({ error: 'Failed to authenticate token' });
         }
-        console(decoded,sub);
+        console.log(decoded.sub);
         next();
     });
 }
