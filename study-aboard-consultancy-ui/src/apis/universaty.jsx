@@ -1,4 +1,15 @@
+import { toast } from "react-toastify";
 import axiosInstance from "../utilities/AxiosInstance";
+
+const handleError = (error) => {
+  toast.error(
+    error?.response?.data?.messsage ||
+      error?.response?.data?.error ||
+      error?.message ||
+      error?.error?.error ||
+      "Something went wrong"
+  );
+};
 
 export const createUniversaty = async (data) => {
   try {
@@ -6,6 +17,7 @@ export const createUniversaty = async (data) => {
     return response.data;
   } catch (error) {
     console.error("Error fetching user data:", error);
+    handleError(error);
     throw error;
   }
 };
@@ -16,6 +28,7 @@ export const getUniversatyList = async () => {
     return response.data;
   } catch (error) {
     console.error("Error fetching user data:", error);
+
     throw error;
   }
 };
@@ -29,16 +42,20 @@ export const editUniversaty = async (data, id) => {
     return response.data;
   } catch (error) {
     console.error("Error fetching user data:", error);
+    handleError(error);
     throw error;
   }
 };
 
 export const deleteUniversaty = async (id) => {
   try {
-    const response = await axiosInstance.put(`/admin/delete-university/${id}`);
+    const response = await axiosInstance.delete(
+      `/admin/delete-university/${id}`
+    );
     return response.data;
   } catch (error) {
     console.error("Error fetching user data:", error);
+    handleError(error);
     throw error;
   }
 };
@@ -59,6 +76,7 @@ export const createCourse = async (data) => {
     return response.data;
   } catch (error) {
     console.error("Error fetching user data:", error);
+    handleError(error);
     throw error;
   }
 };
@@ -71,6 +89,7 @@ export const editCourse = async (data, id) => {
     );
     return response.data;
   } catch (error) {
+    handleError(error);
     console.error("Error fetching user data:", error);
     throw error;
   }
@@ -78,9 +97,10 @@ export const editCourse = async (data, id) => {
 
 export const deleteCourse = async (id) => {
   try {
-    const response = await axiosInstance.put(`/admin/delete-course/${id}`);
+    const response = await axiosInstance.delete(`/admin/delete-course/${id}`);
     return response.data;
   } catch (error) {
+    handleError(error);
     console.error("Error fetching user data:", error);
     throw error;
   }
@@ -106,6 +126,7 @@ export const editInsurance = async (data, id) => {
     );
     return response.data;
   } catch (error) {
+    handleError(error);
     console.error("Error fetching user data:", error);
     throw error;
   }
@@ -116,6 +137,7 @@ export const editLoan = async (data, id) => {
     const response = await axiosInstance.put(`/admin/update-loan/${id}`, data);
     return response.data;
   } catch (error) {
+    handleError(error);
     console.error("Error fetching user data:", error);
     throw error;
   }
@@ -143,9 +165,12 @@ export const getBroadCastList = async () => {
 
 export const deleteBroadcast = async (id) => {
   try {
-    const response = await axiosInstance.put(`/admin/delete-broadcast/${id}`);
+    const response = await axiosInstance.delete(
+      `/admin/delete-broadcast/${id}`
+    );
     return response.data;
   } catch (error) {
+    handleError(error);
     console.error("Error fetching user data:", error);
     throw error;
   }
@@ -156,6 +181,7 @@ export const createBroadcast = async (data) => {
     const response = await axiosInstance.post("/admin/create-broadcast", data);
     return response.data;
   } catch (error) {
+    handleError(error);
     console.error("Error fetching user data:", error);
     throw error;
   }
@@ -169,6 +195,7 @@ export const editBroadcast = async (data, id) => {
     );
     return response.data;
   } catch (error) {
+    handleError(error);
     console.error("Error fetching user data:", error);
     throw error;
   }
@@ -179,6 +206,7 @@ export const editApplication = async (data, id) => {
     const response = await axiosInstance.put(`/admin/update-application`, data);
     return response.data;
   } catch (error) {
+    handleError(error);
     console.error("Error fetching user data:", error);
     throw error;
   }
@@ -198,9 +226,10 @@ export const getApplication = async (data) => {
 
 export const deleteApplication = async (id) => {
   try {
-    const response = await axiosInstance.get(`/delete-application/${id}`);
+    const response = await axiosInstance.delete(`/delete-application/${id}`);
     return response.data;
   } catch (error) {
+    handleError(error);
     console.error("Error fetching user data:", error);
     throw error;
   }
@@ -244,6 +273,7 @@ export const updateDocument = async (data, id) => {
     );
     return response.data;
   } catch (error) {
+    handleError(error);
     console.error("Error fetching user data:", error);
     throw error;
   }

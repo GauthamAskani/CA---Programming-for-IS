@@ -1,11 +1,23 @@
 import axios from "axios";
 import axiosInstance from "../utilities/AxiosInstance";
+import { toast } from "react-toastify";
+
+export const handleError = (error) => {
+  toast.error(
+    error?.response?.data?.messsage ||
+      error?.response?.data?.error ||
+      error?.message ||
+      error?.error?.error ||
+      "Something went wrong"
+  );
+};
 
 export const createApplication = async (data) => {
   try {
     const response = await axiosInstance.post("/create-application", data);
     return response.data;
   } catch (error) {
+    handleError(error);
     console.error("Error fetching user data:", error);
     throw error;
   }
@@ -13,9 +25,13 @@ export const createApplication = async (data) => {
 
 export const editApplication = async (data, id) => {
   try {
-    const response = await axiosInstance.put(`/update-application/${id}`, data);
+    const response = await axiosInstance.put(
+      `/update-application/${Number(id)}`,
+      data
+    );
     return response.data;
   } catch (error) {
+    handleError(error);
     console.error("Error fetching user data:", error);
     throw error;
   }
@@ -29,6 +45,7 @@ export const createMediacalInsurance = async (data) => {
     );
     return response.data;
   } catch (error) {
+    handleError(error);
     console.error("Error fetching user data:", error);
     throw error;
   }
@@ -51,6 +68,7 @@ export const deleteStudentMedicalInsurance = async (id) => {
     );
     return response.data;
   } catch (error) {
+    handleError(error);
     console.error("Error fetching user data:", error);
     throw error;
   }
@@ -64,6 +82,7 @@ export const editInsurance = async (data, id) => {
     );
     return response.data;
   } catch (error) {
+    handleError(error);
     console.error("Error fetching user data:", error);
     throw error;
   }
@@ -93,6 +112,7 @@ export const uploadDocument = async (data) => {
     );
     return response.data;
   } catch (error) {
+    handleError(error);
     console.error("Error fetching user data:", error);
     throw error;
   }
@@ -123,6 +143,7 @@ export const createStudentLoan = async (data) => {
     const response = await axiosInstance.post(`/request-loan`, data);
     return response.data;
   } catch (error) {
+    handleError(error);
     console.error("Error fetching user data:", error);
     throw error;
   }
@@ -133,6 +154,7 @@ export const editLoan = async (data, id) => {
     const response = await axiosInstance.put(`/update-loan/${id}`, data);
     return response.data;
   } catch (error) {
+    handleError(error);
     console.error("Error fetching user data:", error);
     throw error;
   }
@@ -143,6 +165,7 @@ export const deleteStudentLoan = async (id) => {
     const response = await axiosInstance.delete(`/delete-loan/${id}`);
     return response.data;
   } catch (error) {
+    handleError(error);
     console.error("Error fetching user data:", error);
     throw error;
   }
