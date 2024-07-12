@@ -78,9 +78,6 @@ async function handleGetLoanDetailsByStudentId(req, res) {
     try {
         const { student_id } = req.params;
         const result = await getLoanDetailsByStudentId(student_id);
-        if (!result.length) {
-            return res.status(404).json({ error: 'No loan details found for this student' });
-        }
         res.status(200).json(result);
     } catch (error) {
         res.status(500).json({ error: 'Internal server error' });
