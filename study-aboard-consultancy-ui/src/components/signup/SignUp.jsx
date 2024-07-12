@@ -72,7 +72,7 @@ const SignUp = ({ isOpen, toggle, signIn }) => {
       student_email: form?.email || "",
       student_password: form?.password || "",
       student_status: "false",
-
+      role: "Student",
       student_document_status: "false",
     };
     await createAccount(payload);

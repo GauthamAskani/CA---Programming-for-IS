@@ -3,13 +3,23 @@ import { toast } from "react-toastify";
 import { Modal, ModalBody, ModalHeader } from "reactstrap";
 import { editInsurance, editLoan } from "../../apis/universaty";
 import { uploadDocument } from "../../apis/studentapi";
+import { useAuth } from "../../utilities/AuthProvider";
 
 const inIt = {
   admin_remarks: "",
   status: "",
 };
-const UDmodal = ({ isOpen, toggle, activeItem, setActiveItem, mode }) => {
+const UDmodal = ({
+  isOpen,
+  toggle,
+  activeItem,
+  setActiveItem,
+  mode,
+  handleGetMedicalInsurance,
+}) => {
   const [form, setForm] = useState(inIt);
+
+  const { auth } = useAuth();
 
   const handleChange = (e) => {
     const { name, value, files } = e.target;
@@ -40,20 +50,17 @@ const UDmodal = ({ isOpen, toggle, activeItem, setActiveItem, mode }) => {
     return true;
   };
 
-  const createPayload = () => {
-    return {
-      document_category: form.status,
-      notes: form.notes,
-      file: form.file,
-      document_type: form.file.type,
-    };
-  };
-
   const handleUpload = async () => {
     try {
       const formData = new FormData();
-      await uploadDocument(form, activeItem?.medical_insurance_id);
+      formData.append("document_category", form.document_category);
+      formData.append("notes", form.notes);
+      formData.append("file", form.file);
+      formData.append("document_type", form.file.type);
+      formData.append("student_id", auth?.user?.student_id);
+      await uploadDocument(formData);
       setForm(inIt);
+      handleGetMedicalInsurance();
       setActiveItem(null);
       toast.success("Saved Successfully");
       toggle();
@@ -65,6 +72,7 @@ const UDmodal = ({ isOpen, toggle, activeItem, setActiveItem, mode }) => {
   const handleSubmit = () => {
     console.log("submit");
     if (validate()) {
+      handleUpload();
       //   handleEditUniversaty();
     }
   };
@@ -112,7 +120,7 @@ const UDmodal = ({ isOpen, toggle, activeItem, setActiveItem, mode }) => {
                         <select
                           name="document_category"
                           className="common-input"
-                          value={form.status}
+                          value={form.document_category}
                           required
                           onChange={handleChange}
                         >

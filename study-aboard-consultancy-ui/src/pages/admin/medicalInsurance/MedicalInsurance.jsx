@@ -11,26 +11,7 @@ import { getMedicalList } from "../../../apis/universaty";
 import Imodal from "../../../components/insurance/InsuranceModal";
 
 export default function MedicalInsurance() {
-  const [jobsData, setJobsData] = React.useState([
-    {
-      medical_insurance_id: 1,
-      student_id: 2,
-      cover_start_date: "2023-12-31T18:30:00.000Z",
-      cover_end_date: "2024-12-31T18:30:00.000Z",
-      destination_country: "Ireland",
-      university_name: "National University of Ireland",
-      course_title: "Information Technology",
-      course_cost: 15000,
-      course_start_date: "2023-12-31T18:30:00.000Z",
-      course_end_date: "2024-12-31T18:30:00.000Z",
-      student_notes: "Updated Details the medical insurance",
-      admin_remarks: "In Progress Review",
-      status: "Processed",
-      medical_insurance_created_at: "2024-07-10T05:09:19.000Z",
-      medical_insurance_updated_at: "2024-07-10T05:18:50.000Z",
-      medical_insurance_deleted_at: null,
-    },
-  ]);
+  const [jobsData, setJobsData] = React.useState([]);
   const [modal, setModal] = React.useState(false);
   const [activeItem, setActiveItem] = React.useState(null);
   const [deleteModal, setDeleteModal] = React.useState(false);
@@ -62,7 +43,7 @@ export default function MedicalInsurance() {
   };
 
   React.useEffect(() => {
-    // handleGetMedicalInsurance();
+    handleGetMedicalInsurance();
   }, []);
 
   return (
@@ -137,6 +118,7 @@ export default function MedicalInsurance() {
         <Imodal
           isOpen={modal}
           toggle={() => {
+            handleGetMedicalInsurance();
             setModal(false);
             setActiveItem(null);
           }}

@@ -25,18 +25,7 @@ import Cmodal from "../../../components/coursemodal/CourseModal";
 import Bmodal from "../../../components/broadcastModal/BroadCastModal";
 
 export default function BroadCast() {
-  const [jobsData, setJobsData] = React.useState([
-    {
-      broadcast_id: 1,
-      broadcast_title: "Student High Offers",
-      broadcast_message: "Hello Students Great offer residing",
-      broadcast_send_date: "2024-07-09T18:30:00.000Z",
-      broadcast_expiry_date: "2024-01-10T18:30:00.000Z",
-      broadcast_created_at: "2024-07-10T11:52:25.000Z",
-      broadcast_updated_at: "2024-07-10T11:54:02.000Z",
-      broadcast_deleted_at: null,
-    },
-  ]);
+  const [jobsData, setJobsData] = React.useState([]);
   const [modal, setModal] = React.useState(false);
   const [activeItem, setActiveItem] = React.useState(null);
   const [deleteModal, setDeleteModal] = React.useState(false);
@@ -67,6 +56,7 @@ export default function BroadCast() {
     try {
       const res = await deleteBroadcast(activeItem?.broadcast_id);
       console.log(("data", res));
+      handleGetBroadcast();
       setActiveItem(null);
       setDeleteModal(false);
       toast.success("Deleted successfully");
@@ -85,7 +75,7 @@ export default function BroadCast() {
   };
 
   React.useEffect(() => {
-    // handleGetBroadcast();
+    handleGetBroadcast();
   }, []);
 
   return (
@@ -166,6 +156,7 @@ export default function BroadCast() {
         <Bmodal
           isOpen={modal}
           toggle={() => {
+            handleGetBroadcast();
             setModal(false);
             setActiveItem(null);
           }}

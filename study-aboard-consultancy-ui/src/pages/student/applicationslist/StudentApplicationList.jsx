@@ -5,23 +5,15 @@ import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
-import TablePagination from "@mui/material/TablePagination";
+
 import TableRow from "@mui/material/TableRow";
-import moment from "moment";
+
 import { Card, CardContent } from "@mui/material";
-import Umodal from "../../../components/universatymodal/Umodal";
-import {
-  deleteApplication,
-  getApplication,
-  getCoursesList,
-  getMedicalList,
-} from "../../../apis/universaty";
+
+import { deleteApplication, getApplication } from "../../../apis/universaty";
 import { toast } from "react-toastify";
 import AlertModal from "../../../components/alertModal/AlertModal";
-import { useLocation } from "react-router-dom";
-import Cmodal from "../../../components/coursemodal/CourseModal";
-import Imodal from "../../../components/insurance/InsuranceModal";
-import Amodal from "../../../components/applicationmodal/ApplcationModal";
+
 import { useAuth } from "../../../utilities/AuthProvider";
 import Aumodal from "../../../components/applyuniversaty/ApplyUniversaty";
 
@@ -58,6 +50,7 @@ export default function StudentApplicationsList() {
       const res = await deleteApplication(activeItem?.application_id);
       toast.success("Deleted succesfully");
       console.log(("data", res));
+      handleGetApplcations();
       onCancel();
     } catch (e) {
       console.log("er->", e);
@@ -152,6 +145,7 @@ export default function StudentApplicationsList() {
         <Aumodal
           isOpen={modal}
           toggle={() => {
+            handleGetApplcations();
             setModal(false);
             setActiveItem(null);
           }}

@@ -1,11 +1,37 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 body {
-  margin: 0;
-  font-family: poppins !important;
-  background: #f2f7f9 !important;
+    margin: 0;
+    font-family: poppins !important;
+    background: #f2f7f9 !important;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
+    font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
+}
+
+.user-wrapper {
+    background: #f2f7f9 !important;
+}
+
+.MuiPaper-root {
+    background: #f2f7f9 !important;
+}
+
+.MuiTableHead-root {
+    background: #0f363f;
+    color: white !important;
+}
+
+.MuiTableHead-root th {
+    color: #f2f7f9 !important;
+    font-family: Poppins;
+    font-size: 13px !important;
+}
+
+.title-wrapper {
+    color: #0f363f !important;
+    font-size: 18px !important;
+    font-family: Poppins !important;
+    min-height: 100px !important;
+    font-weight: 600 !important;
 }

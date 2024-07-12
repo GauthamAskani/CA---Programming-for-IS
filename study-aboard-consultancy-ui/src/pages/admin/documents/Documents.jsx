@@ -14,23 +14,7 @@ import { Link } from "react-router-dom";
 import { saveAs } from "file-saver";
 
 export default function Documents() {
-  const [jobsData, setJobsData] = React.useState([
-    {
-      document_id: 1,
-      student_id: 2,
-      document_category: "10THMARKSHEET",
-      document_name: "10mark.pdf",
-      document_type: "pdf",
-      document_url:
-        "https://studentaboarddocuments.blob.core.windows.net/studydocumentpdfs/10mark.pdf",
-      notes: "10th marksheet",
-      admin_remarks: "null",
-      status: "Accepted",
-      document_created_at: "2024-07-09T12:13:18.000Z",
-      document_updated_at: null,
-      document_deleted_at: null,
-    },
-  ]);
+  const [jobsData, setJobsData] = React.useState([]);
   const [modal, setModal] = React.useState(false);
   const [activeItem, setActiveItem] = React.useState(null);
 
@@ -63,7 +47,7 @@ export default function Documents() {
   };
 
   React.useEffect(() => {
-    // handleGetDocumentsList();
+    handleGetDocumentsList();
   }, []);
 
   return (
@@ -135,6 +119,7 @@ export default function Documents() {
         <Dmodal
           isOpen={modal}
           toggle={() => {
+            handleGetDocumentsList();
             setModal(false);
             setActiveItem(null);
           }}

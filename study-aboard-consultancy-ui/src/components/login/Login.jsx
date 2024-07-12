@@ -4,9 +4,11 @@ import { useNavigate } from "react-router-dom";
 import "./login.scss";
 import { toast } from "react-toastify";
 import { loginApi } from "../../apis/componentsApis";
+import { useAuth } from "../../utilities/AuthProvider";
 
 const Login = ({ isOpen, toggle, signUp }) => {
   const [form, setForm] = useState({});
+  const { login } = useAuth();
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -26,11 +28,11 @@ const Login = ({ isOpen, toggle, signUp }) => {
       });
       localStorage.setItem("authToken", userData.token);
       localStorage.setItem("user", JSON.stringify(userData));
-      // login();
+      login(userData.token, userData);
       toast.success("Login successfully");
       toggle();
       if (userData?.role === "Admin") navigate("/admindashboard");
-      else navigate("/interview");
+      else navigate("/studentdashboard");
     } catch (error) {
       toast.error(error?.response?.data?.error);
       console.error("Error fetching user data:", error?.error);

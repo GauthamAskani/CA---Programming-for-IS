@@ -38,18 +38,7 @@ export default function DocumentUpload() {
     try {
       const res = await getStudentDocuments(auth?.user?.student_id);
       console.log(("data", res));
-      setJobsData(res || []);
-    } catch (e) {
-      console.log("er->", e);
-    }
-  };
-
-  const handleDeleteMedicalInsurance = async () => {
-    try {
-      await deleteStudentMedicalInsurance(activeItem?.medical_insurance_id);
-      toast.success("Deleted sucessfully");
-      setActiveItem(null);
-      setDeleteModal(false);
+      setJobsData(res?.documents || []);
     } catch (e) {
       console.log("er->", e);
     }
@@ -58,15 +47,6 @@ export default function DocumentUpload() {
   React.useEffect(() => {
     handleGetMedicalInsurance();
   }, []);
-
-  const onConfirm = () => {
-    handleDeleteMedicalInsurance();
-  };
-
-  const onCancel = () => {
-    setActiveItem(null);
-    setDeleteModal(false);
-  };
 
   console.log("jobs data->", jobsData);
 
@@ -136,14 +116,7 @@ export default function DocumentUpload() {
           }}
           activeItem={activeItem}
           setActiveItem={setActiveItem}
-        />
-      )}
-      {deleteModal && (
-        <AlertModal
-          isOpen={deleteModal}
-          onCancel={onCancel}
-          onConfirm={onConfirm}
-          toggle={onCancel}
+          handleGetMedicalInsurance={handleGetMedicalInsurance}
         />
       )}
     </div>

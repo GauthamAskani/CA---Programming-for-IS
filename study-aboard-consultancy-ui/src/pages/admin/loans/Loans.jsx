@@ -22,23 +22,7 @@ import Cmodal from "../../../components/coursemodal/CourseModal";
 import Imodal from "../../../components/insurance/InsuranceModal";
 
 export default function MedicalInsurance() {
-  const [jobsData, setJobsData] = React.useState([
-    {
-      loan_request_id: 1,
-      student_id: 2,
-      university_name: "National College of Ireland",
-      course_title: "Information Technology",
-      course_start_date: "2023-12-31T18:30:00.000Z",
-      loan_type: "Collateral",
-      loan_amount: 15000,
-      notes: "Required loan MU Loan",
-      admin_remarks: null,
-      status: "Applied",
-      loan_request_created_at: "2024-07-10T11:06:26.000Z",
-      loan_request_updated_at: "2024-07-10T11:11:46.000Z",
-      loan_request_deleted_at: null,
-    },
-  ]);
+  const [jobsData, setJobsData] = React.useState([]);
   const [modal, setModal] = React.useState(false);
   const [activeItem, setActiveItem] = React.useState(null);
   const [deleteModal, setDeleteModal] = React.useState(false);
@@ -68,7 +52,7 @@ export default function MedicalInsurance() {
   };
 
   React.useEffect(() => {
-    // handleGetMedicalInsurance();
+    handleGetMedicalInsurance();
   }, []);
 
   return (
@@ -141,6 +125,7 @@ export default function MedicalInsurance() {
         <Imodal
           isOpen={modal}
           toggle={() => {
+            handleGetMedicalInsurance();
             setModal(false);
             setActiveItem(null);
           }}

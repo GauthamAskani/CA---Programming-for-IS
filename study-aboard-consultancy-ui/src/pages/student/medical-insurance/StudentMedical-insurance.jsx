@@ -55,6 +55,7 @@ export default function StudentMedicalInsurance() {
     try {
       await deleteStudentMedicalInsurance(activeItem?.medical_insurance_id);
       toast.success("Deleted sucessfully");
+      handleGetMedicalInsurance();
       setActiveItem(null);
       setDeleteModal(false);
     } catch (e) {
@@ -182,6 +183,7 @@ export default function StudentMedicalInsurance() {
           toggle={() => {
             setModal(false);
             setActiveItem(null);
+            handleGetMedicalInsurance();
           }}
           activeItem={activeItem}
           setActiveItem={setActiveItem}

@@ -10,7 +10,11 @@ import TableRow from "@mui/material/TableRow";
 import moment from "moment";
 import { Card, CardContent } from "@mui/material";
 import Umodal from "../../../components/universatymodal/Umodal";
-import { getCoursesList, getMedicalList } from "../../../apis/universaty";
+import {
+  getApplication,
+  getCoursesList,
+  getMedicalList,
+} from "../../../apis/universaty";
 import { toast } from "react-toastify";
 import AlertModal from "../../../components/alertModal/AlertModal";
 import { useLocation } from "react-router-dom";
@@ -19,20 +23,7 @@ import Imodal from "../../../components/insurance/InsuranceModal";
 import Amodal from "../../../components/applicationmodal/ApplcationModal";
 
 export default function StudentApplication() {
-  const [jobsData, setJobsData] = React.useState([
-    {
-      application_id: 2,
-      student_id: 2,
-      university_id: 1,
-      course_id: 1,
-      student_notes: "Assam",
-      application_status: "Applied",
-      admin_remarks: null,
-      application_created_at: "2024-07-08T20:01:53.000Z",
-      application_updated_at: "2024-07-08T20:05:58.000Z",
-      application_deleted_at: null,
-    },
-  ]);
+  const [jobsData, setJobsData] = React.useState([]);
   const [modal, setModal] = React.useState(false);
   const [activeItem, setActiveItem] = React.useState(null);
   const [deleteModal, setDeleteModal] = React.useState(false);
@@ -50,7 +41,7 @@ export default function StudentApplication() {
 
   const handleGetMedicalInsurance = async () => {
     try {
-      const res = await getMedicalList();
+      const res = await getApplication();
       console.log(("data", res));
       setJobsData(res);
     } catch (e) {
@@ -59,7 +50,7 @@ export default function StudentApplication() {
   };
 
   React.useEffect(() => {
-    // handleGetMedicalInsurance();
+    handleGetMedicalInsurance();
   }, []);
 
   return (
@@ -128,6 +119,7 @@ export default function StudentApplication() {
         <Amodal
           isOpen={modal}
           toggle={() => {
+            handleGetMedicalInsurance();
             setModal(false);
             setActiveItem(null);
           }}

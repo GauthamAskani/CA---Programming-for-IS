@@ -11,24 +11,7 @@ import { Card, CardContent } from "@mui/material";
 import { getStudentList } from "../../../apis/universaty";
 
 export default function StudentList() {
-  const [jobsData, setJobsData] = React.useState([
-    {
-      student_id: 2,
-      student_first_name: "Sandeep",
-      student_family_name: "Monkolla",
-      student_dob: "1999-06-09T18:30:00.000Z",
-      student_gender: "Male",
-      student_country_origin: "India",
-      student_phone_number: "9550008036",
-      student_email: "monkollasandeep000999@gmail.com",
-      student_status: "false",
-      student_document_status: "false",
-      role: "Student",
-      student_created_at: "2024-07-08T17:52:03.000Z",
-      student_updated_at: null,
-      student_deleted_at: null,
-    },
-  ]);
+  const [jobsData, setJobsData] = React.useState([]);
 
   const header = [
     "Name",

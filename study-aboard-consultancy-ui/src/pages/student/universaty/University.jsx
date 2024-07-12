@@ -138,6 +138,7 @@ export default function UniversatyList() {
         <Aumodal
           isOpen={modal}
           toggle={() => {
+            handleGetUniversaties();
             setModal(false);
           }}
           activeItem={activeItem}

@@ -55,6 +55,7 @@ export default function Universaty() {
       console.log(("data", res));
       setActiveItem(null);
       setDeleteModal(false);
+      handleGetUniversaties();
       toast.success("Deleted successfully");
     } catch (e) {
       console.log("er->", e);
@@ -168,6 +169,7 @@ export default function Universaty() {
         <Umodal
           isOpen={modal}
           toggle={() => {
+            handleGetUniversaties();
             setModal(false);
           }}
           activeItem={activeItem}

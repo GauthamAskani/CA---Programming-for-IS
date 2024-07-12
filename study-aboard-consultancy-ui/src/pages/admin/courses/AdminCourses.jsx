@@ -18,35 +18,7 @@ import Cmodal from "../../../components/coursemodal/CourseModal";
 import { useAuth } from "../../../utilities/AuthProvider";
 
 export default function AdminCourses() {
-  const [jobsData, setJobsData] = React.useState([
-    {
-      course_id: 1,
-      university_id: 1,
-      course_name: "AI Technology",
-      course_main_entry_requirements: "The Data big",
-      undergraduate_score_cgpa: "6.5",
-      undergraduate_score_percent: "65",
-      undergraduate_score: "3",
-      score_twelfth: "95",
-      fifteen_years_allowed: "YES",
-      ielts: "6",
-      tofel: "120",
-      pte: "97",
-      duolingo: "95",
-      gmat_score: "650",
-      gre_score: "750",
-      course_degree: "POST GRAIDTAE",
-      course_duration: "12 Months",
-      total_tuition_fee: "15000 EUROS",
-      application_fee: "10 EUROS",
-      course_intake: "JAN & SEP",
-      course_intake_status: "OPEN",
-      course_notes: "JEND US !!",
-      course_created_at: "2024-07-08T19:20:25.000Z",
-      course_updated_at: "2024-07-08T19:25:51.000Z",
-      course_deleted_at: null,
-    },
-  ]);
+  const [jobsData, setJobsData] = React.useState([]);
   const [modal, setModal] = React.useState(false);
   const [activeItem, setActiveItem] = React.useState(null);
   const [deleteModal, setDeleteModal] = React.useState(false);
@@ -94,6 +66,7 @@ export default function AdminCourses() {
     try {
       const res = await deleteCourse(activeItem?.id);
       console.log(("data", res));
+      handleGetUniversatyCourses();
       setActiveItem(null);
       setDeleteModal(false);
       toast.success("Deleted successfully");
@@ -237,6 +210,7 @@ export default function AdminCourses() {
         <Cmodal
           isOpen={modal}
           toggle={() => {
+            handleGetUniversatyCourses();
             setModal(false);
             setActiveItem(null);
           }}
