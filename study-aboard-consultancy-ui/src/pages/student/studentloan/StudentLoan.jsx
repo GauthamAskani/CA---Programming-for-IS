@@ -18,6 +18,7 @@ import moment from "moment";
 import AlertModal from "../../../components/alertModal/AlertModal";
 import { toast } from "react-toastify";
 import SLmodal from "../../../components/studentloan/StudentLoanModal";
+import { useNavigate } from "react-router-dom";
 
 export default function StudentLoan() {
   const [jobsData, setJobsData] = React.useState([]);
@@ -27,16 +28,27 @@ export default function StudentLoan() {
 
   const { auth } = useAuth();
 
+  const navigate = useNavigate();
+
+  React.useEffect(() => {
+    if (
+      auth?.user?.student_document_status === "false" &&
+      auth?.user?.role === "Student"
+    ) {
+      toast.warning("Please upload your documents...");
+      navigate("/studentdashboard");
+    }
+  },[]);
   const header = [
-    "loan_request_id",
-    "university_name",
-    "course_title",
-    "course_start_date",
-    "loan_type",
-    "loan_amount",
-    "notes",
-    "admin_remarks",
-    "status",
+    "Id",
+    "University Name",
+    "Course Title",
+    "Course Start Date",
+    "Loan Type",
+    "Loan Amount",
+    "Notes",
+    "Admin Remarks",
+    "Status",
     "Actions",
   ];
 
@@ -90,14 +102,17 @@ export default function StudentLoan() {
             <h4 style={{ fontFamily: "Poppins !important", color: "orange" }}>
               Student Loan
             </h4>
-            <button
-              onClick={() => {
-                setModal(true);
-              }}
-            >
-              {" "}
-              Add Loan
-            </button>
+            {!jobsData?.length && (
+              <button
+                onClick={() => {
+                  setModal(true);
+                }}
+                className="btn btn-outline-dark ms-3"
+              >
+                {" "}
+                Add Loan
+              </button>
+            )}
           </div>
 
           <TableContainer component={Paper}>
@@ -132,24 +147,24 @@ export default function StudentLoan() {
                       <TableCell>{app?.status || "-"}</TableCell>
 
                       <TableCell sx={{ minWidth: "200px" }}>
-                        <button
+                        <span
                           onClick={() => {
                             setModal(true);
                             setActiveItem(app);
                           }}
-                          className="mr-2"
+                          className="mr-2 button-wrapper-edit"
                         >
                           Edit
-                        </button>
-                        <button
+                        </span>
+                        <span
                           onClick={() => {
                             setActiveItem(app);
                             setDeleteModal(true);
                           }}
-                          className="mr-2"
+                          className="mr-2 button-wrapper-delete"
                         >
                           Delete
-                        </button>
+                        </span>
                       </TableCell>
                     </TableRow>
                   ))
@@ -165,6 +180,7 @@ export default function StudentLoan() {
         <SLmodal
           isOpen={modal}
           toggle={() => {
+            handleGetMedicalInsurance();
             setModal(false);
             setActiveItem(null);
           }}

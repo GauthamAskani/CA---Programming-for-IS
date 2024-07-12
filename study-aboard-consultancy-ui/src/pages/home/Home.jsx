@@ -1,15 +1,27 @@
 import React from "react";
 import "./home.scss";
-import {
-  FaBookReader,
-  FaGlobeAsia,
-  FaUniversity,
-  FaUserFriends,
-} from "react-icons/fa";
-
-// import placeholderImage from "./placeholder-image.jpg"; // Replace with your actual image path
+import { FaBookReader, FaGlobeAsia, FaUniversity } from "react-icons/fa";
+import Main from "../../assests/mainimage.png";
+import Loan from "../../assests/loanimg.png";
+import Mediacal from "../../assests/medicalins.png";
+import Application from "../../assests/applicationimg.png";
+import { useAuth } from "../../utilities/AuthProvider";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
+  const { auth } = useAuth();
+
+  const navigate = useNavigate();
+  const handleGet = () => {
+    if (!auth?.user?.role) {
+      toast.warning("Please login to the Application");
+    } else {
+      if (auth?.user?.role === "Admin") navigate("/admindashboard");
+      else navigate("/studentdashboard");
+    }
+  };
+
   return (
     <>
       <div className="container mt-5 mb-5">
@@ -21,33 +33,19 @@ const Home = () => {
               interests and career goals.
             </p>
             <div className="d-flex align-items-center mt-4 button-wrapper">
-              <button className="button-started-wrapper me-2">
+              <button
+                className="button-started-wrapper me-2"
+                onClick={handleGet}
+              >
                 Get Started
               </button>
               <p>See how it works</p>
-            </div>
-
-            <div className="mt-5">
-              <div className="d-flex justify-content-between">
-                <div>
-                  <h3>40k+</h3>
-                  <p>Happy Students</p>
-                </div>
-                <div>
-                  <h3>12k+</h3>
-                  <p>Active Students</p>
-                </div>
-                <div>
-                  <h3>2k+</h3>
-                  <p>Online Classes</p>
-                </div>
-              </div>
             </div>
           </div>
           <div className="col-md-6 right-wrapper d-flex justify-content-end">
             <div className="right-wrapper-image"></div>
             <img
-              src="https://img.freepik.com/free-photo/schoolgirl-class-pointing-up_23-2147663362.jpg"
+              src={Main}
               className="img-fluid rounded"
               alt="Online Learning"
             />
@@ -96,86 +94,55 @@ const Home = () => {
 
       <section className="courses-section py-5">
         <div className="container">
-          <h2 className="text-center mb-5">Popular Courses</h2>
+          <h2 className="text-center mb-5">Our Special Services</h2>
           <div className="row d-flex justify-content-center">
             <div className="col-md-3 mb-4">
               <div className="card h-100">
                 <img
-                  src="https://img.freepik.com/free-photo/schoolgirl-class-pointing-up_23-2147663362.jpg"
+                  src={Application}
                   className="card-img-top"
                   alt="Course 1"
                 />
                 <div className="card-body">
-                  <h5 className="card-title">React JS</h5>
+                  <h5 className="card-title">
+                    Hassle-Free University Applications
+                  </h5>
                   <p className="card-text">
-                    Learn how to build dynamic user interfaces with React.js,
-                    one of the most popular JavaScript libraries for frontend
-                    development.
+                    Simplify your journey to studying abroad with our
+                    streamlined university application process. Apply to
+                    multiple universities with ease and track your application
+                    status in real-time.
                   </p>
-                  <div className="d-flex justify-content-between mt-3">
-                    {" "}
-                    <a href="#" className="course-button-wrapper">
-                      See Details
-                    </a>
-                    <div>
-                      {" "}
-                      <FaUserFriends /> 232
-                    </div>
-                  </div>
                 </div>
               </div>
             </div>
             <div className="col-md-3 mb-4 ">
               <div className="card h-100">
-                <img
-                  src="https://img.freepik.com/free-photo/schoolgirl-class-pointing-up_23-2147663362.jpg"
-                  className="card-img-top"
-                  alt="Course 2"
-                />
+                <img src={Mediacal} className="card-img-top" alt="Course 2" />
                 <div className="card-body">
-                  <h5 className="card-title">NodeJs</h5>
+                  <h5 className="card-title">
+                    Comprehensive Medical Insurance
+                  </h5>
                   <p className="card-text">
-                    Master server-side development with Node.js, an efficient
-                    and scalable platform for building fast and robust web
-                    applications.
+                    Secure your health while studying abroad with our
+                    comprehensive medical insurance plans. Covering a wide range
+                    of medical expenses, our plans ensure you receive the best
+                    care without financial stress.
                   </p>
-                  <div className="d-flex justify-content-between mt-3">
-                    {" "}
-                    <a href="#" className="course-button-wrapper">
-                      See Details
-                    </a>
-                    <div>
-                      {" "}
-                      <FaUserFriends /> 232
-                    </div>
-                  </div>
                 </div>
               </div>
             </div>
             <div className="col-md-3 mb-4">
               <div className="card h-100">
-                <img
-                  src="https://img.freepik.com/free-photo/schoolgirl-class-pointing-up_23-2147663362.jpg"
-                  className="card-img-top"
-                  alt="Course 3"
-                />
+                <img src={Loan} className="card-img-top" alt="Course 3" />
                 <div className="card-body">
-                  <h5 className="card-title">Full Stack Development</h5>
+                  <h5 className="card-title">Flexible Student Loans</h5>
                   <p className="card-text">
-                    Become a versatile developer with our full stack development
-                    course, covering both frontend and backend technologies.
+                    Finance your education with our flexible student loan
+                    options. With competitive interest rates and customizable
+                    repayment plans, you can focus on your studies without
+                    worrying about financial burdens.
                   </p>
-
-                  <div className="d-flex justify-content-between mt-3">
-                    {" "}
-                    <a href="#" className="course-button-wrapper">
-                      See Details
-                    </a>
-                    <div>
-                      {" "}
-                      <FaUserFriends /> 232
-                    </div>
-                  </div>
                 </div>
               </div>
             </div>
@@ -244,7 +211,7 @@ const Home = () => {
               <ul className="list-unstyled">
                 <li>
                   <a href="mailto:support@uniapply.com" className=" ">
-                    support@StudyAbroad.com
+                    studyaboardconsultancy@gmail.com
                   </a>
                 </li>
                 <li>

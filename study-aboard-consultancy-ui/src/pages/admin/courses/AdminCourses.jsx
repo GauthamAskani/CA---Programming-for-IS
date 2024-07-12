@@ -16,17 +16,21 @@ import AlertModal from "../../../components/alertModal/AlertModal";
 import { useLocation } from "react-router-dom";
 import Cmodal from "../../../components/coursemodal/CourseModal";
 import { useAuth } from "../../../utilities/AuthProvider";
+import Aumodal from "../../../components/applyuniversaty/ApplyUniversaty";
 
 export default function AdminCourses() {
   const [jobsData, setJobsData] = React.useState([]);
   const [modal, setModal] = React.useState(false);
   const [activeItem, setActiveItem] = React.useState(null);
   const [deleteModal, setDeleteModal] = React.useState(false);
+  const [applyCourse, setApplyCourse] = React.useState(false);
   const { auth } = useAuth();
+  console.log("active item->", activeItem);
 
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
   const universityId = queryParams.get("id");
+  const universityName = queryParams.get("name");
 
   const header = [
     "Name",
@@ -54,7 +58,7 @@ export default function AdminCourses() {
 
   const handleGetUniversatyCourses = async (id) => {
     try {
-      const res = await getCoursesList(id);
+      const res = await getCoursesList(id || universityId);
       console.log(("data", res));
       setJobsData(res);
     } catch (e) {
@@ -64,9 +68,9 @@ export default function AdminCourses() {
 
   const handleDeleteUniversaties = async () => {
     try {
-      const res = await deleteCourse(activeItem?.id);
+      const res = await deleteCourse(activeItem?.course_id);
       console.log(("data", res));
-      handleGetUniversatyCourses();
+      handleGetUniversatyCourses(universityId);
       setActiveItem(null);
       setDeleteModal(false);
       toast.success("Deleted successfully");
@@ -103,15 +107,35 @@ export default function AdminCourses() {
             <h4 style={{ fontFamily: "Poppins !important", color: "orange" }}>
               Courses
             </h4>
-            <button
-              type="button"
-              className="orange-button"
-              onClick={() => {
-                setModal(true);
-              }}
-            >
-              Add Course
-            </button>
+            {auth?.user?.role === "Admin" ? (
+              <button
+                type="button"
+                className="btn btn-outline-dark ms-3"
+                style={{ width: "auto" }}
+                onClick={() => {
+                  setModal(true);
+                }}
+              >
+                Add Course
+              </button>
+            ) : (
+              <button
+                onClick={() => {
+                  if(auth?.user?.student_document_status === "false") {
+                    toast.warning('Please upload your documents')
+                  } else {
+                    setApplyCourse(true);
+                    setActiveItem({
+                      university_id: universityId,
+                      university_name: universityName,
+                    });
+                  }
+                }}
+                className="btn btn-outline-dark ms-3"
+              >
+                Apply
+              </button>
+            )}
           </div>
 
           <TableContainer component={Paper}>
@@ -127,15 +151,9 @@ export default function AdminCourses() {
                 {jobsData && jobsData?.length ? (
                   jobsData?.map((app, index) => (
                     <TableRow hover key={index}>
-                      <TableCell
-                        className="title-wrapper"
-                        sx={{ minWidth: "250px" }}
-                      >
-                        {app?.course_name || "National College of Ireland"} (
-                        {app.university_shortname})
-                      </TableCell>
+                      <TableCell align="inherit">{app?.course_name} </TableCell>
 
-                      <TableCell sx={{ minWidth: "150px" }}>
+                      <TableCell align="left" sx={{ minWidth: "450px" }}>
                         {app?.course_main_entry_requirements || "-"}
                       </TableCell>
                       <TableCell sx={{ minWidth: "100px" }}>
@@ -174,27 +192,30 @@ export default function AdminCourses() {
                       <TableCell sx={{ minWidth: "200px" }}>
                         {app?.course_notes || "-"}
                       </TableCell>
-                      {auth?.user?.role !== "Student" && (
+                      {auth?.user?.role !== "Student" ? (
                         <TableCell sx={{ minWidth: "200px" }}>
-                          <button
+                          <span
                             onClick={() => {
                               setModal(true);
                               setActiveItem(app);
                             }}
-                            className="mr-2"
+                            className="mr-2 button-wrapper-edit"
                           >
                             Edit
-                          </button>
-                          <button className="mr-2">View</button>
-                          <button
+                          </span>
+
+                          <span
                             onClick={() => {
                               setActiveItem(app);
                               setDeleteModal(true);
                             }}
+                            className="button-wrapper-delete"
                           >
                             Delete
-                          </button>
+                          </span>
                         </TableCell>
+                      ) : (
+                        <TableCell>-</TableCell>
                       )}
                     </TableRow>
                   ))
@@ -210,11 +231,12 @@ export default function AdminCourses() {
         <Cmodal
           isOpen={modal}
           toggle={() => {
-            handleGetUniversatyCourses();
+            handleGetUniversatyCourses(universityId);
             setModal(false);
             setActiveItem(null);
           }}
           activeItem={activeItem}
+          universityId={universityId}
           setActiveItem={setActiveItem}
         />
       )}
@@ -224,6 +246,16 @@ export default function AdminCourses() {
           onCancel={onCancel}
           onConfirm={onConfirm}
           toggle={onCancel}
+        />
+      )}
+      {applyCourse && (
+        <Aumodal
+          isOpen={applyCourse}
+          toggle={() => {
+            setApplyCourse(false);
+          }}
+          activeItem={activeItem}
+          setActiveItem={setActiveItem}
         />
       )}
     </div>

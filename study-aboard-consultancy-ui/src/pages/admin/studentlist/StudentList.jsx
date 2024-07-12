@@ -14,6 +14,7 @@ export default function StudentList() {
   const [jobsData, setJobsData] = React.useState([]);
 
   const header = [
+    "Id",
     "Name",
     "Date Of Birth",
     "Gender",
@@ -68,6 +69,8 @@ export default function StudentList() {
                 {jobsData && jobsData?.length ? (
                   jobsData?.map((app, index) => (
                     <TableRow hover key={index}>
+                      <TableCell>{app?.student_id || "-"}</TableCell>
+
                       <TableCell>
                         {app?.student_first_name ||
                           "National College of Ireland"}

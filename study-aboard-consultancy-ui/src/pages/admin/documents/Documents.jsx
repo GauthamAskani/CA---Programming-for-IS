@@ -25,14 +25,14 @@ export default function Documents() {
   };
 
   const header = [
-    "document_id",
-    "student_id",
-    "document_category",
-    "document_name",
-    "document_type",
-    "notes",
-    "admin_remarks",
-    "status",
+    "Document Id",
+    "Student Id",
+    "Category",
+    "Name",
+    "Type",
+    "Notes",
+    "Admin Remarks",
+    "Status",
     "Actions",
   ];
 
@@ -93,17 +93,26 @@ export default function Documents() {
                       <TableCell>{app?.status || "-"}</TableCell>
 
                       <TableCell sx={{ minWidth: "200px" }}>
-                        <button
+                        <span
                           onClick={() => {
                             setModal(true);
                             setActiveItem(app);
                           }}
-                          className="mr-2"
+                          className="mr-2 button-wrapper-edit"
                         >
                           Edit
-                        </button>
+                        </span>
 
-                        <a href={app.document_url}>Download</a>
+                        <a
+                          style={{
+                            textDecoration: "none",
+                            color: "orange",
+                            marginLeft: "10px",
+                          }}
+                          href={app.document_url}
+                        >
+                          Download
+                        </a>
                       </TableCell>
                     </TableRow>
                   ))

@@ -1,135 +1,135 @@
 @import "../../styles/variables";
 .header-left-wrapper {
-  padding: 50px;
-  h1 {
-    font-size: 3.5rem;
-    font-weight: 600;
-    font-family: Poppins;
-    color: black;
-  }
-  p {
-    font-size: 1.1rem;
-    color: #c2c4c6;
-  }
-  .btn-primary {
-    background-color: $btn-primary-background;
-    border: none;
-    color: $primary-text-color;
-  }
-  .button-wrapper {
-    background: #0f363f;
-    width: 250px;
-    height: 60px;
-    border-radius: 10px;
-    padding-left: 10px;
-    .button-started-wrapper {
-      background: white;
-      height: 40px;
-      font-weight: 600;
-      font-size: 10px;
-      font-family: Poppins;
-      color: orange;
-      border-radius: 30px;
-      width: 100px;
+    padding: 50px;
+    h1 {
+        font-size: 3.5rem;
+        font-weight: 600;
+        font-family: Poppins;
+        color: black;
     }
     p {
-      font-size: 12px;
-      font-family: Poppins;
-      font-weight: 600;
-      //   color: white;
+        font-size: 1.1rem;
+        color: #7c8289;
     }
-  }
-  .btn-outline-dark {
-    border-color: $btn-primary-border;
-    color: $btn-primary-border;
-  }
-  .btn-outline-dark:hover {
-    background-color: $btn-primary-border;
-    color: $btn-primary-background;
-  }
+    .btn-primary {
+        background-color: $btn-primary-background;
+        border: none;
+        color: $primary-text-color;
+    }
+    .button-wrapper {
+        background: #0f363f;
+        width: 250px;
+        height: 60px;
+        border-radius: 10px;
+        padding-left: 10px;
+        .button-started-wrapper {
+            background: white;
+            height: 40px;
+            font-weight: 600;
+            font-size: 10px;
+            font-family: Poppins;
+            color: orange;
+            border-radius: 30px;
+            width: 100px;
+        }
+        p {
+            font-size: 12px;
+            font-family: Poppins;
+            font-weight: 600;
+            //   color: white;
+        }
+    }
+    .btn-outline-dark {
+        border-color: $btn-primary-border;
+        color: $btn-primary-border;
+    }
+    .btn-outline-dark:hover {
+        background-color: $btn-primary-border;
+        color: $btn-primary-background;
+    }
 }
 
 .right-wrapper {
-  position: relative;
-  .right-wrapper-image {
-    width: 500px;
-    height: 500px;
-    // margin-right: -72px;
-    background: #0f363f;
-    border-top-left-radius: 30px;
-    border-bottom-left-radius: 30px;
-  }
-  img {
-    border-radius: 50% !important;
-  }
+    position: relative;
+    .right-wrapper-image {
+        width: 500px;
+        height: 500px;
+        // margin-right: -72px;
+        background: #0f363f;
+        border-top-left-radius: 30px;
+        border-bottom-left-radius: 30px;
+    }
+    img {
+        border-radius: 50% !important;
+    }
 }
 
 .img-fluid {
-  top: 50px;
-  bottom: 0;
-  left: 0;
-  position: absolute;
-  width: 400px;
-  height: 400px;
-  border-radius: 50%;
-  background-size: cover;
-  object-fit: cover;
+    top: 50px;
+    bottom: 0;
+    left: 0;
+    position: absolute;
+    width: 400px;
+    height: 400px;
+    border-radius: 50%;
+    background-size: cover;
+    object-fit: cover;
 }
 
 .mt-5 {
-  margin-top: 3rem;
+    margin-top: 3rem;
 }
 
 .mt-4 {
-  margin-top: 1.5rem;
+    margin-top: 1.5rem;
 }
 
 h3 {
-  font-size: 1.5rem;
-  font-weight: bold;
-  color: $primary-text-color;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: $primary-text-color;
 }
 
 p {
-  margin: 0;
-  color: $primary-text-color;
+    margin: 0;
+    color: $primary-text-color;
 }
 
 .feature-description {
-  color: #c2c4c6;
+    color: #7c8289;
 }
 
 .courses-section {
-  background: #0f363f;
-  h2 {
-    color: orange;
-  }
-  .card {
-    transition: transform 0.2s;
-  }
-  .card:hover {
-    transform: scale(1.05);
-  }
+    background: #0f363f;
+    h2 {
+        color: orange;
+    }
+    .card {
+        transition: transform 0.2s;
+    }
+    .card:hover {
+        transform: scale(1.05);
+    }
 }
 
 .footer-wrapper {
-  background: #0f363f;
-  padding-top: 40px;
-  .about-wrapper {
-    border-bottom: 1px solid #c2c4c6;
-  }
-  h5 {
-    color: white;
-  }
-  p {
-    margin-top: 25px;
-    color: #c2c4c6;
-    font-size: 13px;
-  }
-  a {
-    color: #c2c4c6;
-    text-decoration: none;
-    font-size: 13px;
-    line-height: 40px;
-  }
+    background: #0f363f;
+    padding-top: 40px;
+    .about-wrapper {
+        border-bottom: 1px solid #c2c4c6;
+    }
+    h5 {
+        color: white;
+    }
+    p {
+        margin-top: 25px;
+        color: #7c8289;
+        font-size: 13px;
+    }
+    a {
+        color: #7c8289;
+        text-decoration: none;
+        font-size: 13px;
+        line-height: 40px;
+    }
 }

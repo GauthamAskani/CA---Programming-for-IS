@@ -16,29 +16,45 @@ import { useAuth } from "../../../utilities/AuthProvider";
 import AlertModal from "../../../components/alertModal/AlertModal";
 import { toast } from "react-toastify";
 import UDmodal from "../../../components/uploaddocument/UploadModal";
+import { ThreeCircles } from "react-loader-spinner";
 
 export default function DocumentUpload() {
   const [jobsData, setJobsData] = React.useState([]);
   const [modal, setModal] = React.useState(false);
   const [activeItem, setActiveItem] = React.useState(null);
   const [deleteModal, setDeleteModal] = React.useState(false);
+  const [loading, setLoading] = React.useState(false);
 
-  const { auth } = useAuth();
+  const { auth, login } = useAuth();
 
   const header = [
-    "category",
-    "document_name",
-    "notes",
-    "admin_remarks",
-    "status",
-    "action",
+    "Category",
+    "Document Name",
+    "Notes",
+    "Admin Remarks",
+    "Status",
+    "Action",
   ];
 
   const handleGetMedicalInsurance = async () => {
     try {
       const res = await getStudentDocuments(auth?.user?.student_id);
-      console.log(("data", res));
+
       setJobsData(res?.documents || []);
+      if (res?.student_document_status !== "false") {
+        const authT = localStorage.getItem("authToken");
+        const user = JSON.parse(localStorage.getItem("user"));
+        console.log("inside->", user?.student_document_status);
+        if (
+          user?.student_document_status === "false" ||
+          !user?.student_document_status
+        ) {
+          user.student_document_status = true;
+          login(authT, user);
+        }
+      }
+
+      console.log("res->", res);
     } catch (e) {
       console.log("er->", e);
     }
@@ -48,11 +64,22 @@ export default function DocumentUpload() {
     handleGetMedicalInsurance();
   }, []);
 
-  console.log("jobs data->", jobsData);
-
   return (
     <div className="user-wrapper p-5">
       {" "}
+      {loading && (
+        <div class="loader-wrapper">
+          <ThreeCircles
+            visible={true}
+            height="80"
+            width="80"
+            ariaLabel="color-ring-loading"
+            wrapperStyle={{}}
+            wrapperClass="color-ring-wrapper"
+            color="#0f363f"
+          />
+        </div>
+      )}
       <Card
         style={{
           marginTop: "2rem",
@@ -66,6 +93,8 @@ export default function DocumentUpload() {
               Documents
             </h4>
             <button
+              className="btn btn-outline-dark "
+              style={{ width: "auto" }}
               onClick={() => {
                 setModal(true);
               }}
@@ -95,7 +124,9 @@ export default function DocumentUpload() {
                       <TableCell>{app?.status || "-"}</TableCell>
 
                       <TableCell>
-                        <a href={app?.document_url}>Download</a>
+                        <a style={{ color: "orange" }} href={app?.document_url}>
+                          Download
+                        </a>
                       </TableCell>
                     </TableRow>
                   ))
@@ -117,6 +148,7 @@ export default function DocumentUpload() {
           activeItem={activeItem}
           setActiveItem={setActiveItem}
           handleGetMedicalInsurance={handleGetMedicalInsurance}
+          setLoading={setLoading}
         />
       )}
     </div>

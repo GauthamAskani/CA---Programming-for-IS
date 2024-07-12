@@ -9,6 +9,7 @@ import TableRow from "@mui/material/TableRow";
 import { Card, CardContent } from "@mui/material";
 import { getMedicalList } from "../../../apis/universaty";
 import Imodal from "../../../components/insurance/InsuranceModal";
+import moment from "moment";
 
 export default function MedicalInsurance() {
   const [jobsData, setJobsData] = React.useState([]);
@@ -17,18 +18,18 @@ export default function MedicalInsurance() {
   const [deleteModal, setDeleteModal] = React.useState(false);
 
   const header = [
-    "medical_insurance_id",
-    "cover_start_date",
-    "cover_end_date",
-    "destination_country",
-    "Uuniversity_name",
-    "course_title",
-    "course_cost",
-    "course_start_date",
-    "course_end_date",
-    "student_notes",
-    "admin_remarks",
-    "status",
+    "Id",
+    "Cover Start Date",
+    "Cover End Date",
+    "Destination Country",
+    "University Name",
+    "Course Title",
+    "Course Cost",
+    "Course Start Date",
+    "Course End Date",
+    "Student Notes",
+    "Admin Remarks",
+    "Status",
     "Actions",
   ];
 
@@ -76,33 +77,45 @@ export default function MedicalInsurance() {
                 {jobsData && jobsData?.length ? (
                   jobsData?.map((app, index) => (
                     <TableRow hover key={index}>
-                      <TableCell className="title-wrapper">
-                        {app?.medical_insurance_id ||
-                          "National College of Ireland"}
+                      <TableCell>{app?.medical_insurance_id || "-"}</TableCell>
+                      <TableCell>
+                        {app?.cover_start_date
+                          ? moment(app?.cover_start_date).format("MM/DD/YYYY")
+                          : "-"}
                       </TableCell>
-
-                      <TableCell>{app?.cover_start_date || "-"}</TableCell>
-                      <TableCell>{app?.cover_end_date || "-"}</TableCell>
+                      <TableCell>
+                        {app?.cover_end_date
+                          ? moment(app?.cover_end_date).format("MM/DD/YYYY")
+                          : "-"}
+                      </TableCell>
                       <TableCell>{app?.destination_country || "-"}</TableCell>
                       <TableCell>{app?.university_name || "-"}</TableCell>
                       <TableCell>{app?.course_title || "-"}</TableCell>
                       <TableCell>{app?.course_cost || "-"}</TableCell>
-                      <TableCell>{app?.course_start_date || "-"}</TableCell>
-                      <TableCell>{app?.course_end_date || "-"}</TableCell>
+                      <TableCell>
+                        {app?.course_start_date
+                          ? moment(app?.course_start_date).format("MM/DD/YYYY")
+                          : "-"}
+                      </TableCell>
+                      <TableCell>
+                        {app?.course_end_date
+                          ? moment(app?.course_end_date).format("MM/DD/YYYY")
+                          : "-"}
+                      </TableCell>
                       <TableCell>{app?.student_notes || "-"}</TableCell>
                       <TableCell>{app?.admin_remarks || "-"}</TableCell>
                       <TableCell>{app?.status || "-"}</TableCell>
 
                       <TableCell sx={{ minWidth: "200px" }}>
-                        <button
+                        <span
                           onClick={() => {
                             setModal(true);
                             setActiveItem(app);
                           }}
-                          className="mr-2"
+                          className="mr-2 button-wrapper-edit"
                         >
                           Edit
-                        </button>
+                        </span>
                       </TableCell>
                     </TableRow>
                   ))

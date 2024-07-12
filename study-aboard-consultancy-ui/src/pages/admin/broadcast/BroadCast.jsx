@@ -35,10 +35,10 @@ export default function BroadCast() {
   const universityId = queryParams.get("id");
 
   const header = [
-    "broadcast_title",
-    "broadcast_message",
-    "broadcast_send_date",
-    "broadcast_expiry_date",
+    "Title",
+    "Broadcast Message",
+    "Send Date",
+    "Expiry Date",
     "Actions",
   ];
 
@@ -95,7 +95,8 @@ export default function BroadCast() {
             </h4>
             <button
               type="button"
-              className="orange-button"
+              className="btn btn-outline-dark ms-3"
+              style={{ width: "auto" }}
               onClick={() => {
                 setModal(true);
               }}
@@ -119,28 +120,41 @@ export default function BroadCast() {
                     <TableRow hover key={index}>
                       <TableCell>{app?.broadcast_title || "-"}</TableCell>
                       <TableCell>{app?.broadcast_message || "-"}</TableCell>
-                      <TableCell>{app?.broadcast_send_date || "-"}</TableCell>
-                      <TableCell>{app?.broadcast_expiry_date || "-"}</TableCell>
+                      <TableCell>
+                        {app?.broadcast_send_date
+                          ? moment(app?.broadcast_send_date).format(
+                              "MM/DD/YYYY"
+                            )
+                          : "-"}
+                      </TableCell>
+                      <TableCell>
+                        {app?.broadcast_expiry_date
+                          ? moment(app?.broadcast_expiry_date).format(
+                              "MM/DD/YYYY"
+                            )
+                          : "-"}
+                      </TableCell>
 
                       <TableCell>
-                        <button
+                        <span
                           onClick={() => {
                             setModal(true);
                             setActiveItem(app);
                           }}
-                          className="mr-2"
+                          className="mr-2 button-wrapper-edit"
                         >
                           Edit
-                        </button>
-                        <button className="mr-2">View</button>
-                        <button
+                        </span>
+
+                        <span
                           onClick={() => {
                             setActiveItem(app);
                             setDeleteModal(true);
                           }}
+                          className="button-wrapper-delete"
                         >
                           Delete
-                        </button>
+                        </span>
                       </TableCell>
                     </TableRow>
                   ))

@@ -25,13 +25,12 @@ export default function StudentApplicationsList() {
   const { auth } = useAuth();
 
   const header = [
-    "application_id",
-    "course_id",
-    "university_name",
-    "course_name",
-    "student_notes",
-    "application_status",
-    "admin_remarks",
+    "Application Id",
+    "University Name",
+    "Course Name",
+    "Student Notes",
+    "Application Status",
+    "Admin Remarks",
     "Actions",
   ];
 
@@ -83,7 +82,7 @@ export default function StudentApplicationsList() {
         <CardContent>
           <div className="d-flex justify-content-between mb-3">
             <h4 style={{ fontFamily: "Poppins !important", color: "orange" }}>
-              applications-list
+              Applications List
             </h4>
           </div>
 
@@ -103,8 +102,6 @@ export default function StudentApplicationsList() {
                       <TableCell>
                         {app?.application_id || "National College of Ireland"}
                       </TableCell>
-
-                      <TableCell>{app?.course_id || "-"}</TableCell>
                       <TableCell>{app?.university_name || "-"}</TableCell>
                       <TableCell>{app?.course_name || "-"}</TableCell>
                       <TableCell>{app?.student_notes || "-"}</TableCell>
@@ -112,24 +109,24 @@ export default function StudentApplicationsList() {
                       <TableCell>{app?.admin_remarks || "-"}</TableCell>
 
                       <TableCell sx={{ minWidth: "200px" }}>
-                        <button
+                        <span
                           onClick={() => {
                             setModal(true);
                             setActiveItem(app);
                           }}
-                          className="mr-2"
+                          className="mr-2 button-wrapper-edit"
                         >
                           Edit
-                        </button>
-                        <button
+                        </span>
+                        <span
                           onClick={() => {
                             setActiveItem(app);
                             setDeleteModal(true);
                           }}
-                          className="mr-2"
+                          className="mr-2 button-wrapper-delete"
                         >
                           Delete
-                        </button>
+                        </span>
                       </TableCell>
                     </TableRow>
                   ))

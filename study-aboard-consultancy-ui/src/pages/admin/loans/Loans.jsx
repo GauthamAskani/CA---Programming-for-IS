@@ -28,16 +28,15 @@ export default function MedicalInsurance() {
   const [deleteModal, setDeleteModal] = React.useState(false);
 
   const header = [
-    "loan_request_id",
-    "university_name",
-    "course_title",
-    "course_cost",
-    "course_start_date",
-    "loan_type",
-    "loan_amount",
-    "notes",
-    "admin_remarks",
-    "status",
+    "Id",
+    "University Name",
+    "Course Title",
+    "Course Start Date",
+    "Type",
+    "Amount",
+    "Notes",
+    "Admin Remarks",
+    "Status",
     "Actions",
   ];
 
@@ -91,8 +90,12 @@ export default function MedicalInsurance() {
 
                       <TableCell>{app?.university_name || "-"}</TableCell>
                       <TableCell>{app?.course_title || "-"}</TableCell>
-                      <TableCell>{app?.course_cost || "-"}</TableCell>
-                      <TableCell>{app?.course_start_date || "-"}</TableCell>
+
+                      <TableCell>
+                        {app?.course_start_date
+                          ? moment(app?.course_start_date).format("MM/DD/YYYY")
+                          : "-" || "-"}
+                      </TableCell>
                       <TableCell>{app?.loan_type || "-"}</TableCell>
                       <TableCell>{app?.loan_amount || "-"}</TableCell>
                       <TableCell>{app?.notes || "-"}</TableCell>
@@ -101,15 +104,15 @@ export default function MedicalInsurance() {
                       <TableCell>{app?.status || "-"}</TableCell>
 
                       <TableCell>
-                        <button
+                        <span
                           onClick={() => {
                             setModal(true);
                             setActiveItem(app);
                           }}
-                          className="mr-2"
+                          className="mr-2 button-wrapper-edit"
                         >
                           Edit
-                        </button>
+                        </span>
                       </TableCell>
                     </TableRow>
                   ))

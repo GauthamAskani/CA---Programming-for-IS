@@ -18,16 +18,7 @@ import Aumodal from "../../../components/applyuniversaty/ApplyUniversaty";
 
 export default function UniversatyList() {
   const navigate = useNavigate();
-  const [jobsData, setJobsData] = React.useState([
-    {
-      university_name: "National College of Ireland",
-      university_shortname: "NCI",
-      university_description: "The National",
-      university_program_intake: "JAN & SEP",
-      university_program_intake_status: "CLOSED",
-      id: 1,
-    },
-  ]);
+  const [jobsData, setJobsData] = React.useState([]);
   const [modal, setModal] = React.useState(false);
   const [activeItem, setActiveItem] = React.useState(null);
   const [deleteModal, setDeleteModal] = React.useState(false);
@@ -74,7 +65,7 @@ export default function UniversatyList() {
         <CardContent>
           <div className="d-flex justify-content-between mb-3">
             <h4 style={{ fontFamily: "Poppins !important", color: "orange" }}>
-              Universaties
+              Universities
             </h4>
           </div>
 
@@ -99,30 +90,23 @@ export default function UniversatyList() {
                       <TableCell>
                         {app?.university_description || "-"}
                       </TableCell>
-                      <TableCell>
+                      <TableCell sx={{ minWidth: "130px" }}>
                         {app?.university_program_intake || "-"}
                       </TableCell>
                       <TableCell>
                         {app?.university_program_intake_status || "-"}
                       </TableCell>
-                      <TableCell>
-                        <button
+                      <TableCell sx={{ minWidth: "130px" }}>
+                        <span
+                          className="mr-2 button-wrapper-edit"
                           onClick={() => {
-                            setModal(true);
-                            setActiveItem(app);
-                          }}
-                          className="mr-2"
-                        >
-                          Apply
-                        </button>
-                        <button
-                          className="mr-2"
-                          onClick={() => {
-                            navigate(`/student-courses?id=${app.id}`);
+                            navigate(
+                              `/student-courses?id=${app.university_id}&name=${app.university_name}`
+                            );
                           }}
                         >
                           View
-                        </button>
+                        </span>
                       </TableCell>
                     </TableRow>
                   ))

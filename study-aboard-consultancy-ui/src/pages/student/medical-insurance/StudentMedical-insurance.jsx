@@ -16,6 +16,7 @@ import { useAuth } from "../../../utilities/AuthProvider";
 import moment from "moment";
 import AlertModal from "../../../components/alertModal/AlertModal";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 export default function StudentMedicalInsurance() {
   const [jobsData, setJobsData] = React.useState([]);
@@ -24,20 +25,31 @@ export default function StudentMedicalInsurance() {
   const [deleteModal, setDeleteModal] = React.useState(false);
 
   const { auth } = useAuth();
+  const navigate = useNavigate();
+
+  React.useEffect(() => {
+    if (
+      auth?.user?.student_document_status === "false" &&
+      auth?.user?.role === "Student"
+    ) {
+      toast.warning("Please upload your documents...");
+      navigate("/studentdashboard");
+    }
+  },[]);
 
   const header = [
-    "medical_insurance_id",
-    "cover_start_date",
-    "cover_end_date",
-    "destination_country",
-    "Uuniversity_name",
-    "course_title",
-    "course_cost",
-    "course_start_date",
-    "course_end_date",
-    "student_notes",
-    "admin_remarks",
-    "status",
+    "Id",
+    "Cover Start Date",
+    "Cover End Date",
+    "Destination Country",
+    "University Name",
+    "Course Title",
+    "Course Cost",
+    "Course Start Date",
+    "Course End Date",
+    "Student Notes",
+    "Admin Remarks",
+    "Status",
     "Actions",
   ];
 
@@ -91,14 +103,18 @@ export default function StudentMedicalInsurance() {
             <h4 style={{ fontFamily: "Poppins !important", color: "orange" }}>
               Student Medical Insurance
             </h4>
-            <button
-              onClick={() => {
-                setModal(true);
-              }}
-            >
-              {" "}
-              Add Medical Insurance
-            </button>
+            {!jobsData?.length && (
+              <button
+                onClick={() => {
+                  setModal(true);
+                }}
+                className="btn btn-outline-dark ms-3"
+                style={{ width: "auto" }}
+              >
+                {" "}
+                Add Medical Insurance
+              </button>
+            )}
           </div>
 
           <TableContainer component={Paper}>
@@ -148,24 +164,24 @@ export default function StudentMedicalInsurance() {
                       <TableCell>{app?.status || "-"}</TableCell>
 
                       <TableCell sx={{ minWidth: "200px" }}>
-                        <button
+                        <span
                           onClick={() => {
                             setModal(true);
                             setActiveItem(app);
                           }}
-                          className="mr-2"
+                          className="mr-2 button-wrapper-edit"
                         >
                           Edit
-                        </button>
-                        <button
+                        </span>
+                        <span
                           onClick={() => {
                             setActiveItem(app);
                             setDeleteModal(true);
                           }}
-                          className="mr-2"
+                          className="mr-2 button-wrapper-delete"
                         >
                           Delete
-                        </button>
+                        </span>
                       </TableCell>
                     </TableRow>
                   ))

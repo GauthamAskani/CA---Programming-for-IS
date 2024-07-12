@@ -11,25 +11,9 @@ import { Card, CardContent } from "@mui/material";
 import { getBroadCastMessages } from "../../../apis/studentapi";
 
 export default function StudentBroadCast() {
-  const [jobsData, setJobsData] = React.useState([
-    {
-      broadcast_id: 1,
-      broadcast_title: "Student High Offers",
-      broadcast_message: "Hello Students Great offer residing",
-      broadcast_send_date: "2024-07-09T18:30:00.000Z",
-      broadcast_expiry_date: "2024-01-10T18:30:00.000Z",
-      broadcast_created_at: "2024-07-10T11:52:25.000Z",
-      broadcast_updated_at: "2024-07-10T11:54:02.000Z",
-      broadcast_deleted_at: null,
-    },
-  ]);
+  const [jobsData, setJobsData] = React.useState([]);
 
-  const header = [
-    "broadcast_title",
-    "broadcast_message",
-    "broadcast_send_date",
-    "broadcast_expiry_date",
-  ];
+  const header = ["Title", "Message"];
 
   const handleGetBroadcast = async () => {
     try {
@@ -77,20 +61,6 @@ export default function StudentBroadCast() {
                     <TableRow hover key={index}>
                       <TableCell>{app?.broadcast_title || "-"}</TableCell>
                       <TableCell>{app?.broadcast_message || "-"}</TableCell>
-                      <TableCell>
-                        {app?.broadcast_send_date
-                          ? moment(app?.broadcast_send_date).format(
-                              "MM/DD/YYYY"
-                            )
-                          : "-"}
-                      </TableCell>
-                      <TableCell>
-                        {app?.broadcast_expiry_date
-                          ? moment(app?.broadcast_expiry_date).format(
-                              "MM/DD/YYYY"
-                            )
-                          : "-"}
-                      </TableCell>
                     </TableRow>
                   ))
                 ) : (

@@ -51,7 +51,7 @@ export default function Universaty() {
 
   const handleDeleteUniversaties = async () => {
     try {
-      const res = await deleteUniversaty(activeItem?.id);
+      const res = await deleteUniversaty(activeItem?.university_id);
       console.log(("data", res));
       setActiveItem(null);
       setDeleteModal(false);
@@ -88,16 +88,17 @@ export default function Universaty() {
         <CardContent>
           <div className="d-flex justify-content-between mb-3">
             <h4 style={{ fontFamily: "Poppins !important", color: "orange" }}>
-              Universaties
+              Universities
             </h4>
             <button
               type="button"
-              className="orange-button"
+              className="btn btn-outline-dark ms-3"
+              style={{ width: "auto" }}
               onClick={() => {
                 setModal(true);
               }}
             >
-              Add Universaty
+              Add University
             </button>
           </div>
 
@@ -122,38 +123,39 @@ export default function Universaty() {
                       <TableCell>
                         {app?.university_description || "-"}
                       </TableCell>
-                      <TableCell>
+                      <TableCell sx={{ minWidth: "130px" }}>
                         {app?.university_program_intake || "-"}
                       </TableCell>
                       <TableCell>
                         {app?.university_program_intake_status || "-"}
                       </TableCell>
                       <TableCell>
-                        <button
+                        <span
                           onClick={() => {
                             setModal(true);
                             setActiveItem(app);
                           }}
-                          className="mr-2"
+                          className="mr-2 button-wrapper-edit"
                         >
                           Edit
-                        </button>
-                        <button
-                          className="mr-2"
+                        </span>
+                        <span
+                          className="mr-2 button-wrapper-edit"
                           onClick={() => {
-                            navigate(`/admin-courses?id=${app.id}`);
+                            navigate(`/admin-courses?id=${app.university_id}`);
                           }}
                         >
                           View
-                        </button>
-                        <button
+                        </span>
+                        <span
+                          className="button-wrapper-delete"
                           onClick={() => {
                             setActiveItem(app);
                             setDeleteModal(true);
                           }}
                         >
                           Delete
-                        </button>
+                        </span>
                       </TableCell>
                     </TableRow>
                   ))
