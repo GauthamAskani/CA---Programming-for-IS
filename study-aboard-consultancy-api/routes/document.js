@@ -42,13 +42,12 @@ router.post('/upload-document', upload.single('file'), async (req, res) => {
     const existingDocument = await Document.findOne({
       where: {
         student_id: value.student_id,
-        document_category: value.document_category,
-        document_deleted_at: null
+        document_category: value.document_category
       }
     });
 
     if (existingDocument) {
-      await existingDocument.update({ document_deleted_at: new Date() });
+      await existingDocument.destroy({ document_deleted_at: new Date() });
     }
 
     const blockBlobClient = containerClient.getBlockBlobClient(req.file.originalname);
