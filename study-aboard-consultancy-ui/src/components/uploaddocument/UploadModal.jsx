@@ -6,8 +6,9 @@ import { uploadDocument } from "../../apis/studentapi";
 import { useAuth } from "../../utilities/AuthProvider";
 
 const inIt = {
-  admin_remarks: "",
-  status: "",
+  file: null,
+  document_category: "",
+  notes: "",
 };
 const UDmodal = ({
   isOpen,
@@ -16,6 +17,7 @@ const UDmodal = ({
   setActiveItem,
   mode,
   handleGetMedicalInsurance,
+  setLoading,
 }) => {
   const [form, setForm] = useState(inIt);
 
@@ -42,16 +44,17 @@ const UDmodal = ({
       toast.error("Please upload a file.");
       return false;
     }
-    if (!["application/pdf", "application/zip"].includes(form.file.type)) {
-      toast.error("Only PDF and ZIP files are allowed.");
-      return false;
-    }
+    // if (!["application/pdf", "application/zip"].includes(form.file.type)) {
+    //   toast.error("Only PDF and ZIP files are allowed.");
+    //   return false;
+    // }
 
     return true;
   };
 
   const handleUpload = async () => {
     try {
+      setLoading(true);
       const formData = new FormData();
       formData.append("document_category", form.document_category);
       formData.append("notes", form.notes);
@@ -62,10 +65,12 @@ const UDmodal = ({
       setForm(inIt);
       handleGetMedicalInsurance();
       setActiveItem(null);
+      setLoading(false);
       toast.success("Saved Successfully");
       toggle();
     } catch (e) {
       console.log(e);
+      setLoading(false);
     }
   };
 
@@ -73,9 +78,10 @@ const UDmodal = ({
     console.log("submit");
     if (validate()) {
       handleUpload();
-      //   handleEditUniversaty();
     }
   };
+
+  console.log("form test->", form);
   return (
     <div>
       <Modal isOpen={isOpen} fade={false} toggle={toggle}>
@@ -90,6 +96,7 @@ const UDmodal = ({
                   <div className="row">
                     <div className="col-lg-12">
                       <fieldset>
+                        <label style={{ fontSize: "14px" }}>Document</label>
                         <input
                           type="file"
                           name="file"
@@ -104,6 +111,7 @@ const UDmodal = ({
                     </div>
                     <div className="col-lg-12">
                       <fieldset>
+                        <label style={{ fontSize: "14px" }}>Notes</label>
                         <input
                           type="text"
                           name="notes"
@@ -117,6 +125,7 @@ const UDmodal = ({
                     </div>
                     <div className="col-lg-12">
                       <fieldset>
+                        <label style={{ fontSize: "14px" }}>Category</label>
                         <select
                           name="document_category"
                           className="common-input"

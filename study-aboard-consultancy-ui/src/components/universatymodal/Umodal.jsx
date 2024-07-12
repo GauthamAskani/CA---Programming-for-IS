@@ -79,7 +79,7 @@ const Umodal = ({ isOpen, toggle, activeItem, setActiveItem }) => {
 
   const handleEditUniversaty = async () => {
     try {
-      await editUniversaty(form, activeItem?.id);
+      await editUniversaty(form, activeItem?.university_id);
       setForm({
         university_name: "",
         university_shortname: "",
@@ -106,7 +106,7 @@ const Umodal = ({ isOpen, toggle, activeItem, setActiveItem }) => {
     <div>
       <Modal isOpen={isOpen} fade={false} toggle={toggle}>
         <ModalHeader className="header-wrapper" toggle={toggle}>
-          Universaty
+          University
         </ModalHeader>
         <ModalBody className="signin-modal-wrapper">
           <div className="add-application-wrapper">
@@ -116,6 +116,9 @@ const Umodal = ({ isOpen, toggle, activeItem, setActiveItem }) => {
                   <div className="row">
                     <div className="col-lg-12">
                       <fieldset>
+                        <label style={{ fontSize: "14px" }}>
+                          University Name
+                        </label>
                         <input
                           type="text"
                           name="university_name"
@@ -129,6 +132,9 @@ const Umodal = ({ isOpen, toggle, activeItem, setActiveItem }) => {
                     </div>
                     <div className="col-lg-12">
                       <fieldset>
+                        <label style={{ fontSize: "14px" }}>
+                          University Short Name
+                        </label>
                         <input
                           type="text"
                           name="university_shortname"
@@ -142,13 +148,14 @@ const Umodal = ({ isOpen, toggle, activeItem, setActiveItem }) => {
                     </div>
                     <div className="col-lg-12">
                       <fieldset>
-                        <input
-                          type="text"
+                        <label style={{ fontSize: "14px" }}>Description</label>
+                        <textarea
+                          className="textarea-field"
                           name="university_description"
                           id="university_description"
                           value={form.university_description}
                           onChange={handleChange}
-                          placeholder="Enter Description..."
+                          placeholder={`Enter Description...`}
                           required
                         />
                       </fieldset>
@@ -156,26 +163,30 @@ const Umodal = ({ isOpen, toggle, activeItem, setActiveItem }) => {
 
                     <div className="col-lg-12">
                       <fieldset>
+                        <label style={{ fontSize: "14px" }}>
+                          In Take Status
+                        </label>
                         <input
                           type="text"
                           name="university_program_intake_status"
                           id="university_program_intake_status"
                           value={form.university_program_intake_status}
                           onChange={handleChange}
-                          placeholder="Intake Status..."
+                          placeholder="Intake Status like(OPEN or CLOSED)..."
                           required
                         />
                       </fieldset>
                     </div>
                     <div className="col-lg-12">
                       <fieldset>
+                        <label style={{ fontSize: "14px" }}>In Take</label>
                         <input
                           type="text"
                           name="university_program_intake"
                           id="university_program_intake"
                           value={form.university_program_intake}
                           onChange={handleChange}
-                          placeholder="University Program Intake..."
+                          placeholder="University Program Intake like(JAN & MAR)..."
                           required
                         />
                       </fieldset>

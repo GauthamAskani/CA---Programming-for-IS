@@ -75,6 +75,9 @@ const Dmodal = ({ isOpen, toggle, activeItem, setActiveItem }) => {
                   <div className="row">
                     <div className="col-lg-12">
                       <fieldset>
+                        <label style={{ fontSize: "14px" }}>
+                          Admin Remarks
+                        </label>
                         <input
                           type="text"
                           name="admin_remarks"
@@ -88,6 +91,7 @@ const Dmodal = ({ isOpen, toggle, activeItem, setActiveItem }) => {
                     </div>
                     <div className="col-lg-12">
                       <fieldset>
+                        <label style={{ fontSize: "14px" }}>Status</label>
                         <select
                           name="status"
                           className="common-input"
@@ -97,10 +101,10 @@ const Dmodal = ({ isOpen, toggle, activeItem, setActiveItem }) => {
                           <option value="" disabled>
                             Select status
                           </option>
-                          <option value="Applied">Applied</option>
+                          <option value="Uploaded">Uploaded</option>
                           <option value="Processed">Processed</option>
                           <option value="Accepted">Accepted</option>
-                          <option value="Processed">Rejected</option>
+                          <option value="Rejected">Rejected</option>
                         </select>
                       </fieldset>
                     </div>

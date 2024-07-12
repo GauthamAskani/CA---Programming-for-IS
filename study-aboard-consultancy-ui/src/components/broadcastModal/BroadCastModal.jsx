@@ -117,6 +117,7 @@ const Bmodal = ({ isOpen, toggle, activeItem, setActiveItem }) => {
                   <div className="row">
                     <div className="col-lg-12">
                       <fieldset>
+                        <label style={{ fontSize: "14px" }}>Title</label>
                         <input
                           type="text"
                           name="broadcast_title"
@@ -130,6 +131,7 @@ const Bmodal = ({ isOpen, toggle, activeItem, setActiveItem }) => {
                     </div>
                     <div className="col-lg-12">
                       <fieldset>
+                        <label style={{ fontSize: "14px" }}>Message</label>
                         <input
                           type="text"
                           name="broadcast_message"
@@ -143,6 +145,7 @@ const Bmodal = ({ isOpen, toggle, activeItem, setActiveItem }) => {
                     </div>
                     <div className="col-lg-12">
                       <fieldset>
+                        <label style={{ fontSize: "14px" }}>Send Date</label>
                         <input
                           type="date"
                           name="broadcast_send_date"
@@ -156,6 +159,7 @@ const Bmodal = ({ isOpen, toggle, activeItem, setActiveItem }) => {
                     </div>
                     <div className="col-lg-12">
                       <fieldset>
+                        <label style={{ fontSize: "14px" }}>Expiry Date</label>
                         <input
                           type="date"
                           name="broadcast_expiry_date"

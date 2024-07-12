@@ -86,6 +86,9 @@ const Imodal = ({ isOpen, toggle, activeItem, setActiveItem, mode }) => {
                   <div className="row">
                     <div className="col-lg-12">
                       <fieldset>
+                        <label style={{ fontSize: "14px" }}>
+                          Admin Remarks
+                        </label>
                         <input
                           type="text"
                           name="admin_remarks"
@@ -99,6 +102,7 @@ const Imodal = ({ isOpen, toggle, activeItem, setActiveItem, mode }) => {
                     </div>
                     <div className="col-lg-12">
                       <fieldset>
+                        <label style={{ fontSize: "14px" }}>Status</label>
                         <select
                           name="status"
                           className="common-input"
@@ -111,7 +115,7 @@ const Imodal = ({ isOpen, toggle, activeItem, setActiveItem, mode }) => {
                           <option value="Applied">Applied</option>
                           <option value="Processed">Processed</option>
                           <option value="Accepted">Accepted</option>
-                          <option value="Processed">Rejected</option>
+                          <option value="Rejected">Rejected</option>
                         </select>
                       </fieldset>
                     </div>

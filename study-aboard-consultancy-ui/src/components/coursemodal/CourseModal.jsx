@@ -3,7 +3,7 @@ import { toast } from "react-toastify";
 import { Modal, ModalBody, ModalHeader } from "reactstrap";
 import { createCourse, editCourse } from "../../apis/universaty";
 
-const inIt = {
+const initialState = {
   course_name: "",
   course_main_entry_requirements: "",
   undergraduate_score_cgpa: "",
@@ -25,8 +25,15 @@ const inIt = {
   course_intake_status: "",
   course_notes: "",
 };
-const Cmodal = ({ isOpen, toggle, activeItem, setActiveItem }) => {
-  const [form, setForm] = useState(inIt);
+
+const Cmodal = ({
+  isOpen,
+  toggle,
+  activeItem,
+  setActiveItem,
+  universityId,
+}) => {
+  const [form, setForm] = useState(initialState);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -36,29 +43,89 @@ const Cmodal = ({ isOpen, toggle, activeItem, setActiveItem }) => {
     });
   };
 
+  console.log("actice->", activeItem);
+
   const validate = () => {
-    if (!form?.university_name) {
-      toast.error("Please enter your name.");
+    if (!form.course_name) {
+      toast.error("Please enter the course name.");
       return false;
     }
-    if (!form?.university_shortname) {
-      toast.error("Please enter your surname.");
+    if (!form.course_main_entry_requirements) {
+      toast.error("Please enter the course entry requirements.");
       return false;
     }
-    if (!form?.university_description) {
-      toast.error("Please enter a valid email.");
+    if (!form.undergraduate_score_cgpa) {
+      toast.error("Please enter the undergraduate CGPA.");
       return false;
     }
-    if (!form?.university_program_intake) {
-      toast.error("Please select your gender.");
+    if (!form.undergraduate_score_percent) {
+      toast.error("Please enter the undergraduate score percentage.");
       return false;
     }
-
-    if (!form?.university_program_intake_status) {
-      toast.error("Please enter your country.");
+    if (!form.undergraduate_score) {
+      toast.error("Please enter the undergraduate score.");
       return false;
     }
-
+    if (!form.score_twelfth) {
+      toast.error("Please enter the 12th grade score.");
+      return false;
+    }
+    if (!form.fifteen_years_allowed) {
+      toast.error("Please specify if fifteen years of education is allowed.");
+      return false;
+    }
+    if (!form.ielts) {
+      toast.error("Please enter the IELTS score.");
+      return false;
+    }
+    if (!form.tofel) {
+      toast.error("Please enter the tofel score.");
+      return false;
+    }
+    if (!form.pte) {
+      toast.error("Please enter the PTE score.");
+      return false;
+    }
+    if (!form.duolingo) {
+      toast.error("Please enter the Duolingo score.");
+      return false;
+    }
+    if (!form.gmat_score) {
+      toast.error("Please enter the GMAT score.");
+      return false;
+    }
+    if (!form.gre_score) {
+      toast.error("Please enter the GRE score.");
+      return false;
+    }
+    if (!form.course_degree) {
+      toast.error("Please enter the course degree.");
+      return false;
+    }
+    if (!form.course_duration) {
+      toast.error("Please enter the course duration.");
+      return false;
+    }
+    if (!form.total_tuition_fee) {
+      toast.error("Please enter the total tuition fee.");
+      return false;
+    }
+    if (!form.application_fee) {
+      toast.error("Please enter the application fee.");
+      return false;
+    }
+    if (!form.course_intake) {
+      toast.error("Please enter the course intake.");
+      return false;
+    }
+    if (!form.course_intake_status) {
+      toast.error("Please enter the course intake status.");
+      return false;
+    }
+    if (!form.course_notes) {
+      toast.error("Please enter course notes.");
+      return false;
+    }
     return true;
   };
 
@@ -68,338 +135,173 @@ const Cmodal = ({ isOpen, toggle, activeItem, setActiveItem }) => {
         course_id,
         course_created_at,
         course_deleted_at,
-        course_updated_atcourse_deleted_at,
+        course_updated_at,
+        universityId,
         ...rest
       } = activeItem;
-
       setForm(rest);
     }
   }, [activeItem]);
 
-  const handleCreateUniversaty = async () => {
+  const handleCreateCourse = async () => {
     try {
-      await createCourse({ form });
-      setForm(inIt);
+      await createCourse({ ...form, university_id: universityId });
+      setForm(initialState);
       toggle();
-      toast.success("Successfully course created");
+      toast.success("Course created successfully");
     } catch (e) {
-      console.log(e);
+      console.error(e);
+      toast.error("Failed to create course");
     }
   };
 
-  const handleEditUniversaty = async () => {
+  const handleEditCourse = async () => {
     try {
       await editCourse(form, activeItem?.course_id);
-      setForm(inIt);
+      setForm(initialState);
       setActiveItem(null);
-      toast.success("Saved Successfully");
+      toast.success("Course saved successfully");
       toggle();
     } catch (e) {
-      console.log(e);
+      console.error(e);
+      toast.error("Failed to save course");
     }
   };
 
   const handleSubmit = () => {
-    console.log("submit");
     if (validate()) {
-      if (activeItem) handleEditUniversaty();
-      else handleCreateUniversaty();
+      if (activeItem) handleEditCourse();
+      else handleCreateCourse();
     }
   };
+
+  const fields = [
+    { name: "course_name", label: "Course Name", type: "text" },
+    {
+      name: "course_main_entry_requirements",
+      label: "Course Entry Requirements",
+      type: "text",
+    },
+    {
+      name: "undergraduate_score_cgpa",
+      label: "Undergraduate CGPA",
+      type: "text",
+    },
+    {
+      name: "undergraduate_score_percent",
+      label: "Undergraduate Score Percentage",
+      type: "text",
+    },
+    {
+      name: "undergraduate_score",
+      label: "Undergraduate Score",
+      type: "text",
+    },
+    {
+      name: "score_twelfth",
+      label: "12th Grade Score",
+      type: "text",
+    },
+    {
+      name: "fifteen_years_allowed",
+      label: "15 Years of Education Allowed",
+      type: "text",
+    },
+    { name: "ielts", label: "IELTS Score", type: "text" },
+    { name: "tofel", label: "tofel Score", type: "text" },
+    { name: "pte", label: "PTE Score", type: "text" },
+    {
+      name: "duolingo",
+      label: "Duolingo Score",
+      type: "text",
+    },
+    { name: "gmat_score", label: "GMAT Score", type: "text" },
+    { name: "gre_score", label: "GRE Score", type: "text" },
+    {
+      name: "course_degree",
+      label: "Course Degree",
+      type: "text",
+    },
+    {
+      name: "course_duration",
+      label: "Course Duration",
+      type: "text",
+    },
+    {
+      name: "total_tuition_fee",
+      label: "Total Tuition Fee",
+      type: "text",
+    },
+    {
+      name: "application_fee",
+      label: "Application Fee",
+      type: "text",
+    },
+    {
+      name: "course_intake",
+      label: "Course Intake",
+      type: "text",
+    },
+    {
+      name: "course_intake_status",
+      label: "Course Intake Status",
+      type: "text",
+    },
+    {
+      name: "course_notes",
+      label: "Course Notes",
+      type: "text",
+    },
+  ];
+
   return (
-    <div>
-      <Modal isOpen={isOpen} fade={false} toggle={toggle}>
-        <ModalHeader className="header-wrapper" toggle={toggle}>
-          Course
-        </ModalHeader>
-        <ModalBody className="signin-modal-wrapper">
-          <div className="add-application-wrapper">
-            <div className="contact-us sign-in-wrapper">
-              <div className="contact-us-content">
-                <form id="contact-form">
-                  <div className="row">
-                    <div className="col-lg-12">
+    <Modal isOpen={isOpen} fade={false} toggle={toggle}>
+      <ModalHeader className="header-wrapper" toggle={toggle}>
+        Course
+      </ModalHeader>
+      <ModalBody className="signin-modal-wrapper">
+        <div className="add-application-wrapper">
+          <div className="contact-us sign-in-wrapper">
+            <div className="contact-us-content">
+              <form id="contact-form">
+                <div className="row">
+                  {fields.map((field) => (
+                    <div className="col-lg-12" key={field.name}>
                       <fieldset>
+                        <label style={{ fontSize: "14px" }}>
+                          {field?.label}
+                        </label>
                         <input
-                          type="text"
-                          name="course_name"
-                          id="course_name"
-                          value={form.course_name}
+                          type={field.type}
+                          name={field.name}
+                          id={field.name}
+                          value={form[field.name]}
                           onChange={handleChange}
-                          placeholder="Enter course name..."
+                          placeholder={`Enter ${field.label.toLowerCase()}...`}
                           required
                         />
                       </fieldset>
                     </div>
-                    <div className="col-lg-12">
-                      <fieldset>
-                        <input
-                          type="text"
-                          name="course_main_entry_requirements"
-                          id="university_shortname"
-                          value={form.course_main_entry_requirements}
-                          onChange={handleChange}
-                          placeholder="Enter requirements ..."
-                          required
-                        />
-                      </fieldset>
-                    </div>
-                    <div className="col-lg-12">
-                      <fieldset>
-                        <input
-                          type="text"
-                          name="undergraduate_score_cgpa"
-                          id="undergraduate_score_cgpa"
-                          value={form.undergraduate_score_cgpa}
-                          onChange={handleChange}
-                          placeholder="Enter undergraduate_score_cgpa..."
-                          required
-                        />
-                      </fieldset>
-                    </div>
-                    <div className="col-lg-12">
-                      <fieldset>
-                        <input
-                          type="text"
-                          name="undergraduate_score_percent"
-                          id="undergraduate_score_percent"
-                          value={form.undergraduate_score_percent}
-                          onChange={handleChange}
-                          placeholder="Enter undergraduate_score_percent..."
-                          required
-                        />
-                      </fieldset>
-                    </div>
-                    <div className="col-lg-12">
-                      <fieldset>
-                        <input
-                          type="text"
-                          name="undergraduate_score"
-                          id="undergraduate_score"
-                          value={form.undergraduate_score}
-                          onChange={handleChange}
-                          placeholder="Enter undergraduate_score..."
-                          required
-                        />
-                      </fieldset>
-                    </div>
-                    <div className="col-lg-12">
-                      <fieldset>
-                        <input
-                          type="text"
-                          name="score_twelfth"
-                          id="score_twelfth"
-                          value={form.score_twelfth}
-                          onChange={handleChange}
-                          placeholder="Enter score_twelfth..."
-                          required
-                        />
-                      </fieldset>
-                    </div>
-                    <div className="col-lg-12">
-                      <fieldset>
-                        <input
-                          type="text"
-                          name="fifteen_years_allowed"
-                          id="fifteen_years_allowed"
-                          value={form.fifteen_years_allowed}
-                          onChange={handleChange}
-                          placeholder="Enter fifteen_years_allowed..."
-                          required
-                        />
-                      </fieldset>
-                    </div>
-                    <div className="col-lg-12">
-                      <fieldset>
-                        <input
-                          type="text"
-                          name="ielts"
-                          id="ielts"
-                          value={form.ielts}
-                          onChange={handleChange}
-                          placeholder="Enter ielts..."
-                          required
-                        />
-                      </fieldset>
-                    </div>
-                    <div className="col-lg-12">
-                      <fieldset>
-                        <input
-                          type="text"
-                          name="tofel"
-                          id="tofel"
-                          value={form.tofel}
-                          onChange={handleChange}
-                          placeholder="Enter tofel..."
-                          required
-                        />
-                      </fieldset>
-                    </div>
-                    <div className="col-lg-12">
-                      <fieldset>
-                        <input
-                          type="text"
-                          name="pte"
-                          id="pte"
-                          value={form.pte}
-                          onChange={handleChange}
-                          placeholder="Enter pte..."
-                          required
-                        />
-                      </fieldset>
-                    </div>
-                    <div className="col-lg-12">
-                      <fieldset>
-                        <input
-                          type="text"
-                          name="duolingo"
-                          id="duolingo"
-                          value={form.duolingo}
-                          onChange={handleChange}
-                          placeholder="Enter duolingo..."
-                          required
-                        />
-                      </fieldset>
-                    </div>
-                    <div className="col-lg-12">
-                      <fieldset>
-                        <input
-                          type="text"
-                          name="gmat_score"
-                          id="gmat_score"
-                          value={form.gmat_score}
-                          onChange={handleChange}
-                          placeholder="Enter gmat_score..."
-                          required
-                        />
-                      </fieldset>
-                    </div>
-
-                    <div className="col-lg-12">
-                      <fieldset>
-                        <input
-                          type="text"
-                          name="gre_score"
-                          id="gre_score"
-                          value={form.gre_score}
-                          onChange={handleChange}
-                          placeholder="Intake gre_score..."
-                          required
-                        />
-                      </fieldset>
-                    </div>
-                    <div className="col-lg-12">
-                      <fieldset>
-                        <input
-                          type="text"
-                          name="course_degree"
-                          id="course_degree"
-                          value={form.course_degree}
-                          onChange={handleChange}
-                          placeholder="course_degree..."
-                          required
-                        />
-                      </fieldset>
-                    </div>
-                    <div className="col-lg-12">
-                      <fieldset>
-                        <input
-                          type="text"
-                          name="course_duration"
-                          id="course_duration"
-                          value={form.course_duration}
-                          onChange={handleChange}
-                          placeholder="course_duration..."
-                          required
-                        />
-                      </fieldset>
-                    </div>
-                    <div className="col-lg-12">
-                      <fieldset>
-                        <input
-                          type="text"
-                          name="total_tuition_fee"
-                          id="total_tuition_fee"
-                          value={form.total_tuition_fee}
-                          onChange={handleChange}
-                          placeholder="total_tuition_fee..."
-                          required
-                        />
-                      </fieldset>
-                    </div>
-                    <div className="col-lg-12">
-                      <fieldset>
-                        <input
-                          type="text"
-                          name="application_fee"
-                          id="application_fee"
-                          value={form.application_fee}
-                          onChange={handleChange}
-                          placeholder="application_fee..."
-                          required
-                        />
-                      </fieldset>
-                    </div>
-                    <div className="col-lg-12">
-                      <fieldset>
-                        <input
-                          type="text"
-                          name="course_intake"
-                          id="course_intake"
-                          value={form.course_intake}
-                          onChange={handleChange}
-                          placeholder="course_intake..."
-                          required
-                        />
-                      </fieldset>
-                    </div>
-                    <div className="col-lg-12">
-                      <fieldset>
-                        <input
-                          type="text"
-                          name="course_intake_status"
-                          id="course_intake_status"
-                          value={form.course_intake_status}
-                          onChange={handleChange}
-                          placeholder="course_intake_status..."
-                          required
-                        />
-                      </fieldset>
-                    </div>
-                    <div className="col-lg-12">
-                      <fieldset>
-                        <input
-                          type="text"
-                          name="course_notes"
-                          id="course_notes"
-                          value={form.course_notes}
-                          onChange={handleChange}
-                          placeholder="course_notes..."
-                          required
-                        />
-                      </fieldset>
-                    </div>
-
-                    <div className="col-lg-12 text-end">
-                      <fieldset>
-                        <button
-                          type="button"
-                          onClick={handleSubmit}
-                          id="form-submit"
-                          className="orange-button"
-                        >
-                          Save
-                        </button>
-                      </fieldset>
-                    </div>
+                  ))}
+                  <div className="col-lg-12 text-end">
+                    <fieldset>
+                      <button
+                        type="button"
+                        onClick={handleSubmit}
+                        id="form-submit"
+                        className="orange-button"
+                      >
+                        Save
+                      </button>
+                    </fieldset>
                   </div>
-                </form>
-              </div>
+                </div>
+              </form>
             </div>
           </div>
-        </ModalBody>
-      </Modal>
-    </div>
+        </div>
+      </ModalBody>
+    </Modal>
   );
 };
 

@@ -49,7 +49,7 @@ const Aumodal = ({ isOpen, toggle, activeItem, setActiveItem, mode }) => {
         student_notes: "",
       });
       toggle();
-      toast.success("Successfully universaty created");
+      toast.success("Successfully applied");
     } catch (e) {
       console.log(e);
     }
@@ -60,7 +60,7 @@ const Aumodal = ({ isOpen, toggle, activeItem, setActiveItem, mode }) => {
       const payload = {
         student_notes: form?.student_notes,
       };
-      await editApplication(payload, activeItem?.application_id);
+      await editApplication(payload, Number(activeItem?.application_id));
       setForm({
         course_id: "",
         student_notes: "",
@@ -97,7 +97,7 @@ const Aumodal = ({ isOpen, toggle, activeItem, setActiveItem, mode }) => {
     <div>
       <Modal isOpen={isOpen} fade={false} toggle={toggle}>
         <ModalHeader className="header-wrapper" toggle={toggle}>
-          Universaty
+          University
         </ModalHeader>
         <ModalBody className="signin-modal-wrapper">
           <div className="add-application-wrapper">
@@ -107,6 +107,9 @@ const Aumodal = ({ isOpen, toggle, activeItem, setActiveItem, mode }) => {
                   <div className="row">
                     <div className="col-lg-12">
                       <fieldset>
+                        <label style={{ fontSize: "14px" }}>
+                          University Name
+                        </label>
                         <input
                           type="text"
                           name="university_name"
@@ -119,6 +122,7 @@ const Aumodal = ({ isOpen, toggle, activeItem, setActiveItem, mode }) => {
                     </div>
                     <div className="col-lg-12">
                       <fieldset>
+                        <label style={{ fontSize: "14px" }}>Course</label>
                         <select
                           name="course_id"
                           className="common-input"
@@ -140,6 +144,7 @@ const Aumodal = ({ isOpen, toggle, activeItem, setActiveItem, mode }) => {
                     </div>
                     <div className="col-lg-12">
                       <fieldset>
+                        <label style={{ fontSize: "14px" }}>Notes</label>
                         <input
                           type="text"
                           name="student_notes"
@@ -160,7 +165,7 @@ const Aumodal = ({ isOpen, toggle, activeItem, setActiveItem, mode }) => {
                           id="form-submit"
                           className="orange-button"
                         >
-                          Save
+                          Apply
                         </button>
                       </fieldset>
                     </div>

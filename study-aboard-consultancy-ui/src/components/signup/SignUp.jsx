@@ -62,33 +62,37 @@ const SignUp = ({ isOpen, toggle, signIn }) => {
   };
 
   const handleSignUpAccount = async () => {
-    const payload = {
-      student_first_name: form?.userName || "",
-      student_family_name: form?.familyName || "",
-      student_dob: moment(form?.dateOfBirth).format("MM-DD-YYYY"),
-      student_gender: form?.gender || "",
-      student_country_origin: form?.country || "",
-      student_phone_number: form?.phoneNumber || "",
-      student_email: form?.email || "",
-      student_password: form?.password || "",
-      student_status: "false",
-      role: "Student",
-      student_document_status: "false",
-    };
-    await createAccount(payload);
-    setForm({
-      userName: "",
-      familyName: "",
-      email: "",
-      gender: "",
-      phoneNumber: "",
-      country: "",
-      password: "",
-      dateOfBirth: "",
-      confirmPassword: "",
-    });
-    toast.success("Successfully account created");
-    signIn();
+    try {
+      const payload = {
+        student_first_name: form?.userName || "",
+        student_family_name: form?.familyName || "",
+        student_dob: moment(form?.dateOfBirth).format("MM-DD-YYYY"),
+        student_gender: form?.gender || "",
+        student_country_origin: form?.country || "",
+        student_phone_number: form?.phoneNumber || "",
+        student_email: form?.email || "",
+        student_password: form?.password || "",
+        student_status: "false",
+        role: "Student",
+        student_document_status: "false",
+      };
+      await createAccount(payload);
+      setForm({
+        userName: "",
+        familyName: "",
+        email: "",
+        gender: "",
+        phoneNumber: "",
+        country: "",
+        password: "",
+        dateOfBirth: "",
+        confirmPassword: "",
+      });
+      toast.success("Successfully account created");
+      signIn();
+    } catch (e) {
+      console.log("error->", e);
+    }
   };
 
   const handleSubmit = () => {
@@ -116,6 +120,7 @@ const SignUp = ({ isOpen, toggle, signIn }) => {
                   <div className="row">
                     <div className="col-lg-12">
                       <fieldset>
+                        <label style={{ fontSize: "14px" }}>Name</label>
                         <input
                           type="text"
                           name="userName"
@@ -129,6 +134,7 @@ const SignUp = ({ isOpen, toggle, signIn }) => {
                     </div>
                     <div className="col-lg-12">
                       <fieldset>
+                        <label style={{ fontSize: "14px" }}>Surname</label>
                         <input
                           type="text"
                           name="familyName"
@@ -142,6 +148,7 @@ const SignUp = ({ isOpen, toggle, signIn }) => {
                     </div>
                     <div className="col-lg-12">
                       <fieldset>
+                        <label style={{ fontSize: "14px" }}>Email</label>
                         <input
                           type="email"
                           name="email"
@@ -155,6 +162,7 @@ const SignUp = ({ isOpen, toggle, signIn }) => {
                     </div>
                     <div className="col-lg-12">
                       <fieldset>
+                        <label style={{ fontSize: "14px" }}>Gender</label>
                         <select
                           name="gender"
                           className="common-input"
@@ -171,6 +179,7 @@ const SignUp = ({ isOpen, toggle, signIn }) => {
                     </div>
                     <div className="col-lg-12">
                       <fieldset>
+                        <label style={{ fontSize: "14px" }}>Phone Number</label>
                         <input
                           type="text"
                           name="phoneNumber"
@@ -184,6 +193,9 @@ const SignUp = ({ isOpen, toggle, signIn }) => {
                     </div>
                     <div className="col-lg-12">
                       <fieldset>
+                        <label style={{ fontSize: "14px" }}>
+                          Date Of Birth
+                        </label>
                         <input
                           type="date"
                           name="dateOfBirth"
@@ -197,6 +209,7 @@ const SignUp = ({ isOpen, toggle, signIn }) => {
                     </div>
                     <div className="col-lg-12">
                       <fieldset>
+                        <label style={{ fontSize: "14px" }}>Country</label>
                         <input
                           type="text"
                           name="country"
@@ -210,6 +223,7 @@ const SignUp = ({ isOpen, toggle, signIn }) => {
                     </div>
                     <div className="col-lg-12">
                       <fieldset>
+                        <label style={{ fontSize: "14px" }}>Password</label>
                         <input
                           type="password"
                           name="password"
@@ -223,6 +237,9 @@ const SignUp = ({ isOpen, toggle, signIn }) => {
                     </div>
                     <div className="col-lg-12">
                       <fieldset>
+                        <label style={{ fontSize: "14px" }}>
+                          Confirm Password
+                        </label>
                         <input
                           type="password"
                           name="confirmPassword"

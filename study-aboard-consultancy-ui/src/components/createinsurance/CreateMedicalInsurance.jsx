@@ -137,7 +137,6 @@ const CMImodal = ({ isOpen, toggle, activeItem, setActiveItem }) => {
           ),
           course_end_date: moment(form.course_end_date).format("MM/DD/YYYY"),
           student_id: auth?.user?.student_id,
-          status: "Applied",
         },
         activeItem?.medical_insurance_id
       );
@@ -171,7 +170,9 @@ const CMImodal = ({ isOpen, toggle, activeItem, setActiveItem }) => {
                   <div className="row">
                     <div className="col-lg-12">
                       <fieldset>
-                        <label>cover_start_date</label>
+                        <label style={{ fontSize: "14px" }}>
+                          Cover Start Date
+                        </label>
                         <input
                           type="date"
                           name="cover_start_date"
@@ -185,7 +186,9 @@ const CMImodal = ({ isOpen, toggle, activeItem, setActiveItem }) => {
                     </div>
                     <div className="col-lg-12">
                       <fieldset>
-                        <label>cover_end_date</label>
+                        <label style={{ fontSize: "14px" }}>
+                          Cover End Date
+                        </label>
                         <input
                           type="date"
                           name="cover_end_date"
@@ -199,6 +202,9 @@ const CMImodal = ({ isOpen, toggle, activeItem, setActiveItem }) => {
                     </div>
                     <div className="col-lg-12">
                       <fieldset>
+                        <label style={{ fontSize: "14px" }}>
+                          Destination Country
+                        </label>
                         <input
                           type="text"
                           name="destination_country"
@@ -212,6 +218,9 @@ const CMImodal = ({ isOpen, toggle, activeItem, setActiveItem }) => {
                     </div>
                     <div className="col-lg-12">
                       <fieldset>
+                        <label style={{ fontSize: "14px" }}>
+                          University Name
+                        </label>
                         <input
                           type="text"
                           name="university_name"
@@ -225,6 +234,7 @@ const CMImodal = ({ isOpen, toggle, activeItem, setActiveItem }) => {
                     </div>
                     <div className="col-lg-12">
                       <fieldset>
+                        <label style={{ fontSize: "14px" }}>Course Title</label>
                         <input
                           type="text"
                           name="course_title"
@@ -238,6 +248,7 @@ const CMImodal = ({ isOpen, toggle, activeItem, setActiveItem }) => {
                     </div>
                     <div className="col-lg-12">
                       <fieldset>
+                        <label style={{ fontSize: "14px" }}>Course Cost</label>
                         <input
                           type="text"
                           name="course_cost"
@@ -251,7 +262,9 @@ const CMImodal = ({ isOpen, toggle, activeItem, setActiveItem }) => {
                     </div>
                     <div className="col-lg-12">
                       <fieldset>
-                        <label className="">course_start_date</label>
+                        <label style={{ fontSize: "14px" }}>
+                          Course Start Date
+                        </label>
                         <input
                           type="date"
                           name="course_start_date"
@@ -265,7 +278,9 @@ const CMImodal = ({ isOpen, toggle, activeItem, setActiveItem }) => {
                     </div>
                     <div className="col-lg-12">
                       <fieldset>
-                        <label>course_end_date</label>
+                        <label style={{ fontSize: "14px" }}>
+                          Course End Date
+                        </label>
                         <input
                           type="date"
                           name="course_end_date"
@@ -279,6 +294,7 @@ const CMImodal = ({ isOpen, toggle, activeItem, setActiveItem }) => {
                     </div>
                     <div className="col-lg-12">
                       <fieldset>
+                        <label style={{ fontSize: "14px" }}>Notes</label>
                         <input
                           type="text"
                           name="student_notes"

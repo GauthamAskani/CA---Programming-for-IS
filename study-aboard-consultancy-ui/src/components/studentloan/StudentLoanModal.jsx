@@ -122,7 +122,6 @@ const SLmodal = ({
             "MM/DD/YYYY"
           ),
           student_id: auth?.user?.student_id,
-          status: "Applied",
         },
         activeItem?.loan_request_id
       );
@@ -156,6 +155,9 @@ const SLmodal = ({
                   <div className="row">
                     <div className="col-lg-12">
                       <fieldset>
+                        <label style={{ fontSize: "14px" }}>
+                          University Name
+                        </label>
                         <input
                           type="text"
                           name="university_name"
@@ -170,6 +172,7 @@ const SLmodal = ({
 
                     <div className="col-lg-12">
                       <fieldset>
+                        <label style={{ fontSize: "14px" }}>Course Title</label>
                         <input
                           type="text"
                           name="course_title"
@@ -184,7 +187,9 @@ const SLmodal = ({
 
                     <div className="col-lg-12">
                       <fieldset>
-                        <label className="">course_start_date</label>
+                        <label style={{ fontSize: "14px" }}>
+                          Course Start Date
+                        </label>
                         <input
                           type="date"
                           name="course_start_date"
@@ -199,6 +204,7 @@ const SLmodal = ({
 
                     <div className="col-lg-12">
                       <fieldset>
+                        <label style={{ fontSize: "14px" }}>Loan Amount</label>
                         <input
                           type="text"
                           name="loan_amount"
@@ -212,6 +218,7 @@ const SLmodal = ({
                     </div>
                     <div className="col-lg-12">
                       <fieldset>
+                        <label style={{ fontSize: "14px" }}>Loan Type</label>
                         <select
                           name="loan_type"
                           className="common-input"
@@ -228,6 +235,7 @@ const SLmodal = ({
                     </div>
                     <div className="col-lg-12">
                       <fieldset>
+                        <label style={{ fontSize: "14px" }}>Notes</label>
                         <input
                           type="text"
                           name="notes"

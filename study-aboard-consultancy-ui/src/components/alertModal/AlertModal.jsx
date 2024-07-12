@@ -16,7 +16,7 @@ const AlertModal = ({ isOpen, toggle, onConfirm, onCancel }) => {
               type="button"
               id="form-submit"
               onClick={onCancel}
-              class="application-button cancel-button mr-1"
+              className="btn btn-outline-dark ms-3"
             >
               Cancel
             </button>
@@ -24,7 +24,8 @@ const AlertModal = ({ isOpen, toggle, onConfirm, onCancel }) => {
               type="button"
               onClick={onConfirm}
               id="form-submit"
-              class="application-button  ml-1"
+              class="  ml-1"
+              className="btn btn-dark ms-3"
             >
               Ok
             </button>

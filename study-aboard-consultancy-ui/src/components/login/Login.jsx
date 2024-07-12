@@ -5,9 +5,13 @@ import "./login.scss";
 import { toast } from "react-toastify";
 import { loginApi } from "../../apis/componentsApis";
 import { useAuth } from "../../utilities/AuthProvider";
+import ForgotPasscode from "../forgotpasscode/ForgotPasscode";
+import ForgotPassword from "../forgotpassword/ForgotPassword";
 
 const Login = ({ isOpen, toggle, signUp }) => {
   const [form, setForm] = useState({});
+  const [passcodeModal, setPasscodeModal] = useState(false);
+  const [passwordModal, setPasswordModal] = useState(false);
   const { login } = useAuth();
   const navigate = useNavigate();
 
@@ -34,7 +38,6 @@ const Login = ({ isOpen, toggle, signUp }) => {
       if (userData?.role === "Admin") navigate("/admindashboard");
       else navigate("/studentdashboard");
     } catch (error) {
-      toast.error(error?.response?.data?.error);
       console.error("Error fetching user data:", error?.error);
     }
   };
@@ -64,7 +67,6 @@ const Login = ({ isOpen, toggle, signUp }) => {
     if (validate()) {
       console.log("Form is valid");
       handleLogin();
-      // handleLogin(); // Uncomment to call the handleLogin function
     }
   };
 
@@ -80,7 +82,8 @@ const Login = ({ isOpen, toggle, signUp }) => {
               <form id="contact-form">
                 <div className="row">
                   <div className="col-lg-12">
-                    <fieldset>
+                    <fieldset style={{ marginBottom: "40px" }}>
+                      <label style={{ fontSize: "14px" }}>Email</label>
                       <input
                         type="email"
                         name="email"
@@ -90,33 +93,56 @@ const Login = ({ isOpen, toggle, signUp }) => {
                         pattern="[^ @]*@[^ @]*"
                         placeholder="Your E-mail..."
                         required
+                        style={{ marginBottom: "0px" }}
                       />
                     </fieldset>
                   </div>
                   <div className="col-lg-12">
-                    <fieldset>
+                    <fieldset style={{ marginBottom: "30px" }}>
+                      <label style={{ fontSize: "14px" }}>Password</label>
                       <input
                         type="password"
                         name="password"
                         id="password"
+                        style={{ marginBottom: "0px" }}
                         value={form?.password || ""}
                         onChange={handleChange}
                         placeholder="Your Password..."
                         required
                       />
+                      <span
+                        style={{ fontSize: "12px", paddingTop: "5px" }}
+                        className="d-flex justify-content-end"
+                        onClick={() => {
+                          setPasswordModal(true);
+                        }}
+                      >
+                        Forgot password...!
+                      </span>
                     </fieldset>
                   </div>
                   <div className="col-lg-12">
-                    <fieldset>
+                    <fieldset style={{ marginBottom: "30px" }}>
+                      <label style={{ fontSize: "14px" }}>Passcode</label>
                       <input
                         type="password"
                         name="passcode"
                         id="passcode"
                         value={form?.passcode || ""}
                         onChange={handleChange}
-                        placeholder="Your Passcode..."
+                        style={{ marginBottom: "0px" }}
+                        placeholder="Your Passcode (Please check your email)..."
                         required
                       />
+                      <span
+                        style={{ fontSize: "12px", paddingTop: "5px" }}
+                        className="d-flex justify-content-end"
+                        onClick={() => {
+                          setPasscodeModal(true);
+                        }}
+                      >
+                        Forgot passcode...!
+                      </span>
                     </fieldset>
                   </div>
                   <div className="col-lg-12 text-end">
@@ -140,6 +166,22 @@ const Login = ({ isOpen, toggle, signUp }) => {
           </div>
         </form>
       </ModalBody>
+      {passcodeModal && (
+        <ForgotPasscode
+          isOpen={passcodeModal}
+          toggle={() => {
+            setPasscodeModal(false);
+          }}
+        />
+      )}
+      {passwordModal && (
+        <ForgotPassword
+          isOpen={passwordModal}
+          toggle={() => {
+            setPasswordModal(false);
+          }}
+        />
+      )}
     </Modal>
   );
 };
