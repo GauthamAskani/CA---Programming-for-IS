@@ -204,6 +204,7 @@ const SignUp = ({ isOpen, toggle, signIn }) => {
                           onChange={handleChange}
                           placeholder="Your Phone Number..."
                           required
+                          max={moment().format("YYYY-MM-DD")}
                         />
                       </fieldset>
                     </div>
