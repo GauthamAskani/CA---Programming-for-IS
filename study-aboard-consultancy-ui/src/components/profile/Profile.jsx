@@ -207,6 +207,7 @@ const Profile = ({ isOpen, toggle }) => {
                           onChange={handleChange}
                           placeholder="Your Phone Number..."
                           required
+                          max={moment().format("YYYY-MM-DD")}
                         />
                       </fieldset>
                     </div>
