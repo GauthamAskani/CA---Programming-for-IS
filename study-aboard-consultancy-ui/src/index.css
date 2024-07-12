@@ -3,6 +3,7 @@ body {
     margin: 0;
     font-family: poppins !important;
     background: #f2f7f9 !important;
+    overflow: auto !important;
 }
 
 code {
@@ -34,4 +35,40 @@ code {
     font-family: Poppins !important;
     min-height: 100px !important;
     font-weight: 600 !important;
+}
+
+.button-wrapper-green {
+    margin-right: 5px;
+    color: green;
+    cursor: pointer;
+}
+
+.button-wrapper-edit {
+    margin-right: 5px;
+    color: rgb(32, 32, 121);
+    cursor: pointer;
+}
+
+.button-wrapper-delete {
+    margin-right: 5px;
+    color: red;
+    cursor: pointer;
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}
+
+.textarea-field {
+    width: 100%;
+    height: 150px;
+    /* Adjust height as needed */
+    padding: 10px;
+    margin: 10px 0;
+    font-size: 14px;
+    box-sizing: border-box;
+    border: 1px dashed #0f363f;
+    border-radius: 4px;
+    resize: vertical;
+    /* Allows the user to resize the textarea vertically */
 }
