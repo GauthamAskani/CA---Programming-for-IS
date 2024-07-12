@@ -194,11 +194,31 @@ async function validateToken(req, res, next) {
     });
 }
 
+async function updateProfile(studentId, data) {
+    try {
+        const student = await models.Student.findOne({
+            where: { student_id: studentId }
+        });
+
+        if (!student) {
+            throw new Error('Student not found');
+        }
+
+        await student.update(data);
+        return { message: 'Profile updated successfully' };
+    } catch (error) {
+        console.log(error);
+        throw error;
+    }
+}
+
+
 module.exports = {
   signup,
   login,
   lostPasscode,
   forgotPassword,
   getAllStudents,
-  validateToken
+  validateToken,
+  updateProfile
 };

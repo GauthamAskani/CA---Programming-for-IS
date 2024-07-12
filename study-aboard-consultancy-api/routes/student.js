@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { signup, login, lostPasscode, forgotPassword } = require('../controllers/student');
+const { signup, login, lostPasscode, forgotPassword, updateProfile } = require('../controllers/student');
 const Joi = require('joi');
 
 const signupStudentSchema = Joi.object({
@@ -34,7 +34,18 @@ const forgotPasswordSchema = Joi.object({
     new_password: Joi.string().required()
 });
 
-// Route handlers
+const updateProfileSchema = Joi.object({
+    student_id: Joi.number().integer().required(),
+    student_first_name: Joi.string().optional(),
+    student_family_name: Joi.string().optional(),
+    student_dob: Joi.date().optional(),
+    student_gender: Joi.string().optional(),
+    student_country_origin: Joi.string().optional(),
+    student_phone_number: Joi.string().optional(),
+    student_email: Joi.string().email().optional(),
+    student_updated_at: Joi.date().default(() => new Date())
+});
+
 async function signupStudent(req, res) {
     try {
         const data = req.body;
@@ -107,9 +118,25 @@ async function handleForgotPassword(req, res) {
     }
 }
 
+async function updateProfileHandler(req, res) {
+    try {
+        const { error, value } = updateProfileSchema.validate(req.body);
+        if (error) {
+            throw new Error(error.details[0].message);
+        }
+
+        const studentId = req.student_id;
+        const result = await updateProfile(studentId, value);
+        res.status(200).json(result);
+    } catch (error) {
+        res.status(400).json({ error: error.message });
+    }
+}
+
 module.exports = {
     signupStudent,
     loginStudent,
     handleLostPasscode,
-    handleForgotPassword
+    handleForgotPassword,
+    updateProfileHandler
 };

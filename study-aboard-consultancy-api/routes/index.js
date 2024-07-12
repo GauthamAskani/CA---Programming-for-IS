@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { signupStudent, loginStudent, handleForgotPassword, handleLostPasscode } = require('./student');
+const { signupStudent, loginStudent, handleForgotPassword, handleLostPasscode, updateProfileHandler } = require('./student');
 const { requestMedicalInsurance, handleUpdateMedicalInsuranceRequest, handleDeleteMedicalInsuranceRequest, handleGetMedicalInsuranceByStudentId, handleUpdateAdminRemarksAndStatus } = require('./medicalinsurance');
 const { loanRequest, handleUpdateLoanRequest, handleDeleteLoanRequest, handleGetLoanDetailsByStudentId, handleUpdateAdminRemarksAndStatusLoan } = require('./loans');
 const adminRoutes = require('./admin');
@@ -12,6 +12,8 @@ router.post('/signup', signupStudent);
 router.post('/login', loginStudent);
 router.post('/lost-passcode', handleLostPasscode);
 router.post('/forgot-password', handleForgotPassword);
+
+router.put('/update-profile', validateToken, updateProfileHandler);
 
 router.post('/request-medical-insurnace', validateToken, requestMedicalInsurance);
 router.post('/request-loan', validateToken, loanRequest);
