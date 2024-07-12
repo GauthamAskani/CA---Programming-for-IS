@@ -125,7 +125,7 @@ async function updateProfileHandler(req, res) {
             throw new Error(error.details[0].message);
         }
 
-        const studentId = req.student_id;
+        const studentId = value.student_id;
         const result = await updateProfile(studentId, value);
         res.status(200).json(result);
     } catch (error) {
