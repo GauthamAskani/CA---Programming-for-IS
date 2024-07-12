@@ -38,6 +38,14 @@ const Bmodal = ({ isOpen, toggle, activeItem, setActiveItem }) => {
       toast.error("Please broadcast_expiry_date.");
       return false;
     }
+    const brodStartDate = moment(form.broadcast_send_date);
+    const brodEndDate = moment(form.broadcast_expiry_date);
+    if (brodStartDate.isSameOrAfter(brodEndDate)) {
+      toast.error(
+        "Broadcast Send Date cannot be on or after Broadcast Expiry Date."
+      );
+      return false;
+    }
 
     return true;
   };
