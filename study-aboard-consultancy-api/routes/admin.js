@@ -7,7 +7,7 @@ const { getAllMedicalInsuranceRequests } = require('../controllers/medicalinsura
 const { createUniversity, updateUniversity, deleteUniversity, getAllUniversities } = require('../controllers/university');
 const { createCourse, updateCourse, deleteCourse, getCoursesByUniversity } = require('../controllers/course');
 const { createBroadcast, updateBroadcast, deleteBroadcast, getAllBroadcasts, getBroadcastMessages } = require('../controllers/broadcast');
-const { updateApplication } = require('../controllers/application');
+const { updateApplicationAdmin } = require('../controllers/application');
 const { validateToken } = require('../controllers/student');
 
 const universitySchema = Joi.object({
@@ -291,7 +291,7 @@ router.put('/admin/update-application', validateToken,  async (req, res) => {
             return res.status(400).json({ error: error.details[0].message });
         }
 
-        const updatedApplication = await updateApplication(value);
+        const updatedApplication = await updateApplicationAdmin(value);
         res.status(200).json(updatedApplication);
     } catch (error) {
         res.status(500).json({ error: 'Internal server error' });

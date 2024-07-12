@@ -76,7 +76,7 @@ router.post('/upload-document', upload.single('file'), async (req, res) => {
     const allRequiredDocumentsUploaded = requiredDocuments.every(doc => uploadedDocumentCategories.includes(doc));
 
     if (allRequiredDocumentsUploaded) {
-      await student.update({ student_document_status: true });
+      await student.update({ student_document_status: 'true' });
     }
 
     res.status(201).json({ message: 'Document uploaded successfully' });

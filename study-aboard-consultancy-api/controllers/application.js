@@ -107,7 +107,7 @@ async function getApplications(filters) {
     }
 }
 
-async function updateApplication(data) {
+async function updateApplicationAdmin(data) {
     try {
         const application = await models.Application.findByPk(data.application_id);
         if (!application) {
@@ -136,5 +136,5 @@ module.exports = {
     updateApplication,
     deleteApplication,
     getApplications,
-    updateApplication
+    updateApplicationAdmin
 };
