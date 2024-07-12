@@ -17,6 +17,7 @@ import { useNavigate } from "react-router-dom";
 
 export default function Universaty() {
   const navigate = useNavigate();
+  const [searchQuery, setSearchQuery] = React.useState("");
   const [jobsData, setJobsData] = React.useState([
     {
       university_name: "National College of Ireland",
@@ -75,6 +76,12 @@ export default function Universaty() {
     handleGetUniversaties();
   }, []);
 
+  const filteredData = jobsData.filter((university) => {
+    return university.university_name
+      .toLowerCase()
+      .includes(searchQuery.toLowerCase());
+  });
+
   return (
     <div className="user-wrapper p-5">
       {" "}
@@ -90,16 +97,29 @@ export default function Universaty() {
             <h4 style={{ fontFamily: "Poppins !important", color: "orange" }}>
               Universities
             </h4>
-            <button
-              type="button"
-              className="btn btn-outline-dark ms-3"
-              style={{ width: "auto" }}
-              onClick={() => {
-                setModal(true);
-              }}
-            >
-              Add University
-            </button>
+            <div className="d-flex ">
+              <button
+                type="button"
+                className="btn btn-outline-dark ms-3"
+                style={{ width: "auto" }}
+                onClick={() => {
+                  setModal(true);
+                }}
+              >
+                Add University
+              </button>
+              <div className="input-wrapper">
+                <fieldset>
+                  <input
+                    type="text"
+                    placeholder="Search University"
+                    name="search"
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                  />
+                </fieldset>
+              </div>
+            </div>
           </div>
 
           <TableContainer component={Paper}>
@@ -112,8 +132,8 @@ export default function Universaty() {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {jobsData && jobsData?.length ? (
-                  jobsData?.map((app, index) => (
+                {filteredData && filteredData?.length ? (
+                  filteredData?.map((app, index) => (
                     <TableRow hover key={index}>
                       <TableCell className="title-wrapper">
                         {app?.university_name || "National College of Ireland"}{" "}
