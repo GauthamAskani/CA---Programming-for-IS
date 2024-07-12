@@ -5,13 +5,10 @@ import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
-import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
-import moment from "moment";
 import { Card, CardContent } from "@mui/material";
-import Umodal from "../../../components/universatymodal/Umodal";
-import { deleteUniversaty, getUniversatyList } from "../../../apis/universaty";
-import { toast } from "react-toastify";
+import { getUniversatyList } from "../../../apis/universaty";
+
 import AlertModal from "../../../components/alertModal/AlertModal";
 import { useNavigate } from "react-router-dom";
 import Aumodal from "../../../components/applyuniversaty/ApplyUniversaty";
@@ -22,6 +19,7 @@ export default function UniversatyList() {
   const [modal, setModal] = React.useState(false);
   const [activeItem, setActiveItem] = React.useState(null);
   const [deleteModal, setDeleteModal] = React.useState(false);
+  const [searchQuery, setSearchQuery] = React.useState("");
 
   const header = [
     "Name",
@@ -52,9 +50,14 @@ export default function UniversatyList() {
     handleGetUniversaties();
   }, []);
 
+  const filteredData = jobsData.filter((university) => {
+    return university.university_name
+      .toLowerCase()
+      .includes(searchQuery.toLowerCase());
+  });
+
   return (
     <div className="user-wrapper p-5">
-      {" "}
       <Card
         style={{
           marginTop: "2rem",
@@ -67,34 +70,44 @@ export default function UniversatyList() {
             <h4 style={{ fontFamily: "Poppins !important", color: "orange" }}>
               Universities
             </h4>
+
+            <div className="input-wrapper">
+              <fieldset>
+                <input
+                  type="text"
+                  placeholder="Search University"
+                  name="search"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                />
+              </fieldset>
+            </div>
           </div>
 
           <TableContainer component={Paper}>
             <Table>
               <TableHead>
                 <TableRow>
-                  {header?.map((item) => (
+                  {header.map((item) => (
                     <TableCell key={item}>{item}</TableCell>
                   ))}
                 </TableRow>
               </TableHead>
               <TableBody>
-                {jobsData && jobsData?.length ? (
-                  jobsData?.map((app, index) => (
+                {filteredData && filteredData.length ? (
+                  filteredData.map((app, index) => (
                     <TableRow hover key={index}>
                       <TableCell className="title-wrapper">
-                        {app?.university_name || "National College of Ireland"}{" "}
-                        ({app.university_shortname})
+                        {app.university_name || "National College of Ireland"} (
+                        {app.university_shortname})
                       </TableCell>
 
-                      <TableCell>
-                        {app?.university_description || "-"}
-                      </TableCell>
+                      <TableCell>{app.university_description || "-"}</TableCell>
                       <TableCell sx={{ minWidth: "130px" }}>
-                        {app?.university_program_intake || "-"}
+                        {app.university_program_intake || "-"}
                       </TableCell>
                       <TableCell>
-                        {app?.university_program_intake_status || "-"}
+                        {app.university_program_intake_status || "-"}
                       </TableCell>
                       <TableCell sx={{ minWidth: "130px" }}>
                         <span
