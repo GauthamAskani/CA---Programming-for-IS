@@ -68,6 +68,19 @@ const CMImodal = ({ isOpen, toggle, activeItem, setActiveItem }) => {
       toast.error("Please enter your student_notes.");
       return false;
     }
+    const coverStartDate = moment(form.cover_start_date);
+    const coverEndDate = moment(form.cover_end_date);
+    if (coverStartDate.isSameOrAfter(coverEndDate)) {
+      toast.error("Cover Start Date cannot be on or after Cover End Date.");
+      return false;
+    }
+
+    const courseStartDate = moment(form.course_start_date);
+    const courseEndDate = moment(form.course_end_date);
+    if (courseStartDate.isSameOrAfter(courseEndDate)) {
+      toast.error("Course Start Date cannot be on or after Course End Date.");
+      return false;
+    }
 
     return true;
   };
