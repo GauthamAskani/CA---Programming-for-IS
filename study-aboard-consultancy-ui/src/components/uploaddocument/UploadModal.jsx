@@ -44,11 +44,6 @@ const UDmodal = ({
       toast.error("Please upload a file.");
       return false;
     }
-    // if (!["application/pdf", "application/zip"].includes(form.file.type)) {
-    //   toast.error("Only PDF and ZIP files are allowed.");
-    //   return false;
-    // }
-
     return true;
   };
 
@@ -96,35 +91,6 @@ const UDmodal = ({
                   <div className="row">
                     <div className="col-lg-12">
                       <fieldset>
-                        <label style={{ fontSize: "14px" }}>Document</label>
-                        <input
-                          type="file"
-                          name="file"
-                          style={{ paddingTop: "10px" }}
-                          id="file"
-                          accept=".pdf,.zip"
-                          onChange={handleChange}
-                          placeholder="Enter Remarks..."
-                          required
-                        />
-                      </fieldset>
-                    </div>
-                    <div className="col-lg-12">
-                      <fieldset>
-                        <label style={{ fontSize: "14px" }}>Notes</label>
-                        <input
-                          type="text"
-                          name="notes"
-                          id="notes"
-                          value={form.notes}
-                          onChange={handleChange}
-                          placeholder="Enter notes..."
-                          required
-                        />
-                      </fieldset>
-                    </div>
-                    <div className="col-lg-12">
-                      <fieldset>
                         <label style={{ fontSize: "14px" }}>Category</label>
                         <select
                           name="document_category"
@@ -156,7 +122,35 @@ const UDmodal = ({
                         </select>
                       </fieldset>
                     </div>
-
+                    <div className="col-lg-12">
+                      <fieldset>
+                        <label style={{ fontSize: "14px" }}>Document</label>
+                        <input
+                          type="file"
+                          name="file"
+                          style={{ paddingTop: "10px" }}
+                          id="file"
+                          accept=".pdf,.zip"
+                          onChange={handleChange}
+                          placeholder="Enter Remarks..."
+                          required
+                        />
+                      </fieldset>
+                    </div>
+                    <div className="col-lg-12">
+                      <fieldset>
+                        <label style={{ fontSize: "14px" }}>Notes</label>
+                        <input
+                          type="text"
+                          name="notes"
+                          id="notes"
+                          value={form.notes}
+                          onChange={handleChange}
+                          placeholder="Enter notes..."
+                          required
+                        />
+                      </fieldset>
+                    </div>
                     <div className="col-lg-12 text-end">
                       <fieldset>
                         <button
