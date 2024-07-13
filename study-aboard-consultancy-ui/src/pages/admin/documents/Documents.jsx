@@ -8,9 +8,7 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import { Card, CardContent } from "@mui/material";
 import { getDocumentsList, getMedicalList } from "../../../apis/universaty";
-import Imodal from "../../../components/insurance/InsuranceModal";
 import Dmodal from "../../../components/documentmodal/DocumentModal";
-import { Link } from "react-router-dom";
 import { saveAs } from "file-saver";
 
 export default function Documents() {
