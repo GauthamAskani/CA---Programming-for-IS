@@ -59,7 +59,6 @@ const Home = () => {
           <div className="row">
             <div className="col-md-4 feature text-center">
               <div className="feature-icon mb-3">
-                {/* <i className="fas fa-university fa-3x"></i> */}
                 <FaUniversity size={50} />
               </div>
               <h3 className="feature-title">Top Universities</h3>
