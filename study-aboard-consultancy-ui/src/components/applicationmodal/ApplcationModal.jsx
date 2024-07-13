@@ -1,17 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { Modal, ModalBody, ModalHeader } from "reactstrap";
-import { editApplication, getDocumnets } from "../../apis/universaty";
-import {
-  List,
-  ListItem,
-  ListItemText,
-  ListItemIcon,
-  Button,
-  Typography,
-} from "@mui/material";
-import PictureAsPdfIcon from "@mui/icons-material/PictureAsPdf";
-import ArchiveIcon from "@mui/icons-material/Archive";
+import { editApplication } from "../../apis/universaty";
 
 const inIt = {
   admin_remarks: "",
@@ -19,55 +9,6 @@ const inIt = {
 };
 const Amodal = ({ isOpen, toggle, activeItem, setActiveItem }) => {
   const [form, setForm] = useState(inIt);
-  //   const [documentss, setDocuments] = useState([]);
-
-  //   const documents = [
-  //     {
-  //       id: 1,
-  //       name: "10THMARKSHEET",
-  //       url: "https://www.antennahouse.com/hubfs/xsl-fo-sample/pdf/basic-link-1.pdf",
-  //       type: "pdf",
-  //     },
-  //     {
-  //       id: 2,
-  //       name: "12THMARKSHEET",
-  //       url: "https://example.com/12THMARKSHEET.pdf",
-  //       type: "pdf",
-  //     },
-  //     {
-  //       id: 3,
-  //       name: "TRANSCRIPT",
-  //       url: "https://example.com/TRANSCRIPT.pdf",
-  //       type: "pdf",
-  //     },
-  //     {
-  //       id: 4,
-  //       name: "DEGREECERTIFICATE",
-  //       url: "https://example.com/DEGREECERTIFICATE.pdf",
-  //       type: "pdf",
-  //     },
-  //     {
-  //       id: 5,
-  //       name: "CIRCULLAMVITAE",
-  //       url: "https://example.com/CIRCULLAMVITAE.pdf",
-  //       type: "pdf",
-  //     },
-  //     { id: 6, name: "SOP", url: "https://example.com/SOP.pdf", type: "pdf" },
-  //     { id: 7, name: "1LOR", url: "https://example.com/1LOR.pdf", type: "pdf" },
-  //     { id: 8, name: "2LOR", url: "https://example.com/2LOR.pdf", type: "pdf" },
-  //     {
-  //       id: 9,
-  //       name: "ENGLISHTESTSCORE",
-  //       url: "https://example.com/ENGLISHTESTSCORE.pdf",
-  //       type: "pdf",
-  //     },
-  //     {
-  //       id: 10,
-  //       name: "GARDUATIONSEMESTER",
-  //       url: "https://example.com/GARDUATIONSEMESTER.zip",
-  //       type: "zip",
-  //     },
-  //   ];
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -137,34 +78,6 @@ const Amodal = ({ isOpen, toggle, activeItem, setActiveItem }) => {
           Student Application {"- " + activeItem?.application_id || ""}
         </ModalHeader>
         <ModalBody className="signin-modal-wrapper">
-          {/* <div>
-            <Typography variant="h6" gutterBottom>
-              Document List
-            </Typography>
-            <List>
-              {documents.map((doc) => (
-                <ListItem key={doc.id}>
-                  <ListItemIcon>
-                    {doc.type === "pdf" ? (
-                      <PictureAsPdfIcon color="error" />
-                    ) : (
-                      <ArchiveIcon color="primary" />
-                    )}
-                  </ListItemIcon>
-                  <ListItemText primary={doc.name} />
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    onClick={() =>
-                      handleDownload(doc.url, `${doc.name}.${doc.type}`)
-                    }
-                  >
-                    Download
-                  </Button>
-                </ListItem>
-              ))}
-            </List>
-          </div> */}
           <div className="add-application-wrapper">
             <div className="contact-us sign-in-wrapper">
               <div className="contact-us-content">
