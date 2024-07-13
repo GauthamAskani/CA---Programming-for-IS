@@ -6,7 +6,6 @@ import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
-import moment from "moment";
 import { Card, CardContent } from "@mui/material";
 import { getBroadCastMessages } from "../../../apis/studentapi";
 
