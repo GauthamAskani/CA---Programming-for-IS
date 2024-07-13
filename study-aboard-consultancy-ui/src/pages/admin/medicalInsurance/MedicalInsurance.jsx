@@ -16,15 +16,16 @@ export default function MedicalInsurance() {
       field: "cover_start_date",
       headerName: "Cover Start Date",
       width: 150,
-      valueFormatter: (params) =>
-        params.value ? moment(params.value).format("MM/DD/YYYY") : "-",
+      valueFormatter: (value) => {
+        return value ? moment(value).format("MM/DD/YYYY") : "-";
+      },
     },
     {
       field: "cover_end_date",
       headerName: "Cover End Date",
       width: 150,
       valueFormatter: (params) =>
-        params.value ? moment(params.value).format("MM/DD/YYYY") : "-",
+        params ? moment(params).format("MM/DD/YYYY") : "-",
     },
     {
       field: "destination_country",
@@ -39,14 +40,14 @@ export default function MedicalInsurance() {
       headerName: "Course Start Date",
       width: 150,
       valueFormatter: (params) =>
-        params.value ? moment(params.value).format("MM/DD/YYYY") : "-",
+        params ? moment(params).format("MM/DD/YYYY") : "-",
     },
     {
       field: "course_end_date",
       headerName: "Course End Date",
       width: 150,
       valueFormatter: (params) =>
-        params.value ? moment(params.value).format("MM/DD/YYYY") : "-",
+        params ? moment(params).format("MM/DD/YYYY") : "-",
     },
     { field: "student_notes", headerName: "Student Notes", width: 200 },
     { field: "admin_remarks", headerName: "Admin Remarks", width: 200 },
