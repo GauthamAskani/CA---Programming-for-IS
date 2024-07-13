@@ -142,7 +142,7 @@ const SLmodal = ({
     <div>
       <Modal isOpen={isOpen} fade={false} toggle={toggle}>
         <ModalHeader className="header-wrapper" toggle={toggle}>
-          Medical Insurance
+          Loan Request
         </ModalHeader>
         <ModalBody className="signin-modal-wrapper">
           <div className="add-application-wrapper">
