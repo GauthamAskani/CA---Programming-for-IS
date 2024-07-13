@@ -2,7 +2,7 @@ import moment from "moment";
 import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { Modal, ModalBody, ModalHeader } from "reactstrap";
-import { createAccount, editProfile } from "../../apis/componentsApis";
+import { editProfile } from "../../apis/componentsApis";
 import { useAuth } from "../../utilities/AuthProvider";
 
 const Profile = ({ isOpen, toggle }) => {
@@ -102,8 +102,6 @@ const Profile = ({ isOpen, toggle }) => {
   };
 
   const handleSubmit = () => {
-    // e.preventDefault();
-    console.log("submit");
     if (validate()) {
       handleSignUpAccount();
     }
