@@ -7,11 +7,9 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import { Card, CardContent } from "@mui/material";
-import CMImodal from "../../../components/createinsurance/CreateMedicalInsurance";
 import {
   deleteStudentLoan,
-  deleteStudentMedicalInsurance,
-  getStudentLoan,
+  getStudentLoan
 } from "../../../apis/studentapi";
 import { useAuth } from "../../../utilities/AuthProvider";
 import moment from "moment";
