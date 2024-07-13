@@ -1,11 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { Modal, ModalBody, ModalHeader } from "reactstrap";
-import { createCourse, editCourse } from "../../apis/universaty";
 import {
-  createMediacalInsurance,
   createStudentLoan,
-  editInsurance,
   editLoan,
 } from "../../apis/studentapi";
 import { useAuth } from "../../utilities/AuthProvider";
