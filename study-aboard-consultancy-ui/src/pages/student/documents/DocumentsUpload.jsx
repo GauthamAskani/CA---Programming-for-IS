@@ -7,14 +7,10 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import { Card, CardContent } from "@mui/material";
-import CMImodal from "../../../components/createinsurance/CreateMedicalInsurance";
 import {
-  deleteStudentMedicalInsurance,
-  getStudentDocuments,
+  getStudentDocuments
 } from "../../../apis/studentapi";
 import { useAuth } from "../../../utilities/AuthProvider";
-import AlertModal from "../../../components/alertModal/AlertModal";
-import { toast } from "react-toastify";
 import UDmodal from "../../../components/uploaddocument/UploadModal";
 import { ThreeCircles } from "react-loader-spinner";
 
