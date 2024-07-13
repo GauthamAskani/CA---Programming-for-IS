@@ -5,23 +5,16 @@ import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
-import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
 import moment from "moment";
 import { Card, CardContent } from "@mui/material";
-import Umodal from "../../../components/universatymodal/Umodal";
 import {
   deleteBroadcast,
-  deleteCourse,
-  deleteUniversaty,
   getBroadCastList,
-  getCoursesList,
-  getUniversatyList,
 } from "../../../apis/universaty";
 import { toast } from "react-toastify";
 import AlertModal from "../../../components/alertModal/AlertModal";
 import { useLocation } from "react-router-dom";
-import Cmodal from "../../../components/coursemodal/CourseModal";
 import Bmodal from "../../../components/broadcastModal/BroadCastModal";
 
 export default function BroadCast() {
