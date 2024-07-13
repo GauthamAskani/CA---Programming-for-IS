@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { toast } from "react-toastify";
 import { Modal, ModalBody, ModalHeader } from "reactstrap";
-import { editInsurance, editLoan } from "../../apis/universaty";
 import { uploadDocument } from "../../apis/studentapi";
 import { useAuth } from "../../utilities/AuthProvider";
 
@@ -13,9 +12,7 @@ const inIt = {
 const UDmodal = ({
   isOpen,
   toggle,
-  activeItem,
   setActiveItem,
-  mode,
   handleGetMedicalInsurance,
   setLoading,
 }) => {
