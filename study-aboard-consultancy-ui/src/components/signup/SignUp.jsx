@@ -96,13 +96,8 @@ const SignUp = ({ isOpen, toggle, signIn }) => {
   };
 
   const handleSubmit = () => {
-    // e.preventDefault();
-    console.log("submit");
     if (validate()) {
       handleSignUpAccount();
-
-      console.log("Form is valid");
-      // createAccount(); // Uncomment to call the createAccount function
     }
   };
 
