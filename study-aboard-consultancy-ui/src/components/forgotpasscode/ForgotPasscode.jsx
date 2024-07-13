@@ -1,10 +1,7 @@
 import React, { useState } from "react";
 import { Modal, ModalBody, ModalHeader } from "reactstrap";
-import { useNavigate } from "react-router-dom";
-// import "./login.scss";
 import { toast } from "react-toastify";
-import { forgotPasscode, loginApi } from "../../apis/componentsApis";
-import { useAuth } from "../../utilities/AuthProvider";
+import { forgotPasscode } from "../../apis/componentsApis";
 
 const ForgotPasscode = ({ isOpen, toggle }) => {
   const [form, setForm] = useState({});
