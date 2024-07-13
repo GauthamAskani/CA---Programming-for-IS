@@ -20,7 +20,7 @@ export default function MedicalInsurance() {
       headerName: "Course Start Date",
       width: 150,
       valueFormatter: (params) =>
-        params.value ? moment(params.value).format("MM/DD/YYYY") : "-",
+        params ? moment(params).format("MM/DD/YYYY") : "-",
     },
     { field: "loan_type", headerName: "Type", width: 120 },
     { field: "loan_amount", headerName: "Amount" },
@@ -44,7 +44,7 @@ export default function MedicalInsurance() {
       ),
     },
   ];
-
+  
   const handleGetMedicalInsurance = async () => {
     try {
       const res = await getLoansList();
